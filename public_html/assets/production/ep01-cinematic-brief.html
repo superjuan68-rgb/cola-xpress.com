@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ep 01 — Cinematic Brief | ColaXpress Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#08090a; --surface:#0d0f10; --card:#111518;
+  --border:#1a1f24; --text:#e8e4dd; --muted:#5a6370;
+  --accent:#9f3028; --cyan:#38b4c8; --gold:#c8a840;
+}
+body { background:var(--bg); color:var(--text); font-family:'Manrope',sans-serif; line-height:1.7; }
+.doc { max-width:960px; margin:0 auto; padding:60px 40px; }
+
+/* COVER */
+.cover { border-bottom:1px solid var(--border); padding-bottom:56px; margin-bottom:56px; }
+.cover-eyebrow { font-size:.7rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+.cover-title { font-family:'Cormorant Garamond',serif; font-size:3.6rem; font-weight:700; line-height:1.05; margin-bottom:20px; }
+.cover-title em { color:var(--accent); font-style:normal; }
+.cover-sub { font-size:1.05rem; color:var(--muted); max-width:600px; line-height:1.8; }
+.meta-row { display:flex; gap:32px; margin-top:28px; flex-wrap:wrap; }
+.meta { font-size:.78rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.meta span { color:var(--muted); font-weight:400; }
+
+/* SECTION */
+.section { margin-bottom:56px; }
+.section-label { font-size:.65rem; font-weight:800; letter-spacing:.24em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+.section-title { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; margin-bottom:24px; border-bottom:1px solid var(--border); padding-bottom:16px; }
+.section-title em { color:var(--cyan); font-style:normal; }
+
+/* SKILL BLOCK */
+.skill-block { background:var(--card); border:1px solid var(--border); border-radius:6px; padding:24px 28px; margin-bottom:16px; }
+.skill-label { font-size:.62rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan); margin-bottom:12px; }
+.skill-title { font-size:.85rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+
+p { color:var(--muted); font-size:.88rem; line-height:1.75; margin-bottom:12px; }
+p strong { color:var(--text); font-weight:600; }
+p em { color:var(--cyan); font-style:normal; }
+
+/* HOOK OPTIONS */
+.hook-grid { display:flex; flex-direction:column; gap:12px; }
+.hook { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--border); border-radius:0 4px 4px 0; padding:16px 20px; }
+.hook.winner { border-left-color:var(--gold); }
+.hook-num { font-size:.6rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.hook-name { font-size:.78rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+.hook.winner .hook-name { color:var(--gold); }
+.hook-body { font-size:.82rem; color:var(--muted); line-height:1.6; font-style:italic; }
+.hook-body strong { color:var(--text); font-style:normal; }
+.winner-badge { display:inline-block; font-size:.58rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--bg); background:var(--gold); padding:2px 6px; border-radius:2px; margin-left:8px; }
+
+/* NARRATIVE ARC */
+.arc-grid { display:grid; grid-template-columns:1fr; gap:10px; }
+.arc-act { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:18px 22px; display:grid; grid-template-columns:80px 1fr; gap:16px; }
+.arc-act-num { font-family:'Cormorant Garamond',serif; font-size:2.4rem; font-weight:700; color:var(--border); line-height:1; }
+.arc-act-name { font-size:.7rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin-bottom:6px; }
+.arc-act-time { font-size:.7rem; color:var(--muted); margin-bottom:8px; }
+.arc-act-desc { font-size:.82rem; color:var(--muted); line-height:1.6; }
+.arc-act-desc b { color:var(--text); }
+
+/* TITLES */
+.title-grid { display:flex; flex-direction:column; gap:6px; }
+.title-item { padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:4px; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.title-item.top { border-color:var(--gold); }
+.title-text { font-size:.85rem; font-weight:600; flex:1; }
+.title-item.top .title-text { color:var(--gold); }
+.title-chars { font-size:.68rem; color:var(--muted); white-space:nowrap; }
+.title-trigger { font-size:.68rem; color:var(--cyan); white-space:nowrap; }
+
+/* THUMBNAIL */
+.thumb-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.thumb { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:16px 18px; }
+.thumb-num { font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.thumb-name { font-size:.78rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+.thumb-vis { font-size:.8rem; color:var(--muted); margin-bottom:8px; line-height:1.5; }
+.thumb-text { font-size:.68rem; font-weight:700; letter-spacing:.08em; color:var(--gold); }
+
+/* COMPETITOR */
+.comp-table { width:100%; border-collapse:collapse; font-size:.82rem; }
+.comp-table th { text-align:left; padding:8px 12px 8px 0; color:var(--muted); font-weight:600; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; border-bottom:1px solid var(--border); }
+.comp-table td { padding:10px 12px 10px 0; color:var(--muted); vertical-align:top; border-bottom:1px solid var(--border)44; }
+.comp-table td:first-child { color:var(--text); font-weight:600; }
+.do { color:#4caf65 !important; }
+.dont { color:#c04040 !important; }
+
+/* PSYCHOLOGY */
+.psych-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.psych { background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:16px 18px; }
+.psych-label { font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); margin-bottom:6px; }
+.psych-title { font-size:.8rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+.psych-body { font-size:.78rem; color:var(--muted); line-height:1.55; }
+
+/* STYLE DIRECTIVES */
+.directive-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.directive { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:14px 16px; }
+.directive-cat { font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+.directive-items { font-size:.78rem; color:var(--muted); line-height:1.7; }
+.directive-items b { color:var(--text); display:block; font-size:.72rem; }
+
+/* OPEN LOOPS */
+.loop-list { display:flex; flex-direction:column; gap:8px; }
+.loop { background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:12px 16px; display:flex; gap:16px; align-items:flex-start; }
+.loop-open { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); width:80px; flex-shrink:0; }
+.loop-text { font-size:.82rem; color:var(--muted); }
+.loop-text b { color:var(--text); }
+
+/* FOOTER */
+.doc-footer { margin-top:64px; border-top:1px solid var(--border); padding-top:24px; display:flex; justify-content:space-between; align-items:center; }
+.doc-footer-brand { font-size:.7rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+.doc-footer-brand span { color:var(--accent); }
+.doc-footer-note { font-size:.7rem; color:var(--muted); opacity:.5; }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">ColaXpress Production · Episode 01 · Cinematic Strategy Brief</div>
+  <h1 class="cover-title">The End of <em>Complicated</em><br>Cannabis Growing</h1>
+  <p class="cover-sub">Full 9-skill production pipeline output. This document governs the creative strategy for Episode 01 — positioning, narrative architecture, hook selection, title strategy, thumbnail direction, and viewer psychology framework.</p>
+  <div class="meta-row">
+    <div class="meta">Format <span>Luxury Documentary</span></div>
+    <div class="meta">Duration <span>14–17 minutes</span></div>
+    <div class="meta">Style <span>Apple × A24 × Tech Film</span></div>
+    <div class="meta">Tone <span>Cinematic Manifesto</span></div>
+    <div class="meta">Subject <span>VIVOSUN vGrow DWC</span></div>
+  </div>
+</div>
+
+<!-- SKILL 01: RESEARCH SYNTHESIS -->
+<div class="section">
+  <div class="section-label">Skill 01 — Research Synthesizer</div>
+  <div class="section-title">Product Brief + <em>Emotional Hooks</em></div>
+
+  <div class="skill-block">
+    <div class="skill-label">Key Facts — VIVOSUN vGrow</div>
+    <p><strong>Hardware:</strong> Sealed all-in-one enclosure with built-in DWC reservoir, LED grow light with adjustable spectrum, integrated carbon filter + odor elimination, temperature and humidity control. Premium material finish — functions as furniture, not equipment.</p>
+    <p><strong>Software:</strong> VIVOSUN Grow App. Real-time environmental dashboard: VPD, canopy temp, humidity, reservoir temp, EC, pH. Automated adjustments within target ranges. Grow log with historical data. Push notifications for alerts.</p>
+    <p><strong>Design intent:</strong> For the apartment grower who wants quality without a tent setup. Odor-sealed. App-managed. Discreet. The anti-tent.</p>
+  </div>
+
+  <div class="skill-block">
+    <div class="skill-label">Emotional Hooks Identified</div>
+    <p><strong>Primary tension:</strong> Traditional growing friction (smell, wires, midnight checks, pH drift, tent collapse) vs the stillness of a managed enclosure.</p>
+    <p><strong>Identity hook:</strong> "The person who grows in 2026 doesn't look like the person who grew in 2010." New archetype: design-conscious, time-scarce, result-focused.</p>
+    <p><strong>The craft question:</strong> "If automation does the work, is it still growing?" — this should be the open loop that drives the entire episode and closes in Act 4.</p>
+    <p><strong>Best analogy:</strong> Nespresso didn't kill coffee culture. It made quality accessible to people who couldn't pull espresso manually. VGrow is Nespresso for cannabis. This analogy should appear in Act 2.</p>
+    <p><strong>Surprise detail:</strong> The odor elimination is good enough to grow in a living room. This is the reveal that makes the viewer lean forward. Save it for Act 3 minute 8.</p>
+  </div>
+
+  <div class="skill-block">
+    <div class="skill-label">Audience Questions to Answer</div>
+    <p>Does it actually work? (Act 4 answers with data.) &nbsp;·&nbsp; Can I grow in my apartment? (Act 3 answers with the odor/design reveal.) &nbsp;·&nbsp; Is this cheating? (Act 5 answers the craft question.) &nbsp;·&nbsp; What's the catch? (Episode 2 will explore this honestly — creating series loyalty.)</p>
+  </div>
+</div>
+
+<!-- SKILL 02: COMPETITOR ANALYST -->
+<div class="section">
+  <div class="section-label">Skill 02 — Competitor Breakdown Analyst</div>
+  <div class="section-title">What <em>Cannabis YouTube</em> Gets Wrong</div>
+
+  <table class="comp-table">
+    <thead><tr>
+      <th>Pattern</th><th>Cannabis YouTube</th><th>Luxury Documentary Approach</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Opening</td><td class="dont">"Hey guys, today we're looking at..."</td><td class="do">Silence. Then sound design. Product appears in minute 6.</td></tr>
+      <tr><td>Pacing</td><td class="dont">Jump cuts every 2 seconds. Energy drink editing.</td><td class="do">Slow. Deliberate. Negative space used intentionally.</td></tr>
+      <tr><td>Product reveal</td><td class="dont">Unboxing in first 60 seconds.</td><td class="do">Product revealed slowly, by experience — not by spec.</td></tr>
+      <tr><td>Language</td><td class="dont">"This thing is INSANE." "Absolute banger." "Fire."</td><td class="do">Short declarative sentences. No superlatives. Let the footage speak.</td></tr>
+      <tr><td>Specs</td><td class="dont">LED wattage, tent dimensions, price comparison.</td><td class="do">Specs only when they have emotional meaning. VPD 1.1 = "one less thing to worry about."</td></tr>
+      <tr><td>CTA</td><td class="dont">"Smash that like button and subscribe."</td><td class="do">Earn the next episode. "Day 08. See you there."</td></tr>
+      <tr><td>Music</td><td class="dont">Lo-fi hip hop or aggressive trap.</td><td class="do">Deep ambient textures. Mechanical undertones. Silence as the loudest sound.</td></tr>
+      <tr><td>Identity</td><td class="dont">Reviewer / educator / affiliate.</td><td class="do">Documenter / witness. "I watched this happen." Not "I'm telling you this."</td></tr>
+    </tbody>
+  </table>
+
+  <div class="skill-block" style="margin-top:16px">
+    <div class="skill-label">Luxury Reference Films to Study</div>
+    <p><strong>Apple "Shot on iPhone" films</strong> — The product is never the subject. The world is the subject. The product is what made the world visible. Apply: vGrow is never the subject. The plant is. The grower's life is. vGrow is what made it possible.</p>
+    <p><strong>DJI Inspire 2 launch film</strong> — Opens on the landscape, not the drone. The product appears at 1:45. By that point, you want to know what made those shots possible. Apply: open on what the vGrow grows before showing the vGrow.</p>
+    <p><strong>Jony Ive interviews (pre-departure Apple)</strong> — Talks about removing material, not adding features. "The goal isn't complexity. The goal is the feeling you get when complexity is absent." Direct quote-equivalent for Act 5.</p>
+  </div>
+</div>
+
+<!-- SKILL 03: NARRATIVE ARCHITECT -->
+<div class="section">
+  <div class="section-label">Skill 03 — Narrative Architect</div>
+  <div class="section-title">Five-Act <em>Emotional Arc</em></div>
+
+  <div class="arc-grid">
+    <div class="arc-act">
+      <div class="arc-act-num">I</div>
+      <div>
+        <div class="arc-act-name" style="color:#38b4c8">The Weight</div>
+        <div class="arc-act-time">0:00 – 3:30 &nbsp;·&nbsp; Opens in darkness. Builds complexity. Breaks it.</div>
+        <div class="arc-act-desc">No dialogue for the first 90 seconds. Sound design only — fans, timers, the 2 AM alarm. VO enters quietly: <b>"Growing became complicated."</b> Build the frustration montage. End on the vGrow enclosure — closed, silent, a single LED glow. A notification: "Canopy nominal." Hard pivot. <b>The viewer exhales before they know why.</b></div>
+      </div>
+    </div>
+    <div class="arc-act">
+      <div class="arc-act-num">II</div>
+      <div>
+        <div class="arc-act-name" style="color:#4caf65">The Idea</div>
+        <div class="arc-act-time">3:30 – 6:30 &nbsp;·&nbsp; Philosophy before product. The cultural shift argument.</div>
+        <div class="arc-act-desc">Coffee. Music. Photography — every domain goes through the complexity-to-elegance arc. <b>Introduce the craft question as an open loop:</b> "Does automation remove the art? I had the same concern. Sixty days later, I think the opposite is true." Don't resolve it. Let it ride to Act 4. End with a slow push into the closed enclosure. Still no product reveal.</div>
+      </div>
+    </div>
+    <div class="arc-act">
+      <div class="arc-act-num">III</div>
+      <div>
+        <div class="arc-act-name" style="color:#b8a040">The Reveal</div>
+        <div class="arc-act-time">6:30 – 10:30 &nbsp;·&nbsp; Product introduced by experience, not spec.</div>
+        <div class="arc-act-desc">Door opens slowly. Interior light fills frame. Never list features — only show what they feel like. VPD stabilizing = "that would have taken me an hour." Sealed environment = "no tent." App notification = "I didn't check this. It told me." <b>Key moment: "It doesn't look like a grow setup. That was intentional."</b> The living room reveal — the odor design philosophy.</div>
+      </div>
+    </div>
+    <div class="arc-act">
+      <div class="arc-act-num">IV</div>
+      <div>
+        <div class="arc-act-name" style="color:#e8a830">The Evidence</div>
+        <div class="arc-act-time">10:30 – 14:30 &nbsp;·&nbsp; Day-by-day witness record. Data as emotional proof.</div>
+        <div class="arc-act-desc">Day 3. Day 7. Day 14. Day 28. Each beat: data from the app, what the plant showed, what the grower noticed because they weren't firefighting. <b>Emotional pivot at Day 28:</b> "I was looking at a plant that had never been stressed." Close the craft loop here: "When you're not managing the environment, you start noticing the plant." <b>Craft didn't disappear. It got quieter.</b></div>
+      </div>
+    </div>
+    <div class="arc-act">
+      <div class="arc-act-num">V</div>
+      <div>
+        <div class="arc-act-name" style="color:#9f3028">The Manifesto</div>
+        <div class="arc-act-time">14:30 – 17:00 &nbsp;·&nbsp; Answer the craft question. Issue the invitation.</div>
+        <div class="arc-act-desc">Address the pushback directly. Use the immersion circulator chef analogy — removing friction doesn't remove authorship. <b>"The complicated era of home cultivation is not over. It's optional."</b> Close on the enclosure, still working. Day counter: Day 32. Title card: "Day 08 →" Series hook. No CTA. No ask. The gravity of the film earns the subscription.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-block" style="margin-top:20px">
+    <div class="skill-label">Open Loops — Structural Retention Devices</div>
+    <div class="loop-list">
+      <div class="loop">
+        <div class="loop-open">Loop 01</div>
+        <div class="loop-text">Opens Act 1: <b>"Something has changed."</b> Resolved Act 5: The manifesto declares what changed. Payoff: <i>"The complicated era is optional now."</i></div>
+      </div>
+      <div class="loop">
+        <div class="loop-open">Loop 02</div>
+        <div class="loop-text">Opens Act 2: <b>"Does automation remove the craft?"</b> Resolved Act 4: <i>"When you're not managing the environment, you start noticing the plant."</i> Craft got quieter, not gone.</div>
+      </div>
+      <div class="loop">
+        <div class="loop-open">Loop 03</div>
+        <div class="loop-text">Opens every Act transition: <b>Day counter.</b> "Day 01" → "Day 14" → "Day 28" → "Day 32" → Title card "Day 08 →". The counter creates series architecture — viewers track the grow across episodes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILL 04: HOOKS -->
+<div class="section">
+  <div class="section-label">Skill 04 — Hook Writer</div>
+  <div class="section-title">10 Hook <em>Options</em></div>
+  <p style="margin-bottom:20px">All hooks written for luxury documentary format — gravitational, not explosive. The selected hook must work without visuals (for algorithmic previews) and with them.</p>
+
+  <div class="hook-grid">
+    <div class="hook winner">
+      <div class="hook-num">Hook 05 <span class="winner-badge">SELECTED</span></div>
+      <div class="hook-name">The Manifesto Hook — combined with Silence Visual</div>
+      <div class="hook-body">
+        <strong>VISUAL: Closed vGrow enclosure. Single LED glow. The hum of something working.</strong><br><br>
+        VO: "Growing became complicated."<br>
+        VO: "Not all at once. Gradually."<br>
+        VO: "The wires. The humidity. The pH. The timers. The smell."<br>
+        VO: "The tent falling down at two in the morning."<br><br>
+        <strong>VISUAL: Traditional setup montage — cables, bottles, 2 AM alarm.</strong><br><br>
+        VO: "That version of growing is still out there."<br>
+        VO: "A lot of people still do it."<br><br>
+        <strong>CUT: Back to the enclosure. Still. Silent. The notification: "Canopy nominal."</strong><br><br>
+        VO: "This is a different story."<br><br>
+        <strong>Emotional trigger: Identity separation. "That's not me anymore."</strong>
+      </div>
+    </div>
+
+    <div class="hook">
+      <div class="hook-num">Hook 01</div>
+      <div class="hook-name">The Silence Hook</div>
+      <div class="hook-body">VISUAL: Enclosure, closed, humming. VO: <strong>"This is a cannabis plant growing inside this box. You can't smell it. You can't hear it. You can barely tell it's there. And I did almost nothing."</strong> — Trigger: Curiosity + impossibility.</div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 04</div>
+      <div class="hook-name">The Confession Hook</div>
+      <div class="hook-body">VO: <strong>"I quit growing twice. The first time because of smell. The second time because of everything else. This is what changed."</strong> — Trigger: Identification. Every abandoned grower knows this feeling.</div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 06</div>
+      <div class="hook-name">The Technology Hook</div>
+      <div class="hook-body">VISUAL: iPhone notification, 3 AM — "VPD 1.2 kPa, nominal." VO: <strong>"While I was sleeping, my plant was being managed. Not by me."</strong> — Trigger: Aspiration. The future already happened to someone else.</div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 09</div>
+      <div class="hook-name">The Anti-Review Hook</div>
+      <div class="hook-body">VO: <strong>"This is not a review. I've been growing in this system for 60 days. This is a document."</strong> — Trigger: Credibility signal. Positions the channel as the serious alternative to YouTube noise.</div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 10</div>
+      <div class="hook-name">The Macro Hook</div>
+      <div class="hook-body">VISUAL: Extreme macro trichome. VO: <strong>"That's a trichome. Getting here used to require a degree in environmental management. It doesn't anymore."</strong> — Trigger: Wonder + accessibility.</div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 07</div>
+      <div class="hook-name">The Identity Hook</div>
+      <div class="hook-body">VO: <strong>"The person who grows cannabis in 2026 doesn't look the way you think. They live in a studio apartment. They travel for work. They care about quality more than quantity. This system was built for them."</strong></div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 08</div>
+      <div class="hook-name">The Cultural Reframe Hook</div>
+      <div class="hook-body">VO: <strong>"Every significant technology goes through the same arc. Complex. Specialized. Then — elegant. Home cultivation is going through it now."</strong></div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 02</div>
+      <div class="hook-name">The Contrast Hook</div>
+      <div class="hook-body">VISUAL: Tangled tent → CUT: clean enclosure, single cord. VO: <strong>"This is what growing used to look like in my apartment. This is what it looks like now."</strong></div>
+    </div>
+    <div class="hook">
+      <div class="hook-num">Hook 03</div>
+      <div class="hook-name">The Question Hook</div>
+      <div class="hook-body">VISUAL: Root mass, bubbles rising. VO: <strong>"What if the hardest part of growing cannabis... was already solved?"</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILL 08: TITLES + THUMBNAILS -->
+<div class="section">
+  <div class="section-label">Skill 08 — Title + Thumbnail Strategist</div>
+  <div class="section-title">20 Titles &amp; <em>10 Thumbnail Concepts</em></div>
+
+  <div class="title-grid" style="margin-bottom:28px">
+    <div class="title-item top"><div class="title-text">The End of Complicated Cannabis Growing</div><div class="title-chars">44 chars</div><div class="title-trigger">Manifesto signal</div></div>
+    <div class="title-item top"><div class="title-text">I Let a Machine Grow Cannabis for 60 Days. Here's the Truth.</div><div class="title-chars">61 chars</div><div class="title-trigger">Confession + data</div></div>
+    <div class="title-item top"><div class="title-text">The Machine Quietly Changing Home Growing</div><div class="title-chars">42 chars</div><div class="title-trigger">Mystery + movement</div></div>
+    <div class="title-item"><div class="title-text">Why Modern Growers Are Leaving Traditional Setups</div><div class="title-chars">51 chars</div><div class="title-trigger">Social proof + identity</div></div>
+    <div class="title-item"><div class="title-text">Inside the Future of Home Cultivation</div><div class="title-chars">38 chars</div><div class="title-trigger">Exclusivity</div></div>
+    <div class="title-item"><div class="title-text">I Grew Cannabis Without Doing Anything. Here's What Happened.</div><div class="title-chars">63 chars</div><div class="title-trigger">Curiosity gap</div></div>
+    <div class="title-item"><div class="title-text">The Cannabis Grow That Runs Itself</div><div class="title-chars">34 chars</div><div class="title-trigger">Impossibility claim</div></div>
+    <div class="title-item"><div class="title-text">What Happens When You Remove All the Friction From Growing</div><div class="title-chars">59 chars</div><div class="title-trigger">Philosophical pull</div></div>
+    <div class="title-item"><div class="title-text">Home Growing Evolved. Most People Haven't Noticed Yet.</div><div class="title-chars">55 chars</div><div class="title-trigger">Insider signal</div></div>
+    <div class="title-item"><div class="title-text">The Anti-Tent Era Begins</div><div class="title-chars">24 chars</div><div class="title-trigger">Manifesto brevity</div></div>
+    <div class="title-item"><div class="title-text">I Stopped Managing My Grow. The Results Were Better.</div><div class="title-chars">53 chars</div><div class="title-trigger">Counterintuitive result</div></div>
+    <div class="title-item"><div class="title-text">Automated Home Growing Is Real Now. Here's What I Found.</div><div class="title-chars">57 chars</div><div class="title-trigger">Discovery framing</div></div>
+    <div class="title-item"><div class="title-text">This Isn't a Grow Tent. This Is the Next Thing.</div><div class="title-chars">49 chars</div><div class="title-trigger">Contrast + future signal</div></div>
+    <div class="title-item"><div class="title-text">What Apple-Level Design Looks Like in a Grow Box</div><div class="title-chars">49 chars</div><div class="title-trigger">Premium reference</div></div>
+    <div class="title-item"><div class="title-text">The Cannabis Grow for People Who Hate Growing</div><div class="title-chars">46 chars</div><div class="title-trigger">Identification</div></div>
+    <div class="title-item"><div class="title-text">VIVOSUN vGrow: 60 Days of Not Checking pH</div><div class="title-chars">43 chars</div><div class="title-trigger">Specific + counterintuitive</div></div>
+    <div class="title-item"><div class="title-text">Day 01: The Grow That Manages Itself</div><div class="title-chars">36 chars</div><div class="title-trigger">Series launch signal</div></div>
+    <div class="title-item"><div class="title-text">Why I'll Never Use a Grow Tent Again</div><div class="title-chars">37 chars</div><div class="title-trigger">Strong opinion</div></div>
+    <div class="title-item"><div class="title-text">The Quietest Cannabis Grow I've Ever Run</div><div class="title-chars">41 chars</div><div class="title-trigger">Sensory intrigue</div></div>
+    <div class="title-item"><div class="title-text">Smart Growing Without the Gimmicks</div><div class="title-chars">35 chars</div><div class="title-trigger">Anti-hype credibility</div></div>
+  </div>
+
+  <div class="thumb-grid">
+    <div class="thumb">
+      <div class="thumb-num">Concept 01 — SELECTED</div>
+      <div class="thumb-name">The Split</div>
+      <div class="thumb-vis">Left half: tangle of tent cables, fans, amber warning lights. Right half: clean closed enclosure on a minimal surface. No text on left. Text on right.</div>
+      <div class="thumb-text">Overlay: "THE END OF COMPLICATED"</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 02</div>
+      <div class="thumb-name">The Notification</div>
+      <div class="thumb-vis">Black background. iPhone screen showing "Canopy VPD: Nominal" at 2:47 AM. Slight warm glow below phone suggesting the enclosure is present but not visible.</div>
+      <div class="thumb-text">Overlay: "while you were sleeping"</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 03</div>
+      <div class="thumb-name">The Root Mass</div>
+      <div class="thumb-vis">Extreme macro: white DWC root mass under cyan LED. Cinematic crop. No product visible. Alien-beautiful.</div>
+      <div class="thumb-text">Overlay: "Day 14. I did one top-off."</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 04</div>
+      <div class="thumb-name">The Closed Door</div>
+      <div class="thumb-vis">Single shot. vGrow enclosure, closed. Slight LED bleed from vent. Dark room. Nothing else. Maximum negative space. Ultra-minimal.</div>
+      <div class="thumb-text">Overlay: "DAY 01" in small Cormorant Garamond</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 05</div>
+      <div class="thumb-name">The Trichome vs Clock</div>
+      <div class="thumb-vis">Left: extreme macro trichome. Right: clock face showing 2:47 AM. Text between them. Contrast between natural complexity and the time cost it used to require.</div>
+      <div class="thumb-text">Overlay: "This used to cost you sleep."</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 06</div>
+      <div class="thumb-name">The App at Night</div>
+      <div class="thumb-vis">Bedroom shot. Bedside table. Phone face-down. vGrow enclosure visible in background — single glow. Person asleep implied. Technology working while human rests.</div>
+      <div class="thumb-text">Overlay: "I didn't check it once."</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 07</div>
+      <div class="thumb-name">The Canopy</div>
+      <div class="thumb-vis">Open enclosure door. Looking down at healthy canopy — deep green, tight nodes, LED spectrum visible. Shot from above, slightly dramatic angle.</div>
+      <div class="thumb-text">Overlay: "Day 28. Never stressed."</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 08</div>
+      <div class="thumb-name">The Data</div>
+      <div class="thumb-vis">App dashboard screenshot overlaid on product shot. VPD 1.1 highlighted. Graph showing stable flatline. Clean, clinical, aspirational.</div>
+      <div class="thumb-text">Overlay: "AUTOMATED PRECISION"</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 09</div>
+      <div class="thumb-name">The Living Room</div>
+      <div class="thumb-vis">Design-forward apartment. vGrow on a shelf between books and a plant. Not hidden. Placed. Looks like a speaker or art piece. Wide shot, warm ambient light.</div>
+      <div class="thumb-text">Overlay: "Nobody knew it was growing."</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-num">Concept 10</div>
+      <div class="thumb-name">The Contrast Pair</div>
+      <div class="thumb-vis">Two faces: overwhelmed person surrounded by equipment (blurred, grainy, warm-harsh) / same aesthetic person relaxed, clean environment (sharp, cool-blue). Neither has the product.</div>
+      <div class="thumb-text">Overlay: "Growing changed."</div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILL 09: VIEWER PSYCHOLOGY -->
+<div class="section">
+  <div class="section-label">Skill 09 — Viewer Psychology Analysis</div>
+  <div class="section-title">Why This <em>Works</em></div>
+
+  <div class="psych-grid">
+    <div class="psych">
+      <div class="psych-label">Identity Reframing</div>
+      <div class="psych-title">The viewer sees themselves in the main character</div>
+      <div class="psych-body">The "overwhelmed modern grower" is specific enough to be real and broad enough to capture the entire audience. Anyone who has ever felt friction with growing — or been put off trying — recognizes this character. The film gives them a new identity: "I could be the person who does this differently."</div>
+    </div>
+    <div class="psych">
+      <div class="psych-label">Open Loop Architecture</div>
+      <div class="psych-title">Three sustained loops prevent exit</div>
+      <div class="psych-body">Loop 1 (complexity → solution) runs the whole film. Loop 2 (craft question) runs Acts 2–4. Loop 3 (day counter) runs the series. Viewers who skip will feel they missed the payoff — algorithmic re-watch signal.</div>
+    </div>
+    <div class="psych">
+      <div class="psych-label">Earned Authority</div>
+      <div class="psych-title">60 days of data creates trust without claims</div>
+      <div class="psych-body">The documentary never says "this is the best grow system." It shows data. App logs. Root growth. Clean reservoir readings. Viewers do the persuasion themselves — which is 10× more powerful than direct claims.</div>
+    </div>
+    <div class="psych">
+      <div class="psych-label">Aspirational Identity</div>
+      <div class="psych-title">The film sells a lifestyle, not a product</div>
+      <div class="psych-body">Viewers who subscribe are not subscribing to watch a product. They are subscribing to the identity of the calm, design-conscious grower. Brand equity compounds with every episode regardless of the product being reviewed.</div>
+    </div>
+    <div class="psych">
+      <div class="psych-label">Series Architecture</div>
+      <div class="psych-title">Day counter creates emotional investment</div>
+      <div class="psych-body">The day counter is a growth bet. When the viewer sees "Day 08 →" at the end, they have already invested in what happens next. The plant is a character. Series engagement is nearly guaranteed for anyone who finishes Episode 1.</div>
+    </div>
+    <div class="psych">
+      <div class="psych-label">Luxury Positioning</div>
+      <div class="psych-title">Restraint signals premium</div>
+      <div class="psych-body">Every second of slow pacing, negative space, and silence is a status signal. Cannabis YouTube is loud. Loud signals low value. Quiet signals premium. The format is the message before a single word is spoken.</div>
+    </div>
+  </div>
+</div>
+
+<!-- STYLE DIRECTIVES -->
+<div class="section">
+  <div class="section-label">Production Directives</div>
+  <div class="section-title">What This Episode Must <em>Feel Like</em></div>
+
+  <div class="directive-grid">
+    <div class="directive">
+      <div class="directive-cat">Pacing</div>
+      <div class="directive-items">
+        <b>3–5 seconds per shot minimum</b>
+        Slow. Intentional. Never rushed.
+        Silence used deliberately — at least 4 moments of complete silence.
+        No shot exists without purpose.
+        Transitions should feel like breath.
+      </div>
+    </div>
+    <div class="directive">
+      <div class="directive-cat">Voiceover</div>
+      <div class="directive-items">
+        <b>Short sentences only.</b>
+        Never more than 12 words per line.
+        Pause between thoughts — 1.5–2 seconds.
+        Read it aloud before writing it.
+        If it sounds good in your head, it's probably wrong.
+        If it sounds flat spoken, cut it.
+      </div>
+    </div>
+    <div class="directive">
+      <div class="directive-cat">Sound Design</div>
+      <div class="directive-items">
+        <b>Sound before music</b>
+        Fan hum. Water drip. Timer click.
+        Deep 40Hz ambient drone under Acts 1–2.
+        Minimal piano single notes in Act 4.
+        Silence in Act 5 — let the manifesto breathe.
+        Music never louder than VO.
+      </div>
+    </div>
+    <div class="directive">
+      <div class="directive-cat">Color Grade</div>
+      <div class="directive-items">
+        <b>Teal-to-black shadows</b>
+        Cool, desaturated world — the traditional grow chaos.
+        Slightly warmer interior on vGrow reveal.
+        LED cyan as the emotional color shift.
+        Skin tones: neutral, not warm.
+        Avoid orange-teal LUT clichés.
+      </div>
+    </div>
+    <div class="directive">
+      <div class="directive-cat">Camera</div>
+      <div class="directive-items">
+        <b>Shallow depth of field throughout</b>
+        50mm+ equivalent on APS-C or full frame.
+        Macro lens for root and trichome shots.
+        Locked off for product shots.
+        Slow push: 5–8 second moves only.
+        Handheld only for chaos montage (Act 1).
+      </div>
+    </div>
+    <div class="directive">
+      <div class="directive-cat">What to Avoid</div>
+      <div class="directive-items">
+        <b>Never use YouTube energy</b>
+        No "smash like." No "in today's video."
+        No spec slides. No comparison charts.
+        No affiliate disclaimer in first 2 min.
+        No jump cuts in Acts 2–5.
+        No music that has been heard in cannabis content before.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <div class="doc-footer-brand"><span>ColaXpress</span> Production · Episode 01 · Cinematic Brief</div>
+  <div class="doc-footer-note">v1.0 · 2026-05-10 · Use alongside ep01-script.html and ep01-shot-list.html</div>
+</div>
+
+</div>
+</body>
+</html>

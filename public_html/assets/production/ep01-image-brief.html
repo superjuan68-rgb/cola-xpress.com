@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Episode 01 — AI Image Brief — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:#08090c;
+    color:#e8e4dd;
+    padding:60px 48px;
+    max-width:1100px;
+    margin:0 auto;
+    line-height:1.7;
+  }
+
+  /* ── HEADER ── */
+  .doc-header{border-bottom:1px solid #1e2428;padding-bottom:32px;margin-bottom:48px}
+  .eyebrow{font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#9f3028;margin-bottom:12px}
+  .doc-title{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:#e8e4dd;line-height:1.05;margin-bottom:10px}
+  .doc-sub{font-size:13px;color:#5a6370;font-weight:500}
+
+  /* ── STAT PILLS ── */
+  .stat-row{display:flex;gap:2px;margin-bottom:48px;flex-wrap:wrap}
+  .stat{padding:10px 18px;background:#0e1215;border:1px solid #1a1f24;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#5a6370}
+  .stat strong{display:block;font-size:20px;font-weight:700;color:#e8e4dd;letter-spacing:0;text-transform:none;line-height:1.2;margin-bottom:2px}
+
+  /* ── STRATEGY BLOCK ── */
+  .strategy{background:#0e1215;border:1px solid #1a1f24;border-top:3px solid #38b4c8;padding:28px 30px;margin-bottom:48px}
+  .strategy h2{font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#38b4c8;margin-bottom:22px}
+  .strategy-row{display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #111518;padding-bottom:12px}
+  .strategy-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .s-label{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#5a6370;width:180px;flex-shrink:0;padding-top:2px}
+  .s-val{font-size:13px;color:#e8e4dd;flex:1}
+  .s-val .note{font-size:11px;color:#5a6370;display:block;margin-top:3px}
+
+  /* ── BASE PROMPT ── */
+  .base-prompt{background:#050809;border:1px solid #1a2f3a;border-left:3px solid #38b4c8;padding:20px 24px;margin-bottom:48px;font-family:monospace;font-size:12px;color:#c0d8e0;line-height:1.85}
+  .base-prompt .label{font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#38b4c8;margin-bottom:10px;display:block}
+  .base-prompt .var{color:#e8e4dd;background:rgba(56,180,200,0.12);padding:1px 5px;border-radius:2px}
+
+  /* ── SECTION HEADER ── */
+  .section-hd{margin:56px 0 24px;padding:12px 18px;background:#0e1215;border:1px solid #1a1f24;display:flex;justify-content:space-between;align-items:baseline}
+  .section-act{font-size:9px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#9f3028}
+  .section-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#e8e4dd;margin-top:4px}
+  .section-tc{font-size:11px;font-weight:700;color:#5a6370;font-family:monospace}
+  .section-note{font-size:12px;color:#5a6370;margin-bottom:24px;padding:0 2px}
+
+  /* ── IMAGE CARDS ── */
+  .image-grid{display:flex;flex-direction:column;gap:3px;margin-bottom:40px}
+  .img-card{background:#0b0e11;border:1px solid #181d22;padding:16px 20px;display:grid;grid-template-columns:42px 90px 1fr 1fr;gap:16px;align-items:start}
+  .img-card:hover{background:#0e1215;border-color:#22292e}
+  .img-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#2a3038;line-height:1;padding-top:2px}
+  .img-cat{font-size:8px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;padding:3px 8px;border-radius:2px;text-align:center;align-self:start;white-space:nowrap}
+
+  /* Category colors */
+  .cat-product{background:rgba(56,180,200,0.15);color:rgba(56,180,200,0.9);border:1px solid rgba(56,180,200,0.25)}
+  .cat-interior{background:rgba(56,180,200,0.08);color:rgba(56,180,200,0.7);border:1px solid rgba(56,180,200,0.15)}
+  .cat-complex{background:rgba(200,80,50,0.12);color:rgba(200,100,70,0.9);border:1px solid rgba(200,80,50,0.2)}
+  .cat-growth{background:rgba(50,180,80,0.1);color:rgba(70,200,90,0.85);border:1px solid rgba(50,180,80,0.2)}
+  .cat-harvest{background:rgba(200,168,64,0.12);color:rgba(210,180,80,0.9);border:1px solid rgba(200,168,64,0.2)}
+  .cat-data{background:rgba(100,80,200,0.12);color:rgba(130,110,220,0.9);border:1px solid rgba(100,80,200,0.2)}
+  .cat-life{background:rgba(180,160,120,0.1);color:rgba(190,170,130,0.85);border:1px solid rgba(180,160,120,0.2)}
+  .cat-craft{background:rgba(160,130,90,0.1);color:rgba(180,150,100,0.85);border:1px solid rgba(160,130,90,0.2)}
+  .cat-process{background:rgba(80,120,180,0.1);color:rgba(100,140,200,0.85);border:1px solid rgba(80,120,180,0.2)}
+
+  .img-desc{font-size:13px;color:#e8e4dd;font-weight:500;line-height:1.6}
+  .img-desc .shot-type{font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#5a6370;display:block;margin-top:4px}
+  .img-desc .hold{font-size:11px;color:#38b4c8;display:block;margin-top:3px}
+
+  .img-prompt{font-family:monospace;font-size:11px;color:#8ab8c8;background:#050809;padding:12px 14px;border-radius:2px;border:1px solid #1a2f3a;line-height:1.75;align-self:start}
+  .img-prompt .add{color:rgba(255,255,255,0.35);font-style:italic}
+
+  /* ── GROWTH CALENDAR ── */
+  .growth-week{margin-bottom:32px}
+  .week-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #111518}
+  .week-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#38b4c8;line-height:1}
+  .week-label{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#5a6370}
+  .week-days{font-size:12px;color:#3a4550;font-family:monospace}
+
+  /* ── EDIT TIMING TABLE ── */
+  .timing-table{width:100%;border-collapse:collapse;margin-bottom:40px;font-size:12px}
+  .timing-table th{background:#0e1215;border:1px solid #1a1f24;padding:10px 14px;text-align:left;font-size:9px;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:#5a6370}
+  .timing-table td{border:1px solid #111518;padding:9px 14px;color:#8a9099;vertical-align:top}
+  .timing-table td:first-child{color:#e8e4dd;font-weight:600}
+  .timing-table tr:hover td{background:#0b0e11}
+
+  /* ── NOTES ── */
+  .note-box{background:#0e1215;border:1px solid #1a1f24;border-top:3px solid #c8a840;padding:24px 28px;margin-top:48px}
+  .note-box h2{font-size:10px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:#c8a840;margin-bottom:18px}
+  .note-item{margin-bottom:14px;font-size:13px;color:#8a9099;line-height:1.65}
+  .note-item strong{display:block;font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#e8e4dd;margin-bottom:3px}
+
+  .rule{height:1px;background:#141a1e;margin:20px 0}
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="eyebrow">ColaXpress · Episode 01 · Production · Image Brief</div>
+  <div class="doc-title">AI Image Generation Brief<br>Seed to Harvest</div>
+  <div class="doc-sub">96 images · 9 categories · Full 8-week grow arc · Aligned to 5-act script · Midjourney / DALL-E 3 ready</div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><strong>96</strong>Total Images</div>
+  <div class="stat"><strong>9</strong>Categories</div>
+  <div class="stat"><strong>8 Weeks</strong>Growth Arc</div>
+  <div class="stat"><strong>~8s</strong>Avg Hold Time</div>
+  <div class="stat"><strong>16:9</strong>All Images</div>
+  <div class="stat"><strong>Midjourney v6+</strong>Primary Tool</div>
+</div>
+
+
+<!-- ── VISUAL STRATEGY ── -->
+<div class="strategy">
+  <h2>Visual Consistency Strategy</h2>
+
+  <div class="strategy-row">
+    <div class="s-label">Aesthetic Target</div>
+    <div class="s-val">Apple product film × A24 documentary. Dark, quiet, deliberate. No bright or busy backgrounds. Every frame should look like it could be a still from <em>Succession</em> Season 4 or an Apple "Shot on iPhone" campaign.
+      <span class="note">The tone is: expensive and quiet. Nothing flashy. The vGrow earns attention by being different from what you expected.</span></div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">Color Rules</div>
+    <div class="s-val">One saturated color in the frame: teal (#38b4c8) from the LED interior. Everything else is desaturated — near-black backgrounds, neutral grays, muted greens on the plant. The only warmth is the Samsung LED bar (warm white) and distant city glow through windows.
+      <span class="note">If a frame has two competing color sources, it's wrong. The teal should always win.</span></div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">Lighting Model</div>
+    <div class="s-val">The vGrow IS the light source in most shots. When the door is closed, the teal seam glow is the only color. When the door is open, the interior LED floods the frame. External light: city window (warm amber), practical lamp (warm, dim), never overhead or flash.
+    </div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">The vGrow Description</div>
+    <div class="s-val"><strong>Always use:</strong> "VIVOSUN vGrow smart grow box, matte black vertical cabinet 18 inches wide 48 inches tall, single door with large rectangular viewing window, premium appliance aesthetic, teal LED seam glow at door edges"
+      <span class="note">Consistency tip: generate your hero vGrow product portrait first (Image 01). Use it as Midjourney style reference (--sref) for every subsequent shot that includes the unit.</span></div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">The Apartment</div>
+    <div class="s-val"><strong>Always use:</strong> "minimalist modern apartment, charcoal gray walls, dark herringbone wood floor, single large window with blurred night city view, considered furniture — no clutter"
+      <span class="note">Same room, every time. Generate a reference shot of the empty room first. Use as --sref for all interior lifestyle shots.</span></div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">Camera / Lens</div>
+    <div class="s-val">"shot on Sony A7S III, 85mm f/1.4 lens, shallow depth of field, cinematic documentary photography" for portrait and product shots. Switch to "35mm lens" for wide room context shots. "100mm macro lens" for trichome and root close-ups.
+    </div>
+  </div>
+
+  <div class="strategy-row">
+    <div class="s-label">Midjourney Flags</div>
+    <div class="s-val"><code>--ar 16:9  --style raw  --v 6.1  --q 2</code> — apply to every image. Add <code>--no text, labels, watermark</code> to all.
+    </div>
+  </div>
+</div>
+
+
+<!-- ── BASE PROMPT ── -->
+<div class="base-prompt">
+  <span class="label">Midjourney Base Prompt Template — Append to Every Image</span>
+  [<span class="var">IMAGE DESCRIPTION</span>], cinematic documentary photography, dark moody atmosphere, shallow depth of field, single teal LED accent light source, near-black background, desaturated color grade, slightly lifted shadows, Sony A7S III 85mm f/1.4, 4K resolution --ar 16:9 --style raw --v 6.1 --no text labels watermark flash bright colors
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act I · Cold Open</div>
+    <div class="section-name">The Weight — Complexity Montage</div>
+  </div>
+  <div class="section-tc">0:00 – 1:30</div>
+</div>
+<div class="section-note">Fast cuts, 2–3 sec each. The "old way." Recognizable chaos. Grower sees their own setup. Cuts sharp.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">01</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Eight nutrient bottles in a tight row on a shelf — labels half-readable, different heights, different colors. Chaotic visual. Out-of-focus grow tent behind.
+      <span class="shot-type">Tight shot — 35mm, f/2.8, front bottles sharp</span>
+      <span class="hold">VO: "Growing became complicated."</span>
+    </div>
+    <div class="img-prompt">row of 8 cannabis nutrient bottles on a cluttered shelf, different heights and labels, dark background, shallow depth of field, moody grow room lighting, green and yellow liquid visible through bottles, bokeh background shows grow tent<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">02</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">pH pen extreme close-up — a single water droplet clinging to the electrode tip. Background blurred to nothing. Clinical, sterile, demanding.
+      <span class="shot-type">Extreme macro — 100mm</span>
+      <span class="hold">VO: "Not all at once. Gradually."</span>
+    </div>
+    <div class="img-prompt">extreme close-up of pH meter electrode tip with single water droplet, macro photography, dark background, sharp droplet detail, thin metallic electrode, dramatic lighting from single side source<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">03</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Phone screen at 2:47 AM showing a grow monitoring app alert — "VPD OUT OF RANGE." Screen glow is the only light in a dark bedroom. Sheets partially visible.
+      <span class="shot-type">Medium close — phone floating in darkness</span>
+      <span class="hold">VO: "A hobby that started as an interest became a second job."</span>
+    </div>
+    <div class="img-prompt">smartphone screen at 2:47 AM showing grow monitoring app alert notification "VPD out of range", phone floating in total darkness, screen glow as only light source, dark bedroom, lock screen alert, urgent notification<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">04</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Second 2:47 AM phone screen — this one shows a pH drift alert. Two notifications stacked. The time should match. The sleep that isn't happening is implied.
+      <span class="shot-type">Match cut from #03 — same time, second notification</span>
+      <span class="hold">VO: "The equipment multiplied. The solutions multiplied. The problems multiplied."</span>
+    </div>
+    <div class="img-prompt">smartphone lock screen at 2:47 AM with two stacked grow app notifications, "pH drift detected" and "check reservoir" alerts, dark room, phone screen glow only light, urgent notification badges<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">05</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Grow tent corner detail — 3M tape holding ducting together, a clip fan zip-tied at an angle, something rigged not designed. The DIY reality of traditional setups.
+      <span class="shot-type">Close-up — 50mm, slightly angled</span>
+      <span class="hold">VO: "The equipment multiplied."</span>
+    </div>
+    <div class="img-prompt">close-up of grow tent corner, silver duct tape patching ducting, small clip fan zip-tied awkwardly, improvised rigging, dark green canvas tent wall, visible wear, cluttered, practical not designed<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">06</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Notebook open to a grow log page — hand-written pH and EC readings, dates, observations, arrows, corrections. Dense. A record of anxiety more than craft.
+      <span class="shot-type">Top-down — slightly angled, warm desk lamp</span>
+      <span class="hold">VO: "Some people find that engaging."</span>
+    </div>
+    <div class="img-prompt">hand-written grow journal notebook open, pH and EC readings logged daily, notes and corrections, graph paper or lined paper, pen resting on page, dim warm desk lamp, dark background<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">07</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">TDS/PPM meter being lowered into a reservoir — the digital display reading 847 ppm. Hands partially visible. Close on the meter and water surface.
+      <span class="shot-type">Medium macro — 85mm</span>
+      <span class="hold">VO: "The constant attention. The daily management. The variables."</span>
+    </div>
+    <div class="img-prompt">TDS meter being dipped into hydroponic reservoir, digital display showing 847 ppm, hands partially visible, water surface reflections, green tinted nutrient water, close-up macro<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">08</div>
+    <div class="img-cat cat-complex">Complexity</div>
+    <div class="img-desc">Wide view of a traditional grow tent setup — visible chaos. Ducting runs everywhere, multiple extension cords, timers. The opposite of what comes next.
+      <span class="shot-type">Medium wide — 35mm. This is the "before" image.</span>
+      <span class="hold">VO: "I did too, for a while."</span>
+    </div>
+    <div class="img-prompt">interior view of traditional cannabis grow tent, cluttered setup, multiple nutrient bottles on floor, ducting runs everywhere, extension cords and timers visible, HPS or LED grow light above, chaotic improvised equipment<span class="add"> [+ base]</span></div>
+  </div>
+
+</div><!-- /complexity -->
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act I · Scene 03</div>
+    <div class="section-name">The Hard Cut — vGrow Introduction</div>
+  </div>
+  <div class="section-tc">1:30 – 3:30</div>
+</div>
+<div class="section-note">LONG HOLDS. These are the establishing shots of the main character. 8–15 seconds each. The viewer is meant to stop and absorb. After the chaos, this is silence.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">09</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">THE HERO SHOT. vGrow closed, centered frame, dark room. This is the Apple-product-photography shot. Matte black column, teal seam glow at door edges, single subtle light from above. Nothing else in frame.
+      <span class="shot-type">Centered, perfectly straight — 85mm, f/1.8. GENERATE THIS FIRST — use as reference for all subsequent vGrow shots.</span>
+      <span class="hold">VO: [hard cut from chaos — silence — then "This is a different story."] Hold 6-8 sec before VO.</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box, matte black vertical cabinet 18 inches wide 48 inches tall, single front door with large rectangular viewing window, faint teal LED glow at door seams, centered in dark minimalist room, single overhead light source, premium appliance, product photography lighting<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">10</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">vGrow at night — completely dark room, unit is the only light source. Teal glow spills softly onto the floor, barely touches nearby wall. All else is black. The machine breathes.
+      <span class="shot-type">Wide-ish — 35mm. Room visible but dark. Unit glows.</span>
+      <span class="hold">Hold 10+ sec. Let the quiet build.</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box in completely dark apartment room, teal LED glow seeping through door edges is the only light, soft teal pool on floor, dark walls barely visible, calm quiet atmosphere, night time<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">11</div>
+    <div class="img-cat cat-data">Data</div>
+    <div class="img-desc">Phone notification card — "Canopy nominal. All environmental parameters within target range." Time: 2:47 AM. Same time as the stressed notifications. Same phone. Different message.
+      <span class="shot-type">Match cut reference to #03 and #04 — same time, opposite message. This is the payoff.</span>
+      <span class="hold">VO: "I didn't check the reservoir at 2 AM."</span>
+    </div>
+    <div class="img-prompt">smartphone lock screen at 2:47 AM showing single notification "Canopy nominal — all environmental parameters within target range", clean minimal app notification design, phone in dark room, calm blue-teal glow, teal accent color<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">12</div>
+    <div class="img-cat cat-life">Lifestyle</div>
+    <div class="img-desc">Person sleeping in bed — peaceful, undisturbed. The vGrow is visible in the background, glowing faintly in the dark. The system is running. The grower is not.
+      <span class="shot-type">Wide — 35mm, low angle. Person in foreground blur, unit glowing in BG.</span>
+      <span class="hold">VO: "I slept." — hold 4 seconds after the word.</span>
+    </div>
+    <div class="img-prompt">person sleeping peacefully in bed, dark bedroom, VIVOSUN vGrow smart grow box visible in background glowing with faint teal LED light, blurred foreground, sharp background unit, 2AM atmosphere, calm, undisturbed sleep<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act II</div>
+    <div class="section-name">The Idea — Analogies + The Craft Question</div>
+  </div>
+  <div class="section-tc">3:30 – 6:30</div>
+</div>
+<div class="section-note">Two sets: lifestyle/craft analogies (coffee, camera) and the "quiet grow" reveal. Pace picks up slightly from Act I.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">13</div>
+    <div class="img-cat cat-life">Lifestyle</div>
+    <div class="img-desc">Wide pull-back reveal: the vGrow is in a living room. Clean, considered space. Bookshelf behind it. A non-cannabis plant on a side table. The unit just belongs here.
+      <span class="shot-type">Wide — 35mm. This is the "it fits" shot.</span>
+      <span class="hold">VO: "There's a pattern to how technology changes craft industries."</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box in a clean minimalist living room, dark walls, bookshelves, considered modern furniture, unit looks like furniture not equipment, morning or evening ambient light, the unit belongs in this space<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">14</div>
+    <div class="img-cat cat-craft">Craft</div>
+    <div class="img-desc">Precision espresso machine — matte black, modern, counter-top. A hand pours freshly ground beans into the portafilter. Close on the mechanism. Artisanal but automated.
+      <span class="shot-type">Close-medium — 85mm</span>
+      <span class="hold">VO: "Espresso machines replaced commercial brewing equipment..."</span>
+    </div>
+    <div class="img-prompt">matte black precision espresso machine on dark stone counter, hand pouring coffee beans into portafilter, close-up detail, moody kitchen lighting, premium appliance, shallow depth of field, artisanal coffee preparation<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">15</div>
+    <div class="img-cat cat-craft">Craft</div>
+    <div class="img-desc">A stream of espresso pouring into a small cup — tight macro on the pour. The precision is visible. The craft is in the result, not the struggle.
+      <span class="shot-type">Macro — 100mm. Tight on the pour.</span>
+      <span class="hold">VO: "The craft didn't disappear — it became accessible."</span>
+    </div>
+    <div class="img-prompt">macro photography of espresso stream pouring into small ceramic cup, rich dark crema, close-up detail, dramatic side lighting, black background, coffee photography<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">16</div>
+    <div class="img-cat cat-craft">Craft</div>
+    <div class="img-desc">Modern mirrorless camera resting in someone's hand — not shooting, just held. Casual. Competent. Beside it on a table: an old darkroom photograph, slightly yellowed.
+      <span class="shot-type">Medium — 85mm. Both objects in frame.</span>
+      <span class="hold">VO: "Digital cameras didn't end photography."</span>
+    </div>
+    <div class="img-prompt">modern mirrorless camera held in hand resting on dark table, beside it an aged darkroom photograph print slightly yellowed, contrast between analog and digital, dark background, side light<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">17</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">vGrow viewing window close-up — the rectangular glass panel, teal LED seam, faint plant silhouette just visible inside. The question is implied: what's happening in there?
+      <span class="shot-type">Tight close — 85mm, f/1.8</span>
+      <span class="hold">VO: "The question growers ask about automation is always the same."</span>
+    </div>
+    <div class="img-prompt">close-up of VIVOSUN vGrow smart grow box viewing window, rectangular dark tinted glass panel with teal LED glow at magnetic seal edges, faint plant silhouette visible inside, mysterious, premium design detail<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">18</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">Same viewing window, slightly wider. The whole door visible. The question "Does it remove the art?" hangs in the air before the door opens.
+      <span class="shot-type">Medium close — slight pull back from #17</span>
+      <span class="hold">VO: "Does it remove the art?" — hold 2 seconds on this.</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box front door, full door visible, dark matte black faux leather texture, rectangular viewing window glowing faint teal, handle on right side, dark room background, vertical orientation<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">19</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">Root mass macro — DWC roots inside the vGrow, white and dense and branching. This is what grows when you stop fighting the environment. Shot through the reservoir access port or with door open.
+      <span class="shot-type">Extreme macro — 100mm, f/2.8. Roots fill the frame.</span>
+      <span class="hold">VO: "This is day thirty-two. This is what grows in silence."</span>
+    </div>
+    <div class="img-prompt">extreme close-up macro of cannabis DWC hydroponic root mass, dense white roots branching and filling frame, water droplets on roots, dark teal water visible beneath, almost architectural structure, clean white healthy roots<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">20</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">Second root angle — root tips in teal-tinted water, the reservoir surface. Water is dark, almost black. The white roots glow against it like light in the dark.
+      <span class="shot-type">Side angle into reservoir — 85mm macro</span>
+      <span class="hold">VO: "The craft didn't disappear. It got quieter."</span>
+    </div>
+    <div class="img-prompt">cannabis hydroponic DWC roots submerged in teal-tinted reservoir water, view from side at water line, white roots visible below dark water surface, small air bubbles rising, dramatic lighting, macro photography<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act III</div>
+    <div class="section-name">The Reveal — Door Open + Technology Brief</div>
+  </div>
+  <div class="section-tc">6:30 – 10:30</div>
+</div>
+<div class="section-note">The door opening is the film's central image. The interior shots follow. Then the VPD/app data. Then the living room wide. This act has the longest holds in the film.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">21</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">vGrow exterior texture macro — the matte black faux-leather surface, extremely close. You can see the material grain. No context, no unit shape. Just the material, quietly premium.
+      <span class="shot-type">Extreme macro — no unit visible, just surface</span>
+      <span class="hold">VO: "Most grow setups look like improvisation."</span>
+    </div>
+    <div class="img-prompt">extreme macro close-up of matte black faux leather surface texture, premium material grain, subtle crosshatch pattern, dramatic raking light from one side, luxury material detail, no other context<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">22</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">vGrow top vent grille close-up — the precision-cut aluminum ventilation slots. Clean engineering. Nothing improvised.
+      <span class="shot-type">Macro — 100mm, top of unit</span>
+      <span class="hold">VO: "This was engineered differently."</span>
+    </div>
+    <div class="img-prompt">close-up macro of precision aluminum ventilation grille, clean parallel slots cut into dark metal, single directional light casting shadows into the slots, premium engineering detail, minimalist<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">23</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">THE DOOR OPENING — a thin sliver of white interior light as the door begins to crack open. The interior LED is blazing. Only a 1-inch gap visible. Anticipation.
+      <span class="shot-type">Medium — 50mm. This is the moment of first light. Hold 4-5 seconds.</span>
+      <span class="hold">This image IS the pause before "It's not a tent."</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box front door cracked open 1 inch, brilliant white interior LED light blazing through narrow gap, matte black door exterior, dramatic contrast between dark exterior and intense white interior light, door just beginning to open<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">24</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">Door half open — interior visible, left wall and LED bar in view. The white reflective interior glows. Plant beginning to appear inside.
+      <span class="shot-type">Medium — same angle as #23, door now 90°</span>
+      <span class="hold">VO: "It's not a tent. It's a sealed environment."</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box door open halfway, white highly reflective interior walls visible, Samsung LED grow light bar at top blazing warm white, green cannabis plant partially visible inside, door swung to right, dramatic light pour from interior<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">25</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">FULL INTERIOR REVEAL — door fully open, straight-on shot into the unit. White reflective walls. Samsung LED bar at top blazing. Cannabis plant centered. DWC net cup at bottom. This is the film's central image.
+      <span class="shot-type">Straight-on medium — 85mm, perfectly centered. Hold 10-12 seconds.</span>
+      <span class="hold">VO: "Integrated LED. Sealed air column. A closed system." Hold full VO.</span>
+    </div>
+    <div class="img-prompt">looking directly inside open VIVOSUN vGrow smart grow box, white highly reflective interior walls, Samsung LM301H LED board at top emitting warm white full spectrum light, healthy cannabis plant centered growing in DWC hydroponic net cup, brilliant interior illumination, perfect cultivation environment<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">26</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">Samsung LED bar close-up — the LM301H EVO diode array, warm white. Individual chips visible. PCB board. This is the brain of the light, shot with respect.
+      <span class="shot-type">Macro — 100mm. LED chips fill the frame.</span>
+      <span class="hold">VO: "Integrated LED."</span>
+    </div>
+    <div class="img-prompt">close-up macro of Samsung LM301H EVO LED grow light board, individual warm white diode chips visible in grid array on white PCB, emitting intense warm full-spectrum light, technical beauty, macro detail<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">27</div>
+    <div class="img-cat cat-data">Data</div>
+    <div class="img-desc">Phone showing VIVOSUN app — VPD reading: 1.1 kPa. The 24-hour graph is a smooth flat line. No spikes. No drops. The line holds.
+      <span class="shot-type">Phone held in hand or flat on dark surface — 85mm</span>
+      <span class="hold">VO: "VPD at 1.1 kilopascals. Mid-veg target."</span>
+    </div>
+    <div class="img-prompt">smartphone showing VIVOSUN grow app dashboard, VPD reading 1.1 kPa, smooth 24-hour graph line holding steady, environmental monitoring data display, temperature 76°F humidity 62%, teal accent color UI, phone held in hand, dark background<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">28</div>
+    <div class="img-cat cat-data">Data</div>
+    <div class="img-desc">Close crop on just the VPD graph — the smooth line on the screen, no context around it. The graph IS the argument: nothing spiked. Nothing dropped.
+      <span class="shot-type">Screen macro — just the graph</span>
+      <span class="hold">VO: "The system has been holding this number for thirty-six hours."</span>
+    </div>
+    <div class="img-prompt">close-up macro of smartphone screen showing VPD chart, smooth flat line graph holding at 1.1 kPa for 24 hours, no spikes or variations, teal graph on dark background, data visualization<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">29</div>
+    <div class="img-cat cat-life">Lifestyle</div>
+    <div class="img-desc">THE LIVING ROOM WIDE. Full room context. vGrow lower left. Window upper right. Couch right. The unit is furniture. It belongs. Clean and considered.
+      <span class="shot-type">Wide — 24mm or 35mm, full room visible. The definitive "it lives here" shot.</span>
+      <span class="hold">VO: "It doesn't look like a grow setup. That was intentional." Hold full VO.</span>
+    </div>
+    <div class="img-prompt">wide shot minimalist apartment living room at night, VIVOSUN vGrow smart grow box in left corner glowing with teal light, large window showing blurred city lights on right, dark couch, bookshelves, considered furniture, the grow unit looks like furniture not equipment, domestic scale<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">30</div>
+    <div class="img-cat cat-life">Lifestyle</div>
+    <div class="img-desc">Person in the apartment doing something unrelated — reading, on laptop, cooking. vGrow is visible in the background, running. The grow is happening. The grower is living.
+      <span class="shot-type">Medium wide — 35mm, person in mid-ground, vGrow background</span>
+      <span class="hold">VO: "Luxury whispers. It doesn't announce itself."</span>
+    </div>
+    <div class="img-prompt">person sitting on couch reading a book in minimalist dark apartment, VIVOSUN vGrow smart grow box glowing teal in background, person unaware of camera, ordinary evening at home, grow unit present but not the focus, domestic normalcy<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act IV</div>
+    <div class="section-name">The Evidence — 8-Week Grow Arc</div>
+  </div>
+  <div class="section-tc">10:30 – 14:30</div>
+</div>
+<div class="section-note">This act IS the growth documentation. Every growth stage shot lives here. Same angle for the plant progression shots where possible — this creates a visible comparison over time.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">31</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 01 — Rapid rooter / rock wool cube with germinated seed just placed into the net cup inside the vGrow. Interior light visible above. The very beginning.
+      <span class="shot-type">Close — interior of unit, net cup visible, tiny seed/rooter</span>
+      <span class="hold">VO: Title card context — "Day three. Cotyledons."</span>
+    </div>
+    <div class="img-prompt">cannabis seedling in rockwool cube placed in hydroponic net cup, just germinated, tiny white root tip visible, inside white reflective grow box interior, Samsung LED light above, day one of grow, close-up macro<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">32</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 03 — Cotyledons emerged. Two small round seed leaves, slightly fuzzy. Net cup visible. The beginning of something.
+      <span class="shot-type">Macro — 100mm. Cotyledons fill the frame.</span>
+      <span class="hold">VO: "Day three. Cotyledons."</span>
+    </div>
+    <div class="img-prompt">cannabis seedling cotyledons emerging, two small round seed leaves, day 3 of growth, hydroponic DWC grow, white grow box interior, teal LED light above, macro close-up, tiny plant just beginning, rockwool cube visible below<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">33</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 07 — First true leaves emerging between the cotyledons. Serrated edges beginning to show. The plant is committing.
+      <span class="shot-type">Macro — 100mm, side angle</span>
+      <span class="hold">VO: "Day seven. First true leaves."</span>
+    </div>
+    <div class="img-prompt">cannabis seedling day 7, first true serrated leaves emerging between cotyledons, DWC hydroponic net cup, white reflective grow box interior, warm LED light, healthy pale green leaves, macro close-up, shallow depth of field<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">34</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">DAY 07 — Root mass at day 7: small but visible, roots just reaching the water line below the net cup. White and clean.
+      <span class="shot-type">Side-on, through reservoir access</span>
+      <span class="hold">VO: "Roots are beginning to reach the water line."</span>
+    </div>
+    <div class="img-prompt">cannabis roots day 7 DWC, small white root system just reaching reservoir water level, viewed from side through reservoir access, clean white roots, teal nutrient water below, early growth stage<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">35</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 14 — The plant has entered veg. Multiple leaf sets, vibrant deep green. Viewed from above (top-down) — canopy symmetry visible. This is early health.
+      <span class="shot-type">Top-down — directly above plant, 50mm</span>
+      <span class="hold">VO: "Day fourteen. The plant entered vegetative growth."</span>
+    </div>
+    <div class="img-prompt">cannabis plant day 14 vegetative stage top-down view, multiple leaf sets, symmetrical canopy, deep green healthy leaves, no yellowing or tip burn, DWC hydroponic, white reflective grow box interior, viewed from above<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">36</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">DAY 14 ROOT MASS — white, dense, spreading. The root system at two weeks is already impressive. This is the visual proof of the system working.
+      <span class="shot-type">Side macro, reservoir access — roots visible from root crown to water</span>
+      <span class="hold">VO: "Root mass is dense and white — no discoloration, no odor."</span>
+    </div>
+    <div class="img-prompt">cannabis DWC root mass at day 14, dense white roots filling reservoir, branching and spreading, water visible, clean healthy white color, no brown discoloration, reservoir interior view, dramatic lighting on roots<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">37</div>
+    <div class="img-cat cat-process">Process</div>
+    <div class="img-desc">THE ONE TOP-OFF — a hand pouring fresh water into the reservoir access port. This is the only time in two weeks. The hand-water contact is deliberate and minimal.
+      <span class="shot-type">Medium close — hand with water container, reservoir visible</span>
+      <span class="hold">VO: "In the first two weeks, I had performed one reservoir top-off."</span>
+    </div>
+    <div class="img-prompt">hand pouring water from measuring container into hydroponic DWC reservoir access port, inside grow cabinet, close-up, single top-off action, minimal intervention, teal interior light, deliberate careful action<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">38</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">ROOT MASS EXTREME — same roots as #36 but closer. Individual root branches visible. The structure is almost beautiful. This is the "One." visual — hold here when that word lands.
+      <span class="shot-type">Extreme macro — 100mm. Root texture fills the frame.</span>
+      <span class="hold">VO: "One." — HOLD 3 sec before + 2 sec after this word.</span>
+    </div>
+    <div class="img-prompt">extreme macro cannabis DWC roots, individual root hairs and branching filaments visible, pure white healthy roots, water droplets, almost abstract organic texture, single point of focus, blurred background<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">39</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 28 — Full mid-veg canopy. Deep green, multiple nodes, even spread. A plant that has never been stressed. Side angle to show height.
+      <span class="shot-type">Side angle — 85mm. Shows plant at full veg height in unit.</span>
+      <span class="hold">VO: "Day twenty-eight. Four weeks from seed."</span>
+    </div>
+    <div class="img-prompt">cannabis plant day 28 mid-vegetative stage, full bushy canopy, deep green healthy leaves, multiple nodes, even symmetrical growth, inside white reflective grow box, Samsung LED light above, side angle showing plant height, DWC setup visible at base<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">40</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 28 LEAF MACRO — extreme close on a perfect veg leaf surface. Deep green, no tip burn, no yellowing, no claw. The surface texture. This is what an unstressed plant looks like.
+      <span class="shot-type">Extreme macro — 100mm, leaf fills frame, shallow DOF</span>
+      <span class="hold">VO: "I was looking at a plant that had never been stressed."</span>
+    </div>
+    <div class="img-prompt">extreme macro cannabis leaf surface day 28, perfect deep green color, serrated edge sharp, no tip burn no yellowing no claw, trichome-free vegetative leaf, fine surface texture and veins visible, teal light reflection, healthy unstressed plant<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">41</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 28 — Top-down canopy at full veg. The symmetry. The evenness. The color. This is what 28 days of uninterrupted growth looks like.
+      <span class="shot-type">Top-down — 50mm. Canopy fills frame.</span>
+      <span class="hold">VO: "Just a plant that had been allowed to grow without interruption."</span>
+    </div>
+    <div class="img-prompt">cannabis plant day 28 top-down canopy view, lush even green canopy filling frame, perfect symmetrical growth, multiple bud sites forming, healthy vibrant green, inside grow cabinet, viewed directly from above, LED light casting even illumination<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Growth Calendar</div>
+    <div class="section-name">Weeks 5–8 — Flower to Harvest</div>
+  </div>
+  <div class="section-tc">Act IV continued + supplementary</div>
+</div>
+<div class="section-note">These are the exciting images. Flower development, trichomes, the building anticipation of harvest. These images make the slideshow worth watching to the end.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">42</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">DAY 35 — Transition to flower. First pistils (white hairs) appearing at nodes. The LED has shifted to red/bloom spectrum — interior has a warm orange cast.
+      <span class="shot-type">Close — 85mm, node detail</span>
+    </div>
+    <div class="img-prompt">cannabis plant node showing first white pistils forming, transition to flower stage, day 35, warm orange-red LED bloom spectrum light, white hair-like pistils emerging at stem junction, close-up macro, DWC grow box interior<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">43</div>
+    <div class="img-cat cat-interior">Interior</div>
+    <div class="img-desc">Interior view with bloom LED — the Samsung bar has shifted to red/warm spectrum. The interior glows orange-pink instead of white. Plant visible below, transitioning.
+      <span class="shot-type">Medium interior shot</span>
+    </div>
+    <div class="img-prompt">inside open VIVOSUN vGrow grow box, Samsung LED board running red bloom spectrum, warm pink-orange interior glow, reflective white walls cast warm light, cannabis plant below in early flower transition, different from earlier white veg light<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">44</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 6 — Early flower. Multiple small bud sites forming. Pistils white and numerous. The main cola beginning to stack.
+      <span class="shot-type">Side angle — 85mm, bud sites visible</span>
+    </div>
+    <div class="img-prompt">cannabis plant early flower week 6, multiple small bud sites forming along branches, white pistils numerous, cola beginning to develop, DWC grow box interior, warm bloom LED light, healthy green with first bud formations<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">45</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 6 — Bud site close-up. Calyxes stacking, pistils extending. The start of something.
+      <span class="shot-type">Macro — 100mm. Single bud site fills frame.</span>
+    </div>
+    <div class="img-prompt">cannabis bud site close-up week 6 flower, calyxes beginning to stack, white pistils extending, fine trichomes just starting to appear, macro photography, warm bloom spectrum light, vibrant healthy<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">46</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 7 — Mid flower. Buds swelling. Main cola has density. Pistils turning orange/amber at the tips. Trichomes becoming visible to the naked eye.
+      <span class="shot-type">Side medium — 85mm. Show the whole plant mid-flower.</span>
+    </div>
+    <div class="img-prompt">cannabis plant week 7 mid-flower, buds swelling on main cola and branches, pistils turning orange and amber, trichomes visible to naked eye, inside grow cabinet, bloom LED light, full mid-flower development<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">47</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 7 TRICHOME MACRO — first real trichome shot. Clear and milky trichomes on a sugar leaf. Macro or microscope-level detail. This shot is worth lingering on.
+      <span class="shot-type">Extreme macro — 100mm or USB microscope. Single trichome heads visible.</span>
+    </div>
+    <div class="img-prompt">cannabis trichomes extreme close-up week 7, clear and milky trichome heads on glandular stalks, cannabis bud surface, macro photography like microscope view, crystalline structures on leaf surface, shallow depth of field, single trichomes in sharp focus<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">48</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 8 — Late flower. Dense bud development, pistils mostly orange/red, sugar leaf coverage. The canopy now nearly touches the top of the unit.
+      <span class="shot-type">Medium interior — 50mm, shows plant nearly filling unit</span>
+    </div>
+    <div class="img-prompt">cannabis plant week 8 late flower, dense mature buds, mostly orange and amber pistils, heavy sugar leaf trichome coverage, filling grow box interior, plant nearly reaching LED bar above, inside VIVOSUN vGrow cabinet, harvest approaching<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">49</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">WEEK 8 TRICHOME CLOSE — amber and milky trichomes. Harvest window. This is the moment the grower has been waiting for.
+      <span class="shot-type">Extreme macro — same framing as #47 for comparison</span>
+    </div>
+    <div class="img-prompt">cannabis trichomes harvest-ready, mix of milky white and amber trichome heads, some clear still visible, close-up macro bud surface, week 8 late flower, crystalline structures, harvest window trichome inspection<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">50</div>
+    <div class="img-cat cat-growth">Growth</div>
+    <div class="img-desc">THE FINAL BUD — one perfect main cola close-up before harvest. Frosted, dense, purple hints if strain allows. The 60-day payoff in a single frame.
+      <span class="shot-type">Close-medium — 85mm. The hero bud.</span>
+    </div>
+    <div class="img-prompt">cannabis main cola close-up week 8 harvest ready, dense frosted buds, heavy trichome coverage giving crystalline frosty appearance, orange pistils, deep green with possible purple hues, teal grow light accent, beautiful mature bud, the payoff<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Harvest + Post-Harvest</div>
+    <div class="section-name">Day 60 — Cut, Dry, Cure, Jar</div>
+  </div>
+  <div class="section-tc">Supplementary — Act IV/V bridge</div>
+</div>
+<div class="section-note">These images pay off the entire arc. The harvest is the evidence that the system worked. The jar at the end is the point of the whole film.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">51</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">Harvest scissors positioned at the base of the main stem. Clean, sharp, deliberate. This is the only cut. The only intervention that matters.
+      <span class="shot-type">Close — 85mm. Scissors and stem, nothing else.</span>
+    </div>
+    <div class="img-prompt">sharp stainless steel pruning scissors at base of cannabis main stem, harvest moment, macro close-up, teal interior light, deliberate positioned cut, contrast between dark scissors and green stem<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">52</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">Freshly cut branch held up — held against the interior LED light, trichomes catching the light. The grower's hand visible, branch in frame. You can feel the weight.
+      <span class="shot-type">Medium — 50mm. Branch held up in LED light.</span>
+    </div>
+    <div class="img-prompt">hand holding harvested cannabis branch up against bright LED light, trichomes sparkling and catching light, fresh cut, interior of grow box, warm white LED backlight, glistening trichome coverage, pride of harvest moment<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">53</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">Trim tray with freshly cut buds laid out — the yield visible at once. Dark background. Clean. The result of 60 days.
+      <span class="shot-type">Top-down — 50mm, overhead</span>
+    </div>
+    <div class="img-prompt">trim tray with freshly harvested cannabis buds laid out, top-down view, multiple colas, still on stems, dark tray background, teal and warm accent light, fresh harvest layout, multiple buds<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">54</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">Drying rack in a dark room — branches hung upside down, 3-4 days in. The silhouette of hanging cannabis, backlit faintly by a single teal source.
+      <span class="shot-type">Medium wide — 35mm. Mood shot. The wait.</span>
+    </div>
+    <div class="img-prompt">cannabis branches hanging upside down on drying rack in dark room, silhouettes of drying buds, faint teal backlight, 3-4 days into dry, patience and process, dark moody atmosphere<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">55</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">Curing jars — two wide-mouth mason jars on a dark surface, buds visible inside, slight condensation on glass. The cure is happening.
+      <span class="shot-type">Medium close — 85mm, jars at slight angle</span>
+    </div>
+    <div class="img-prompt">two glass mason curing jars filled with dried cannabis buds on dark surface, slight condensation on glass, buds visible inside, curing process, dark background, single side light source, craft cannabis curing<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">56</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">The jar open — lid beside it, bud visible at top, steam or moisture detail if possible. The nose before the fingers reach in.
+      <span class="shot-type">Close — 85mm, slight top-down</span>
+    </div>
+    <div class="img-prompt">open glass mason jar with cured cannabis buds, lid placed beside, buds visible at top of jar, slight moisture shimmer or condensation detail, dark background, warm side light catching trichomes, burping the cure<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">57</div>
+    <div class="img-cat cat-harvest">Harvest</div>
+    <div class="img-desc">THE FINAL BUD IN HAND — one perfect cured bud held between two fingers, backlit. Trichomes catching the light. This is the last growth image in the film. 60 days. One bud.
+      <span class="shot-type">Macro — 100mm. The bud is everything.</span>
+    </div>
+    <div class="img-prompt">perfect cured cannabis bud held between two fingers, backlit by teal light, trichomes sparkling and catching light, amber orange pistils, heavy resin coverage, dark background, macro photography, the craft result, the point of everything<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<div class="section-hd">
+  <div>
+    <div class="section-act">Act V</div>
+    <div class="section-name">The Manifesto — The Return + Resolution</div>
+  </div>
+  <div class="section-tc">14:30 – 17:00</div>
+</div>
+<div class="section-note">Return to the unit — now we see it differently. It's earned its place. The analogy callbacks. The final long hold on the closed unit before the fade.</div>
+
+<div class="image-grid">
+
+  <div class="img-card">
+    <div class="img-num">58</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">The vGrow closed — same shot as #09 or very close. Full circle. After everything we've seen inside, we're back to the closed door. The system is running. Nothing to do.
+      <span class="shot-type">Centered — same angle as hero shot #09. Hold 8-10 sec.</span>
+      <span class="hold">VO: "The question was: does automation remove the art?" — long hold before answer.</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box closed front view, dark minimalist room, teal LED seam glow at door, closed and running, same composition as establishing shot, full circle moment, quiet presence<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">59</div>
+    <div class="img-cat cat-craft">Craft</div>
+    <div class="img-desc">Coffee grinder callback — same matte black machine from Act II. Quick cut. The analogy pays off. The tool doesn't replace the craft, it enables it.
+      <span class="shot-type">Match cut — same framing as #14</span>
+      <span class="hold">VO: "A chef with a precision oven doesn't stop being a chef."</span>
+    </div>
+    <div class="img-prompt">matte black precision espresso machine close-up, same as Act II callback, moody kitchen, product photography, the precision tool that enables craft not replaces it<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">60</div>
+    <div class="img-cat cat-craft">Craft</div>
+    <div class="img-desc">Camera callback — modern mirrorless. Quick cut. Same angle as #16.
+      <span class="shot-type">Match cut — same framing as #16</span>
+      <span class="hold">VO: "A photographer with autofocus doesn't stop being a photographer."</span>
+    </div>
+    <div class="img-prompt">modern mirrorless camera held in hand, same composition as Act II callback, moody dark background, the craft tool<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">61</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">The vGrow — slow push toward the door. Slightly closer than #58. The LED seam glow is all that's visible. The enclosure hum is the dominant sound. This holds for "It's optional."
+      <span class="shot-type">Slightly closer than #58 — 85mm, 105mm equivalent push. 10-12 second hold.</span>
+      <span class="hold">VO: "The complicated era of home growing is not over." [pause] "It's optional." [hold 4 sec]</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box close-up front door, slightly closer than establishing shot, teal LED seam glow fills more of frame, dark surroundings, the machine breathing quietly, minimal, powerful presence<span class="add"> [+ base]</span></div>
+  </div>
+
+  <div class="img-card">
+    <div class="img-num">62</div>
+    <div class="img-cat cat-product">Product</div>
+    <div class="img-desc">FINAL SHOT — vGrow at night, the teal glow on the floor. The camera is receding or we're fading to black. The last image before "See you there."
+      <span class="shot-type">Wide — 35mm, fade to black from this. 6-8 second hold into fade.</span>
+      <span class="hold">VO: "See you there." — then silence and black.</span>
+    </div>
+    <div class="img-prompt">VIVOSUN vGrow smart grow box in dark apartment, teal LED glow pooling on floor, the system running quietly in the dark, night time, the only light source, peaceful autonomous operation, the last image<span class="add"> [+ base]</span></div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- EDIT TIMING GUIDE                                               -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+<h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin:56px 0 20px;color:#e8e4dd">Edit Timing Guide</h2>
+<table class="timing-table">
+  <tr>
+    <th>Act</th>
+    <th>Images</th>
+    <th>Avg Hold</th>
+    <th>Cut Rhythm</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
+    <td>I — Complexity Montage (#01–08)</td>
+    <td>8 images</td>
+    <td>2–3 sec</td>
+    <td>Fast cuts, almost MTV pace</td>
+    <td>This is the only fast section. Establishes contrast with everything that follows.</td>
+  </tr>
+  <tr>
+    <td>I — vGrow Intro (#09–12)</td>
+    <td>4 images</td>
+    <td>6–10 sec</td>
+    <td>Sudden long holds</td>
+    <td>The pace change IS the point. Hard cut from complexity to silence.</td>
+  </tr>
+  <tr>
+    <td>II — Analogies + Craft (#13–20)</td>
+    <td>8 images</td>
+    <td>4–6 sec</td>
+    <td>Measured, thoughtful</td>
+    <td>Ken Burns on #19 (root mass) — very slow zoom in, hold 8+ sec.</td>
+  </tr>
+  <tr>
+    <td>III — Reveal + Data (#21–30)</td>
+    <td>10 images</td>
+    <td>6–12 sec</td>
+    <td>Slowest cuts in film</td>
+    <td>#23→#24→#25 (door opening sequence) is the longest sequence. #25 holds for full VO.</td>
+  </tr>
+  <tr>
+    <td>IV — Evidence (#31–41)</td>
+    <td>11 images</td>
+    <td>5–8 sec</td>
+    <td>Documentary rhythm</td>
+    <td>#38 (root macro for "One.") — 3 sec silence before, 2 sec after. Non-negotiable.</td>
+  </tr>
+  <tr>
+    <td>Flower Arc (#42–50)</td>
+    <td>9 images</td>
+    <td>5–7 sec</td>
+    <td>Slightly faster — building</td>
+    <td>#47 → #49 trichome comparison is powerful. #50 (final bud) — long hold.</td>
+  </tr>
+  <tr>
+    <td>Harvest (#51–57)</td>
+    <td>7 images</td>
+    <td>4–6 sec</td>
+    <td>Deliberate, earned</td>
+    <td>#57 (bud in hand) — this is the visual payoff of the whole film. Hold 8+ sec.</td>
+  </tr>
+  <tr>
+    <td>V — Manifesto (#58–62)</td>
+    <td>5 images</td>
+    <td>8–12 sec</td>
+    <td>Longest holds, fade to black</td>
+    <td>#61 and #62 — hold these. The silence is the point.</td>
+  </tr>
+</table>
+
+
+<!-- ── PRODUCTION NOTES ── -->
+<div class="note-box">
+  <h2>Generation & Consistency Notes</h2>
+
+  <div class="note-item">
+    <strong>Generation Order</strong>
+    Generate Image 09 (hero vGrow shot) first. Generate the apartment room shot (#29) second. Use both as Midjourney --sref references for all subsequent shots. This creates visual consistency across the 62 images.
+  </div>
+
+  <div class="note-item">
+    <strong>The vGrow Is Always the Same Unit</strong>
+    Every time the vGrow appears: same height, same door, same window, same matte black. If it starts looking different across images, regenerate until it matches #09. Inconsistency breaks the "main character" feeling.
+  </div>
+
+  <div class="note-item">
+    <strong>Midjourney Consistency Trick</strong>
+    Use <code>--cref [URL of image 09]</code> for character reference on all vGrow shots. Use <code>--sref [URL of image 29]</code> for the apartment room on all lifestyle shots. This is the fastest path to visual consistency.
+  </div>
+
+  <div class="note-item">
+    <strong>Trichome Shots</strong>
+    Images #47 and #49 require a USB digital microscope or phone macro clip lens — not AI generated. These are real shots taken at harvest. AI trichome images often look wrong. If using AI: add "microscope photography, scientific macro, trichome stalks visible" to the prompt.
+  </div>
+
+  <div class="note-item">
+    <strong>Ken Burns Motion</strong>
+    All images should be slightly larger than 1920×1080 — generate at 2560×1440 minimum so the editor has room to pan/zoom without losing quality. Midjourney <code>--ar 16:9</code> at high quality exports enough resolution.
+  </div>
+
+  <div class="note-item">
+    <strong>Plant Progression Consistency</strong>
+    Images #32, #33, #35, #39, #41 should all show the same plant, same camera angle, same background — just different growth stages. This creates a visible time-lapse effect in the slideshow. Generate them in sequence using --sref of the previous shot.
+  </div>
+
+  <div class="note-item">
+    <strong>What NOT to Generate</strong>
+    No smiling people, no lifestyle hashtag aesthetics, no bright lit dispensary vibes, no product-on-white backgrounds, no stock photo compositions, no text or overlays in the image. Every frame should look like a still from a festival documentary, not Instagram.
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Thumbnail — EP01 — ColaXpress</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  /* ── CABINET LED GLOW — left atmospheric light source ── */
+  .glow-cabinet {
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    height: 900px;
+    background: radial-gradient(ellipse at 38% 50%,
+      rgba(56, 180, 200, 0.18) 0%,
+      rgba(56, 180, 200, 0.10) 22%,
+      rgba(40, 120, 160, 0.06) 45%,
+      rgba(20, 60, 90, 0.02) 68%,
+      transparent 80%
+    );
+    pointer-events: none;
+  }
+
+  /* ── SECONDARY WARM GLOW — deep in cabinet ── */
+  .glow-warm {
+    position: absolute;
+    left: 60px;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 500px;
+    background: radial-gradient(ellipse at 40% 50%,
+      rgba(100, 220, 120, 0.07) 0%,
+      rgba(60, 180, 100, 0.04) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* ── VAPOR / MIST LAYER ── */
+  .vapor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 680px;
+    height: 100%;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(200,230,255,0.055) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 75%, rgba(200,230,255,0.04) 0%, transparent 45%),
+      radial-gradient(ellipse at 15% 55%, rgba(255,255,255,0.035) 0%, transparent 40%);
+    filter: blur(22px);
+    pointer-events: none;
+  }
+
+  /* ── CABINET SILHOUETTE — implied geometry ── */
+  .cabinet-body {
+    position: absolute;
+    left: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    height: 560px;
+    border: 1px solid rgba(56, 180, 200, 0.18);
+    border-radius: 6px;
+    background: rgba(10, 14, 18, 0.8);
+    overflow: hidden;
+  }
+
+  .cabinet-inner {
+    position: absolute;
+    inset: 12px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.6);
+    overflow: hidden;
+  }
+
+  /* LED strip top */
+  .led-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(140, 220, 255, 0.9) 20%,
+      rgba(180, 240, 255, 1) 50%,
+      rgba(140, 220, 255, 0.9) 80%,
+      transparent 100%
+    );
+    box-shadow: 0 0 16px 4px rgba(140, 220, 255, 0.5), 0 0 40px 8px rgba(80, 180, 220, 0.25);
+  }
+
+  /* LED glow cone downward */
+  .led-cone {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 300px;
+    background: linear-gradient(180deg,
+      rgba(140, 220, 255, 0.12) 0%,
+      rgba(80, 180, 220, 0.04) 50%,
+      transparent 100%
+    );
+  }
+
+  /* Plant silhouette in cabinet */
+  .plant-silhouette {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 220px;
+    background: radial-gradient(ellipse at 50% 80%,
+      rgba(30, 60, 30, 0.9) 0%,
+      rgba(20, 45, 20, 0.7) 40%,
+      transparent 70%
+    );
+    border-radius: 60% 60% 0 0;
+    filter: blur(3px);
+  }
+
+  .plant-glow {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 80px;
+    background: radial-gradient(ellipse at 50% 50%,
+      rgba(80, 160, 60, 0.2) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Cabinet edge glow lines */
+  .cabinet-edge-left {
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(56, 180, 200, 0.4) 30%, rgba(56, 180, 200, 0.6) 50%, rgba(56, 180, 200, 0.4) 70%, transparent);
+  }
+
+  .cabinet-edge-right {
+    position: absolute;
+    right: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(56, 180, 200, 0.4) 30%, rgba(56, 180, 200, 0.6) 50%, rgba(56, 180, 200, 0.4) 70%, transparent);
+  }
+
+  /* Reservoir bubble hint bottom */
+  .reservoir {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 60px;
+    background: rgba(10, 30, 50, 0.9);
+    border-top: 1px solid rgba(56, 180, 200, 0.25);
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+
+  .reservoir::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 40%, rgba(56, 180, 200, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(56, 180, 200, 0.08) 0%, transparent 50%);
+  }
+
+  /* ── DARK VIGNETTE / FADE RIGHT ── */
+  .fade-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 640px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(6,6,8,0.85) 45%, rgba(6,6,8,0.97) 100%);
+    pointer-events: none;
+  }
+
+  /* ── VIGNETTE EDGES ── */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+
+  /* ── RED ACCENT LINE ── */
+  .accent-line {
+    position: absolute;
+    left: 600px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 240px;
+    background: linear-gradient(180deg, transparent, #9f3028 25%, #9f3028 75%, transparent);
+    opacity: 0.6;
+  }
+
+  /* ── TEXT BLOCK ── */
+  .text-block {
+    position: absolute;
+    right: 54px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ep-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    width: fit-content;
+  }
+
+  .ep-badge-inner {
+    padding: 5px 14px;
+    border: 1px solid #9f3028;
+    border-radius: 3px;
+    color: #9f3028;
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .ep-badge-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #9f3028 0%, transparent 100%);
+    width: 80px;
+    opacity: 0.5;
+  }
+
+  .headline-pre {
+    font-family: 'Manrope', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .headline-main {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 86px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .headline-sub {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 86px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .headline-accent {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 78px;
+    font-weight: 700;
+    color: #9f3028;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 36px;
+  }
+
+  .descriptor {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.38);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 18px;
+  }
+
+  /* ── BRAND LOCKUP — bottom left ── */
+  .brand-lockup {
+    position: absolute;
+    bottom: 36px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: #9f3028;
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0;
+  }
+
+  .brand-sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── ENVIRONMENTAL DATA — bottom right corner ── */
+  .env-data {
+    position: absolute;
+    bottom: 36px;
+    right: 54px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+  }
+
+  .env-item {
+    text-align: right;
+  }
+
+  .env-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .env-value {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(56, 180, 200, 0.9);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SCAN LINE TEXTURE (subtle) ── */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.04) 2px,
+      rgba(0,0,0,0.04) 4px
+    );
+    pointer-events: none;
+  }
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Background atmosphere -->
+  <div class="glow-cabinet"></div>
+  <div class="glow-warm"></div>
+  <div class="vapor"></div>
+
+  <!-- Cabinet body -->
+  <div class="cabinet-body">
+    <div class="cabinet-edge-left"></div>
+    <div class="cabinet-edge-right"></div>
+    <div class="cabinet-inner">
+      <div class="led-strip"></div>
+      <div class="led-cone"></div>
+      <div class="plant-glow"></div>
+      <div class="plant-silhouette"></div>
+    </div>
+    <div class="reservoir"></div>
+  </div>
+
+  <!-- Fade/vignette overlays -->
+  <div class="fade-right"></div>
+  <div class="vignette"></div>
+  <div class="accent-line"></div>
+  <div class="scanlines"></div>
+
+  <!-- Text content -->
+  <div class="text-block">
+
+    <div class="ep-badge">
+      <span class="ep-badge-inner">Episode 01</span>
+      <span class="ep-badge-line"></span>
+    </div>
+
+    <div class="headline-pre">Can automation</div>
+    <div class="headline-main">Produce</div>
+    <div class="headline-sub">Craft</div>
+    <div class="headline-accent">Cannabis?</div>
+
+    <div class="descriptor">
+      VIVOSUN vGrow · DWC · Humidifier<br />
+      Seed to cured jar — fully documented
+    </div>
+
+  </div>
+
+  <!-- Brand lockup -->
+  <div class="brand-lockup">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="brand-mark">CX</span>
+        <span class="brand-name">ColaXpress</span>
+      </div>
+      <div class="brand-sub">by CannaHustle</div>
+    </div>
+  </div>
+
+  <!-- Environmental data -->
+  <div class="env-data">
+    <div class="env-item">
+      <span class="env-label">Temp</span>
+      <span class="env-value">76.4°F</span>
+    </div>
+    <div class="env-item">
+      <span class="env-label">RH</span>
+      <span class="env-value">68.2%</span>
+    </div>
+    <div class="env-item">
+      <span class="env-label">VPD</span>
+      <span class="env-value">0.52 kPa</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

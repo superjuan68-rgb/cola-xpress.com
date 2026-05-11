@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>YouTube Banner — Cola-Xpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  /* ── CANVAS ── */
+  .canvas {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  /* ── ATMOSPHERIC LAYERS ── */
+
+  /* Primary teal glow — enclosure light source, left */
+  .glow-left {
+    position: absolute;
+    left: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 780px;
+    height: 780px;
+    background: radial-gradient(ellipse at 35% 50%,
+      rgba(56, 180, 200, 0.14) 0%,
+      rgba(56, 180, 200, 0.07) 28%,
+      rgba(30, 100, 140, 0.04) 52%,
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  /* Deep warm plant glow nested inside the teal */
+  .glow-plant {
+    position: absolute;
+    left: 0;
+    top: 52%;
+    transform: translateY(-50%);
+    width: 360px;
+    height: 440px;
+    background: radial-gradient(ellipse at 42% 50%,
+      rgba(56, 200, 80, 0.05) 0%,
+      rgba(40, 160, 70, 0.025) 45%,
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  /* Right edge — very faint warm glow, suggests offscreen warmth */
+  .glow-right {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 600px;
+    background: radial-gradient(ellipse at 70% 50%,
+      rgba(180, 130, 60, 0.03) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Subtle vignette — darkens edges, focuses center */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 100% 90% at 50% 50%,
+        transparent 40%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+    pointer-events: none;
+  }
+
+  /* Fine grain texture using SVG noise filter */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    pointer-events: none;
+  }
+
+  /* Thin teal horizontal rule — safe zone top edge reference */
+  .rule-h {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: calc(50% - 106px);
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(56,180,200,0.18) 20%,
+      rgba(56,180,200,0.28) 50%,
+      rgba(56,180,200,0.18) 80%,
+      transparent
+    );
+  }
+  .rule-h-b {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: calc(50% + 105px);
+    height: 1px;
+    background: linear-gradient(to right,
+      transparent,
+      rgba(56,180,200,0.18) 20%,
+      rgba(56,180,200,0.28) 50%,
+      rgba(56,180,200,0.18) 80%,
+      transparent
+    );
+  }
+
+  /* ── SAFE ZONE CONTENT ── */
+  /* Safe zone: 773×211px centered — at 1280×720 half-res render
+     Left edge: (1280-773)/2 = 253px
+     Top edge:  (720-211)/2  = 254px  */
+  .safe {
+    position: absolute;
+    left: 253px;
+    top: 254px;
+    width: 773px;
+    height: 211px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* LEFT — wordmark + tagline */
+  .safe-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: #e8e4dd;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: #38b4c8;
+    line-height: 1;
+  }
+
+  /* Separator dot */
+  .tagline-sep {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    background: rgba(56,180,200,0.4);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 10px;
+    position: relative;
+    top: -1px;
+  }
+
+  /* DIVIDER — thin vertical teal line */
+  .safe-divider {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom,
+      transparent,
+      rgba(56,180,200,0.3) 30%,
+      rgba(56,180,200,0.3) 70%,
+      transparent
+    );
+    flex-shrink: 0;
+  }
+
+  /* RIGHT — url + series info */
+  .safe-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .site-url {
+    font-family: 'Manrope', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.7);
+    line-height: 1;
+  }
+
+  .series-label {
+    font-family: 'Manrope', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5a6370;
+    line-height: 1;
+  }
+
+  .series-status {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(56,200,80,0.7);
+    line-height: 1;
+  }
+
+  /* ── BLEED CONTENT — visible on TV/large displays ── */
+  /* Left bleed: subtle CX monogram ghost, very faint */
+  .bleed-monogram {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 320px;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(56,180,200,0.06);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    user-select: none;
+  }
+
+  /* Right bleed: vertical text label — reads on large TV */
+  .bleed-right-text {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: center center;
+    font-family: 'Manrope', sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.12);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* Teal accent dot — top-left of safe zone corner */
+  .accent-dot {
+    position: absolute;
+    left: 253px;
+    top: 254px;
+    width: 4px;
+    height: 4px;
+    background: rgba(56,180,200,0.5);
+    border-radius: 50%;
+  }
+  .accent-dot-br {
+    position: absolute;
+    left: calc(253px + 773px - 4px);
+    top: calc(254px + 211px - 4px);
+    width: 4px;
+    height: 4px;
+    background: rgba(56,180,200,0.25);
+    border-radius: 50%;
+  }
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Atmospheric layers -->
+  <div class="glow-left"></div>
+  <div class="glow-plant"></div>
+  <div class="glow-right"></div>
+  <div class="rule-h"></div>
+  <div class="rule-h-b"></div>
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <!-- Bleed content (visible at TV size) -->
+  <div class="bleed-monogram">CX</div>
+  <div class="bleed-right-text">Cola-Xpress · The Grow Series · DWC · Craft · Documented</div>
+
+  <!-- Corner accent dots -->
+  <div class="accent-dot"></div>
+  <div class="accent-dot-br"></div>
+
+  <!-- Safe zone (guaranteed visible on all devices) -->
+  <div class="safe">
+    <div class="safe-left">
+      <div class="wordmark">Cola-Xpress</div>
+      <div class="tagline">
+        compact<span class="tagline-sep"></span>craft<span class="tagline-sep"></span>documented
+      </div>
+    </div>
+
+    <div class="safe-divider"></div>
+
+    <div class="safe-right">
+      <div class="site-url">cola-xpress.com</div>
+      <div class="series-label">The Grow Series</div>
+      <div class="series-status">● Now Documenting</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

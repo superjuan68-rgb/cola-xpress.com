@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Production Hub — Episode 01 — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Manrope', sans-serif; background: #0d0f11; color: #f5f5f2; min-height: 100vh; padding: 60px 40px; max-width: 1100px; margin: 0 auto; }
+  .hub-header { border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 28px; margin-bottom: 48px; }
+  .hub-meta { font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #9f3028; margin-bottom: 10px; }
+  .hub-title { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 700; color: #fff; line-height: 1.0; margin-bottom: 10px; }
+  .hub-sub { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+  .status-row { display: flex; gap: 12px; margin-bottom: 48px; flex-wrap: wrap; }
+  .status-chip { padding: 6px 14px; border-radius: 2px; font-size: 9px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+  .status-done { background: rgba(56,200,80,0.15); color: rgba(56,200,80,0.9); border: 1px solid rgba(56,200,80,0.3); }
+  .status-pending { background: rgba(240,180,40,0.1); color: rgba(240,180,40,0.8); border: 1px solid rgba(240,180,40,0.25); }
+  .status-waiting { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.35); border: 1px solid rgba(255,255,255,0.1); }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 16px; margin-top: 44px; letter-spacing: 0.01em; }
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-bottom: 40px; }
+  .doc-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-radius: 4px; padding: 18px 20px; text-decoration: none; display: block; transition: border-color 0.15s, background 0.15s; }
+  .doc-card:hover { border-color: rgba(159,48,40,0.6); background: rgba(159,48,40,0.06); }
+  .doc-card-type { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #9f3028; margin-bottom: 6px; }
+  .doc-card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.3; }
+  .doc-card-desc { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.6; }
+  .doc-card-status { margin-top: 12px; }
+  .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 40px; }
+  .asset-card { background: rgba(56,180,200,0.04); border: 1px solid rgba(56,180,200,0.15); border-radius: 4px; padding: 18px 20px; text-decoration: none; display: block; transition: border-color 0.15s; }
+  .asset-card:hover { border-color: rgba(56,180,200,0.4); }
+  .asset-card-type { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(56,180,200,0.7); margin-bottom: 6px; }
+  .asset-card-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .asset-card-spec { font-size: 11px; color: rgba(255,255,255,0.35); }
+  .pipeline { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; padding: 24px; margin-bottom: 40px; }
+  .pipeline-step { display: flex; gap: 16px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .pipeline-step:last-child { border-bottom: none; padding-bottom: 0; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: rgba(159,48,40,0.2); border: 1px solid rgba(159,48,40,0.4); color: #9f3028; font-size: 11px; font-weight: 800; display: grid; place-items: center; flex-shrink: 0; }
+  .step-body h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); margin-bottom: 3px; }
+  .step-body p { font-size: 11px; color: rgba(255,255,255,0.38); line-height: 1.6; }
+  .export-box { background: rgba(21,21,21,0.5); border: 1px solid rgba(56,180,200,0.2); border-radius: 4px; padding: 20px 24px; margin-bottom: 40px; }
+  .export-box h3 { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(56,180,200,0.7); margin-bottom: 12px; }
+  .export-box code { font-family: 'Courier New', monospace; font-size: 13px; color: rgba(56,180,200,0.9); background: rgba(56,180,200,0.08); padding: 3px 8px; border-radius: 2px; }
+  .export-box p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 8px; }
+  .site-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+  .site-link { padding: 12px 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 3px; text-decoration: none; }
+  .site-link:hover { border-color: rgba(255,255,255,0.2); }
+  .site-link .lbl { font-size: 9px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+  .site-link .url { font-size: 12px; color: rgba(255,255,255,0.65); font-family: monospace; }
+  .footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<div class="hub-header">
+  <div class="hub-meta">ColaXpress · Production Hub · Episode 01</div>
+  <div class="hub-title">Grow Series<br/>Production System</div>
+  <div class="hub-sub">Cinematic luxury documentary format. Apple × A24 aesthetic. Pure voiceover. No on-cam host.<br/>Solo creator system — 9 Claude skills, one pipeline, zero contractors.</div>
+</div>
+
+<div class="status-row">
+  <span class="status-chip status-done">✓ Cinematic brief complete</span>
+  <span class="status-chip status-done">✓ Script v2.0 — cinematic</span>
+  <span class="status-chip status-done">✓ Shot list v2.0</span>
+  <span class="status-chip status-done">✓ Upload package v2.0</span>
+  <span class="status-chip status-done">✓ Shorts plan (7 clips)</span>
+  <span class="status-chip status-done">✓ Solo playbook ready</span>
+  <span class="status-chip status-done">✓ 9 Claude skills installed</span>
+  <span class="status-chip status-done">✓ Brand assets exported</span>
+  <span class="status-chip status-pending">⏳ Filming</span>
+  <span class="status-chip status-pending">⏳ Editing</span>
+  <span class="status-chip status-waiting">○ Video publish</span>
+  <span class="status-chip status-waiting">○ YouTube ID → update site</span>
+</div>
+
+<!-- ── Production Documents ── -->
+<h2>Production Documents</h2>
+<div class="doc-grid">
+
+  <a href="ep01-cinematic-brief.html" class="doc-card">
+    <div class="doc-card-type">Strategy · 9 Skills Output</div>
+    <div class="doc-card-title">Cinematic Brief + Full Pipeline</div>
+    <div class="doc-card-desc">Complete 9-skill pipeline output: research synthesis, competitor analysis, narrative arc, 10 hooks, titles &amp; thumbnails, viewer psychology, style directives. Start here.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Complete — read first</span></div>
+  </a>
+
+  <a href="ep01-script.html" class="doc-card">
+    <div class="doc-card-type">Script · 5 Acts · v2.0</div>
+    <div class="doc-card-title">Episode 01 Full Cinematic Script</div>
+    <div class="doc-card-desc">Pure voiceover format. VO, VISUAL, SOUND, DIR, BEAT, TITLE tags throughout. Three open loops, Apple × A24 register, full retention notes. 12–17 min target.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Cinematic reframe complete</span></div>
+  </a>
+
+  <a href="ep01-shot-list.html" class="doc-card">
+    <div class="doc-card-type">Production · 34 Shots · v2.0</div>
+    <div class="doc-card-title">Shot List + Camera Direction</div>
+    <div class="doc-card-desc">5-act shot structure, 5-point B-roll priority order, camera/light/audio settings, per-shot notes and flags. No on-cam presenter — pure B-roll and VO direction.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Cinematic reframe complete</span></div>
+  </a>
+
+  <a href="ep01-upload-package.html" class="doc-card">
+    <div class="doc-card-type">YouTube · v2.0</div>
+    <div class="doc-card-title">Upload Package</div>
+    <div class="doc-card-desc">Title: "The End of Complicated Cannabis Growing." Luxury-register description, 5-act chapters, thumbnail brief (Concept 01: The Split), tags, cards, checklist.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Ready to paste</span></div>
+  </a>
+
+  <a href="ep01-shorts-plan.html" class="doc-card">
+    <div class="doc-card-type">Shorts · 7 Clips</div>
+    <div class="doc-card-title">Shorts Extraction Plan</div>
+    <div class="doc-card-desc">7 clips with timestamps, hook text, YouTube title, description, edit notes, upload sequence schedule, and card variant per clip.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Complete</span></div>
+  </a>
+
+  <a href="solo-playbook.html" class="doc-card">
+    <div class="doc-card-type">Solo System · 12 Steps</div>
+    <div class="doc-card-title">Solo Creator Playbook</div>
+    <div class="doc-card-desc">Full pipeline: every production role mapped to a Claude skill. What you do, what Claude does, in what order. Includes session example and time estimates.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ No contractors needed</span></div>
+  </a>
+
+</div>
+
+<!-- ── Brand Assets ── -->
+<h2>Brand Assets</h2>
+<div class="asset-grid">
+
+  <a href="../brand/fb-cover.html" class="asset-card">
+    <div class="asset-card-type">Facebook Cover</div>
+    <div class="asset-card-title">Page Cover Photo</div>
+    <div class="asset-card-spec">1640×624px · The Split design · Export → fb-cover.png</div>
+  </a>
+
+  <a href="../brand/yt-banner.html" class="asset-card">
+    <div class="asset-card-type">YouTube Banner</div>
+    <div class="asset-card-title">Channel Banner</div>
+    <div class="asset-card-spec">2560×1440px · Export via script → yt-banner.png</div>
+  </a>
+
+  <a href="../brand/yt-profile.html" class="asset-card">
+    <div class="asset-card-type">YouTube Profile</div>
+    <div class="asset-card-title">CX Monogram — Profile Picture</div>
+    <div class="asset-card-spec">800×800px · Circular crop · Export → yt-profile.png</div>
+  </a>
+
+  <a href="../brand/yt-watermark.html" class="asset-card">
+    <div class="asset-card-type">YouTube Watermark</div>
+    <div class="asset-card-title">In-Video Watermark</div>
+    <div class="asset-card-spec">150×150px · Transparent bg · Export → yt-watermark.png</div>
+  </a>
+
+  <a href="../brand/thumbnail-ep01.html" class="asset-card">
+    <div class="asset-card-type">Thumbnail</div>
+    <div class="asset-card-title">Episode 01 YouTube Thumbnail</div>
+    <div class="asset-card-spec">1280 × 720px · Export via script → PNG</div>
+  </a>
+
+  <a href="../brand/hud-overlay.html" class="asset-card">
+    <div class="asset-card-type">Video Overlay</div>
+    <div class="asset-card-title">Environmental HUD</div>
+    <div class="asset-card-spec">440px widget · Screen blend in Premiere · Day 01 data</div>
+  </a>
+
+  <a href="../brand/shorts-card.html" class="asset-card">
+    <div class="asset-card-type">Shorts Cards · 3 Variants</div>
+    <div class="asset-card-title">Shorts End Cards</div>
+    <div class="asset-card-spec">270×480 preview · 4× export = 1080×1920</div>
+  </a>
+
+  <a href="../brand/brand-sheet.html" class="asset-card">
+    <div class="asset-card-type">Brand Reference</div>
+    <div class="asset-card-title">Brand Sheet</div>
+    <div class="asset-card-spec">Logo · Colors · Type · Voice · PDF export</div>
+  </a>
+
+</div>
+
+<!-- ── SEO & Backlinks ── -->
+<h2>SEO &amp; Backlink Strategy</h2>
+<div class="doc-grid">
+
+  <a href="fb-page-setup.html" class="doc-card">
+    <div class="doc-card-type">Facebook · Page Setup · v1.0</div>
+    <div class="doc-card-title">Facebook Page Setup</div>
+    <div class="doc-card-desc">Page name, handle, category, short description, About copy, cover photo + profile asset refs, 4 content pillars, 8 copy-ready posts in publish order, Groups strategy, full setup checklist. Facebook cannabis policy guidance included.</div>
+    <div class="doc-card-status"><span class="status-chip status-pending">⏳ Ready to execute</span></div>
+  </a>
+
+  <a href="youtube-channel-setup.html" class="doc-card">
+    <div class="doc-card-type">YouTube · Channel Setup · v1.0</div>
+    <div class="doc-card-title">YouTube Channel Setup</div>
+    <div class="doc-card-desc">Handle, description copy, banner brief, profile picture brief, channel keyword string, playlist architecture, search term takeover map (10 terms), first 90-day content calendar, Studio settings checklist.</div>
+    <div class="doc-card-status"><span class="status-chip status-pending">⏳ Ready to execute</span></div>
+  </a>
+
+  <a href="tier1-outreach.html" class="doc-card">
+    <div class="doc-card-type">Outreach · 5 Actions · Send Now</div>
+    <div class="doc-card-title">Tier 1 Outreach Emails</div>
+    <div class="doc-card-desc">Copy-ready emails for VIVOSUN, Reefertilizer, Eutrema, and NYS Cannabis Connect — plus the r/microgrowery Day 01 post. Ordered by send priority. Checklist included.</div>
+    <div class="doc-card-status"><span class="status-chip status-pending">⏳ Ready to send</span></div>
+  </a>
+
+  <a href="backlink-plan.html" class="doc-card">
+    <div class="doc-card-type">Strategy · 4 Tiers · 30+ Targets</div>
+    <div class="doc-card-title">Backlink Acquisition Plan</div>
+    <div class="doc-card-desc">Full four-tier backlink plan: Tier 1 (act now), Tier 2 (content-driven), Tier 3 (clean hydroponics track), Tier 4 (long game). 4-month cadence, outreach templates, content gap pages.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Plan complete</span></div>
+  </a>
+
+</div>
+
+<!-- ── Documentary Production ── -->
+<h2>Documentary Production</h2>
+<div class="doc-grid">
+
+  <a href="ep01-image-brief.html" class="doc-card">
+    <div class="doc-card-type">Image Brief · 62 Shots · AI Ready</div>
+    <div class="doc-card-title">AI Image Generation Brief</div>
+    <div class="doc-card-desc">62 images across 9 categories aligned to the 5-act script. Full 8-week seed-to-harvest arc. Midjourney prompts for every shot. vGrow as main character. Consistency strategy, edit timing guide, generation order.</div>
+    <div class="doc-card-status"><span class="status-chip status-pending">⏳ Ready to generate</span></div>
+  </a>
+
+  <a href="ep01-vo-elevenlabs.html" class="doc-card">
+    <div class="doc-card-type">Voiceover · ElevenLabs · SSML Ready</div>
+    <div class="doc-card-title">Ep01 VO — ElevenLabs Script</div>
+    <div class="doc-card-desc">Full 5-act voiceover script with SSML &lt;break&gt; tags. Raw pasteable blocks for ElevenLabs Projects, one per act. Voice settings (Daniel, Stability 0.40, Style 0.10), workflow, export notes.</div>
+    <div class="doc-card-status"><span class="status-chip status-pending">⏳ Ready to generate</span></div>
+  </a>
+
+  <a href="../brand/stills/still-21-main-title.html" class="doc-card" target="_blank">
+    <div class="doc-card-type">Documentary Stills · 23 Frames · 1920x1080</div>
+    <div class="doc-card-title">Cinematic Stills — Ep01</div>
+    <div class="doc-card-desc">23 HTML-rendered 1920×1080 production frames. Exported to assets/production/exports/ as still-00 through still-22. Covers all key visual moments: opening, complexity montage, enclosure, door-open, VPD, roots, day counters, act cards, main title, close.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Exported to /exports/</span></div>
+  </a>
+
+  <a href="ep01-script.html" class="doc-card">
+    <div class="doc-card-type">Script · 5 Acts · Cinematic</div>
+    <div class="doc-card-title">Ep01 Full Cinematic Script</div>
+    <div class="doc-card-desc">Complete 5-act documentary script with VO, VISUAL, SOUND, DIR, BEAT, RETAIN, and TITLE elements. Loop architecture mapped. Post-production notes for editor.</div>
+    <div class="doc-card-status"><span class="status-chip status-done">✓ Script locked</span></div>
+  </a>
+
+</div>
+
+<!-- ── PNG Export ── -->
+<div class="export-box">
+  <h3>Export Brand Assets to PNG/PDF</h3>
+  <p>The preview server must be running at port 7720. Then run:</p>
+  <code>pip install playwright pillow && playwright install chromium</code><br/><br/>
+  <code>python assets/production/export-assets.py</code>
+  <p>Outputs all files to <code>assets/production/exports/</code> — thumbnail PNG, HUD PNG, 3 Shorts card PNGs at 1080×1920, brand sheet PDF.</p>
+</div>
+
+<!-- ── Go-Live Pipeline ── -->
+<h2>Go-Live Pipeline — Solo Cinematic</h2>
+<div class="pipeline">
+  <div class="pipeline-step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <h4>Read the Cinematic Brief First</h4>
+      <p>ep01-cinematic-brief.html — all 9 skills output, hook selection, title selection, narrative arc, thumbnail concept. This is the strategy layer. Everything downstream follows it.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <h4>Film — Pure B-Roll, No On-Cam</h4>
+      <p>Use ep01-shot-list.html. 34 shots across 5 acts. Priority 1: the door-open shot. VO recorded separately in a dead room. You operate camera. Script is locked before you pick up the camera.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <h4>Get Visual Direction Plan</h4>
+      <p>Run /visual-director on the locked script. Edit the master cut to that plan.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <h4>Cut Shorts from Master</h4>
+      <p>Follow ep01-shorts-plan.html. 7 clips. All timestamps and edit notes already written.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <h4>Export Brand PNGs</h4>
+      <p>Run export-assets.py → thumbnail-ep01.png, hud-overlay.png, shorts-card-a/b/c.png. Already done for EP01.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <h4>Upload Episode</h4>
+      <p>Use ep01-upload-package.html — everything pre-written. Paste title, description, chapters, tags. Upload thumbnail. Set Age-Restricted.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <h4>Update Website</h4>
+      <p>Copy YouTube video ID → replace data-youtube-id in watch/index.html and watch/episode-01.html. Submit sitemap.xml.</p>
+    </div>
+  </div>
+  <div class="pipeline-step">
+    <div class="step-num">8</div>
+    <div class="step-body">
+      <h4>Upload Shorts — Days 1–5</h4>
+      <p>Follow the upload sequence in ep01-shorts-plan.html. Stagger over 5 days to extend discovery window.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Site Links ── -->
+<h2>Live Site Pages</h2>
+<div class="site-links">
+  <a href="../../watch/episode-01.html" class="site-link">
+    <div class="lbl">Episode Page</div>
+    <div class="url">/watch/episode-01.html</div>
+  </a>
+  <a href="../../watch/index.html" class="site-link">
+    <div class="lbl">Series Hub</div>
+    <div class="url">/watch/index.html</div>
+  </a>
+  <a href="../../equipment/vivosun-vgrow-dwc-guide.html" class="site-link">
+    <div class="lbl">Equipment Guide</div>
+    <div class="url">/equipment/vivosun-vgrow-dwc-guide.html</div>
+  </a>
+  <a href="../../learn/craft-cannabis.html" class="site-link">
+    <div class="lbl">Craft Definition</div>
+    <div class="url">/learn/craft-cannabis.html</div>
+  </a>
+</div>
+
+<div class="footer">
+  ColaXpress by CannaHustle · cola-xpress.com · Production Hub v2.0 · Solo System · Episode 01
+</div>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DWC Nutrient Schedule by Stage — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0d0f; --surface:#0e1215; --border:#1a1f24;
+    --text:#e8e4dd; --muted:#5a6370; --accent:#9f3028; --cyan:#38b4c8;
+  }
+  body {
+    width:1200px; height:630px; background:var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif; overflow:hidden;
+    display:grid; grid-template-rows:64px 1fr 48px;
+  }
+  .hdr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px 0 32px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .hdr-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; }
+  .hdr-title em { color:var(--accent); font-style:normal; }
+  .hdr-badge { font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); border:1px solid var(--border); border-radius:3px; padding:2px 7px; margin-left:12px; }
+  .hdr-right { font-size:9.5px; color:var(--muted); letter-spacing:.06em; text-align:right; line-height:1.7; }
+
+  .main { padding:14px 20px; display:flex; flex-direction:column; gap:8px; }
+
+  /* STAGE HEADERS */
+  .stage-headers { display:flex; gap:4px; margin-left:100px; }
+  .sh {
+    flex:1; background:var(--surface); border:1px solid var(--border); border-radius:4px 4px 0 0;
+    padding:6px 8px; text-align:center;
+  }
+  .sh-label { font-size:8px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+  .sh-weeks { font-size:7.5px; color:var(--muted); margin-top:1px; }
+
+  /* DATA TABLE */
+  .table { display:flex; flex-direction:column; gap:3px; }
+  .trow { display:flex; align-items:stretch; gap:4px; }
+  .row-label {
+    width:100px; flex-shrink:0; font-size:8.5px; font-weight:700; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); display:flex; align-items:center;
+    justify-content:flex-end; padding-right:8px; line-height:1.3; text-align:right;
+  }
+  .cell {
+    flex:1; border:1px solid var(--border); border-radius:3px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:5px 6px; text-align:center; position:relative; overflow:hidden;
+  }
+  .cell-val { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:700; line-height:1; }
+  .cell-unit { font-size:7px; color:var(--muted); margin-top:1px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; }
+  /* Bar fill inside cell */
+  .bar-fill {
+    position:absolute; bottom:0; left:0; right:0; border-radius:0 0 3px 3px;
+    opacity:.22; transition:width .3s;
+  }
+
+  /* NPK EMPHASIS ROW */
+  .npk-row .cell { flex-direction:row; gap:4px; justify-content:center; }
+  .npk-dot { width:8px; height:8px; border-radius:50%; }
+  .npk-label { font-size:7.5px; font-weight:700; }
+
+  /* NOTES ROW */
+  .notes-row .cell {
+    font-size:7.5px; color:var(--muted); line-height:1.4;
+    align-items:flex-start; padding:5px 7px; justify-content:flex-start;
+  }
+  .notes-row .cell b { color:var(--text); display:block; margin-bottom:1px; }
+
+  .ftr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--surface); border-top:1px solid var(--border); }
+  .brand { font-size:9.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .brand span { color:var(--accent); }
+  .ftr-note { font-size:8px; color:var(--muted); opacity:.55; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div style="display:flex;align-items:baseline">
+    <div class="hdr-title">DWC <em>Nutrient Schedule</em> by Stage</div>
+    <div class="hdr-badge">pH · EC · PPM</div>
+  </div>
+  <div class="hdr-right">pH target range per stage &nbsp;·&nbsp; EC in mS/cm<br>PPM 500 scale (TDS) &nbsp;·&nbsp; Deep water culture cannabis</div>
+</div>
+
+<div class="main">
+
+  <!-- STAGE HEADERS -->
+  <div class="stage-headers" id="stage-headers"></div>
+
+  <!-- TABLE -->
+  <div class="table" id="table"></div>
+
+</div>
+
+<div class="ftr">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="ftr-note">cola-xpress.com &nbsp;·&nbsp; Always verify with your specific nutrient line &nbsp;·&nbsp; Adjust EC up or down based on plant response</div>
+</div>
+
+<script>
+const stages = [
+  { label:'Seedling', weeks:'Wk 1–2', color:'#38b4c8', bg:'#0b2a34',
+    ph:'5.8–6.0', ec:'0.4–0.8', ppm:'200–400', npk:'low/low/low', note:'Quarter strength\nor plain pH water' },
+  { label:'Early Veg', weeks:'Wk 3–4', color:'#4caf65', bg:'#0b2618',
+    ph:'5.8–6.2', ec:'0.8–1.3', ppm:'400–650', npk:'high/med/med', note:'Ramp up N\nwatch for def' },
+  { label:'Mid–Late Veg', weeks:'Wk 5–7', color:'#3d9f5a', bg:'#0c2820',
+    ph:'5.8–6.2', ec:'1.3–1.8', ppm:'650–900', npk:'high/med/med', note:'Full veg strength\ntraining window' },
+  { label:'Pre-Flower', weeks:'Wk 7–9', color:'#b8a040', bg:'#1c1a06',
+    ph:'5.8–6.2', ec:'1.6–2.0', ppm:'800–1000', npk:'med/high/high', note:'Flip nutrients\nto bloom formula' },
+  { label:'Early Flower', weeks:'Wk 9–12', color:'#e8a830', bg:'#271d06',
+    ph:'5.8–6.2', ec:'1.8–2.3', ppm:'900–1150', npk:'low/high/high', note:'Cut N, push P/K\npeak nute demand' },
+  { label:'Late Flower', weeks:'Wk 12–15', color:'#d07030', bg:'#231408',
+    ph:'5.8–6.2', ec:'1.6–2.0', ppm:'800–1000', npk:'low/med/high', note:'Reduce all\nno new growth nutes' },
+  { label:'Flush', weeks:'Wk 15–16', color:'#9f3028', bg:'#2a0a0a',
+    ph:'5.8–6.0', ec:'0.0–0.4', ppm:'0–200', npk:'—/—/—', note:'pH water only\nclean finish' },
+];
+
+// Build headers
+const hdrs = document.getElementById('stage-headers');
+stages.forEach(s => {
+  hdrs.innerHTML += `<div class="sh" style="border-top:2px solid ${s.color}">
+    <div class="sh-label" style="color:${s.color}">${s.label}</div>
+    <div class="sh-weeks">${s.weeks}</div>
+  </div>`;
+});
+
+// Rows to build
+const rows = [
+  { label:'pH Range', key:'ph', type:'val', unit:'pH', maxVal:6.5, minVal:5.6 },
+  { label:'EC Target', key:'ec', type:'bar', unit:'mS/cm', maxNum:2.5 },
+  { label:'PPM (500)', key:'ppm', type:'bar', unit:'PPM 500 scale', maxNum:1200 },
+  { label:'NPK Focus', key:'npk', type:'npk' },
+  { label:'Stage Note', key:'note', type:'note' },
+];
+
+const tableEl = document.getElementById('table');
+
+rows.forEach(row => {
+  const trow = document.createElement('div');
+  trow.className = `trow${row.type === 'npk' ? ' npk-row' : ''}${row.type === 'note' ? ' notes-row' : ''}`;
+
+  let html = `<div class="row-label">${row.label}</div>`;
+
+  stages.forEach(s => {
+    const val = s[row.key];
+
+    if(row.type === 'val') {
+      html += `<div class="cell" style="background:${s.bg}33">
+        <div class="cell-val" style="color:${s.color}">${val}</div>
+        <div class="cell-unit">${row.unit}</div>
+      </div>`;
+
+    } else if(row.type === 'bar') {
+      const nums = val.split('–').map(n => parseFloat(n.replace(/[^0-9.]/g,'')));
+      const hi = nums[nums.length-1] || 0;
+      const pct = Math.min(100, (hi / row.maxNum) * 100).toFixed(0);
+      html += `<div class="cell" style="background:${s.bg}44">
+        <div class="bar-fill" style="height:${pct}%;background:${s.color}"></div>
+        <div class="cell-val" style="color:${s.color};position:relative">${val}</div>
+        <div class="cell-unit" style="position:relative">${row.unit}</div>
+      </div>`;
+
+    } else if(row.type === 'npk') {
+      const parts = val.split('/');
+      const labels = ['N','P','K'];
+      const colors = ['#4caf65','#e8a830','#c05820'];
+      const sizes = { 'high':12, 'med':8, 'low':5, '—':0 };
+      let inner = '';
+      parts.forEach((p,i) => {
+        const sz = sizes[p.toLowerCase()] || 4;
+        if(sz > 0) inner += `<div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+          <div class="npk-dot" style="background:${colors[i]};width:${sz}px;height:${sz}px"></div>
+          <div class="npk-label" style="color:${colors[i]}">${labels[i]}</div>
+        </div>`;
+        else inner += `<div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+          <div style="width:8px;height:8px;"></div>
+          <div class="npk-label" style="color:var(--muted)">${labels[i]}</div>
+        </div>`;
+      });
+      html += `<div class="cell" style="background:${s.bg}33;gap:6px;height:38px">${inner}</div>`;
+
+    } else if(row.type === 'note') {
+      const lines = val.split('\n');
+      html += `<div class="cell" style="background:var(--surface);">
+        <b>${lines[0]}</b>${lines[1] ? lines[1] : ''}
+      </div>`;
+    }
+  });
+
+  trow.innerHTML = html;
+  tableEl.appendChild(trow);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#030405;overflow:hidden}
+
+/* Room atmosphere — unit as sole light source */
+.atmos{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+  width:800px;height:800px;
+  background:radial-gradient(ellipse at 50% 58%,rgba(56,180,200,0.055) 0%,transparent 58%)}
+
+/* Wall planes */
+.wall-l{position:absolute;left:0;top:0;bottom:0;width:520px;
+  background:linear-gradient(to right,rgba(0,0,0,0.6),transparent)}
+.wall-r{position:absolute;right:0;top:0;bottom:0;width:520px;
+  background:linear-gradient(to left,rgba(0,0,0,0.6),transparent)}
+
+/* Floor */
+.floor-line{position:absolute;bottom:256px;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent 8%,rgba(56,180,200,0.07) 40%,
+    rgba(56,180,200,0.11) 50%,rgba(56,180,200,0.07) 60%,transparent 92%)}
+
+/* Teal floor pool under unit */
+.floor-pool{position:absolute;bottom:256px;left:50%;transform:translateX(-50%);
+  width:350px;height:70px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(56,180,200,0.1) 0%,transparent 68%)}
+
+/* ═══════════════════════════════════════
+   THE vGROW — 18×48 → 222×592px
+   Centered, bottom at y=824 (256+568px floor offset = too much)
+   Let floor be at y=824, unit bottom at y=820
+   top = 820-592 = 228. center = 228+296=524
+   top:228px; left:50%; transform:translateX(-50%)
+   ═══════════════════════════════════════ */
+
+.vgrow{
+  position:absolute;
+  left:50%;top:228px;
+  transform:translateX(-50%);
+  width:222px;height:592px;
+  border-radius:4px;
+  /* Matte black faux-leather: crosshatch + deep gradient */
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.015) 0,rgba(255,255,255,0.015) 1px,
+      transparent 1px,transparent 5px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.015) 0,rgba(255,255,255,0.015) 1px,
+      transparent 1px,transparent 5px),
+    linear-gradient(170deg,#141618 0%,#0f1214 50%,#0c0e11 100%);
+  border:1px solid rgba(56,180,200,0.16);
+}
+
+/* Top cap — vent grille */
+.top-cap{
+  position:absolute;top:0;left:0;right:0;height:36px;
+  background:rgba(0,0,0,0.42);
+  border-bottom:1px solid rgba(56,180,200,0.11);
+  border-radius:4px 4px 0 0;
+  overflow:hidden;
+}
+/* Vent slots */
+.top-cap::after{
+  content:'';position:absolute;
+  left:18px;right:18px;bottom:9px;height:11px;
+  background:repeating-linear-gradient(90deg,
+    rgba(0,0,0,0.88) 0,rgba(0,0,0,0.88) 4px,
+    rgba(255,255,255,0.09) 4px,rgba(255,255,255,0.09) 7px);
+  border-radius:1px;
+}
+
+/* VIVOSUN badge — top left of cap, barely visible */
+.brand{
+  position:absolute;top:13px;left:14px;
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-size:7px;font-weight:800;letter-spacing:0.28em;
+  text-transform:uppercase;color:rgba(255,255,255,0.11)
+}
+
+/* Status LED — green indicator, top right */
+.led{
+  position:absolute;top:14px;right:15px;
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(50,210,80,0.92);
+  box-shadow:0 0 7px 3px rgba(50,210,80,0.48)
+}
+
+/* DOOR — almost full face, subtle texture */
+.door{
+  position:absolute;left:3px;top:36px;right:3px;bottom:48px;
+  border-radius:2px;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.01) 0,rgba(255,255,255,0.01) 1px,
+      transparent 1px,transparent 5px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.01) 0,rgba(255,255,255,0.01) 1px,
+      transparent 1px,transparent 5px),
+    linear-gradient(175deg,#111314 0%,#0d0f12 100%);
+}
+
+/* ─── VIEWING WINDOW — the signature design element ─── */
+.window{
+  position:absolute;
+  left:50%;top:52px;
+  transform:translateX(-50%);
+  width:166px;height:132px;
+  background:linear-gradient(145deg,#030507 0%,#020408 100%);
+  border:1px solid rgba(56,180,200,0.42);
+  border-radius:3px;
+  overflow:hidden;
+}
+/* LED warmth visible inside — top glow */
+.window-topglow{
+  position:absolute;top:0;left:0;right:0;height:32px;
+  background:linear-gradient(to bottom,
+    rgba(255,248,215,0.22) 0%,rgba(255,245,200,0.1) 40%,transparent 100%)
+}
+/* Interior walls reflected — soft silver-white */
+.window-walls{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 20%,
+    rgba(56,180,200,0.08) 0%,transparent 65%)
+}
+/* Plant silhouette — visible through glass */
+.window-plant{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:56px;height:72px;
+  background:radial-gradient(ellipse at 50% 90%,
+    rgba(35,110,35,0.2) 0%,rgba(25,80,30,0.1) 45%,transparent 75%);
+  filter:blur(2.5px)
+}
+/* Magnetic seal glow — teal seam around window edge */
+.window-seal{
+  position:absolute;
+  left:50%;top:52px;
+  transform:translateX(-50%);
+  width:166px;height:132px;
+  border-radius:3px;
+  box-shadow:
+    0 0 20px 6px rgba(56,180,200,0.22),
+    0 0 6px 2px rgba(56,180,200,0.18),
+    inset 0 0 16px rgba(56,180,200,0.07);
+  pointer-events:none
+}
+
+/* Door handle — right edge, vertical bar */
+.handle{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:4px;height:58px;
+  background:rgba(255,255,255,0.08);border-radius:2px;
+  box-shadow:inset 1px 0 2px rgba(255,255,255,0.06)
+}
+
+/* vGrow label — center bottom of door */
+.label{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:0.35em;text-transform:uppercase;
+  color:rgba(255,255,255,0.1);white-space:nowrap
+}
+
+/* Base cap — bottom vent grille */
+.base{
+  position:absolute;bottom:0;left:0;right:0;height:48px;
+  background:rgba(0,0,0,0.45);
+  border-top:1px solid rgba(56,180,200,0.09);
+  border-radius:0 0 4px 4px;
+  overflow:hidden;
+}
+.base::after{
+  content:'';position:absolute;
+  left:18px;right:18px;top:15px;height:11px;
+  background:repeating-linear-gradient(90deg,
+    rgba(0,0,0,0.88) 0,rgba(0,0,0,0.88) 4px,
+    rgba(255,255,255,0.09) 4px,rgba(255,255,255,0.09) 7px);
+  border-radius:1px;
+}
+
+/* Ambient glow — LED pushing through door seams */
+.unit-glow{
+  position:absolute;
+  left:50%;top:228px;
+  transform:translateX(-50%);
+  width:222px;height:592px;
+  border-radius:4px;
+  box-shadow:
+    0 0 60px 20px rgba(56,180,200,0.09),
+    0 0 140px 55px rgba(56,180,200,0.045);
+  pointer-events:none
+}
+
+/* Door center seam — single door, subtle vertical line */
+.door-seam{
+  position:absolute;
+  left:calc(50% + 108px);
+  top:228px;
+  width:1px;height:508px;  /* top:36 to bottom:48 of vgrow */
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    rgba(56,180,200,0.25) 15%,
+    rgba(56,180,200,0.38) 50%,
+    rgba(56,180,200,0.25) 85%,
+    transparent 100%)
+}
+
+/* Vignette */
+.vignette{position:absolute;inset:0;
+  background:radial-gradient(ellipse 62% 72% at 50% 49%,
+    transparent 26%,rgba(0,0,0,0.8) 100%)}
+</style></head>
+<body><div class="canvas">
+  <div class="atmos"></div>
+  <div class="wall-l"></div>
+  <div class="wall-r"></div>
+  <div class="floor-line"></div>
+  <div class="floor-pool"></div>
+  <div class="vgrow">
+    <div class="top-cap"></div>
+    <div class="brand">VIVOSUN</div>
+    <div class="led"></div>
+    <div class="door">
+      <div class="window">
+        <div class="window-topglow"></div>
+        <div class="window-walls"></div>
+        <div class="window-plant"></div>
+      </div>
+      <div class="window-seal"></div>
+      <div class="handle"></div>
+      <div class="label">vGrow</div>
+    </div>
+    <div class="base"></div>
+  </div>
+  <div class="unit-glow"></div>
+  <div class="door-seam"></div>
+  <div class="vignette"></div>
+</div></body></html>

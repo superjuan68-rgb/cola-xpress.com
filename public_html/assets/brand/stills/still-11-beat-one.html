@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#020304;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:40px}
+.glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:600px;height:500px;background:radial-gradient(ellipse at 50% 50%,rgba(56,180,200,0.04) 0%,transparent 65%)}
+.number{font-family:'Cormorant Garamond',Georgia,serif;font-size:280px;font-weight:700;color:rgba(232,228,221,0.9);letter-spacing:-0.04em;line-height:1;text-align:center;position:relative;z-index:2}
+.context{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:600;color:rgba(56,180,200,0.5);letter-spacing:0.12em;text-align:center;position:relative;z-index:2;font-style:italic}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 75% 75% at 50% 50%,transparent 25%,rgba(0,0,0,0.9) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="glow"></div>
+<div class="number">One.</div>
+<div class="context">top-off · sixty days</div>
+<div class="vignette"></div>
+</div></body></html>

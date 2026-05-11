@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Episode 01 — YouTube Upload Package — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 960px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  .doc-header { border-bottom: 1px solid #1e2428; padding-bottom: 32px; margin-bottom: 48px; }
+  .doc-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 14px; }
+  .doc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 38px; font-weight: 700; color: #e8e4dd; line-height: 1.1; margin-bottom: 10px; }
+  .doc-sub { font-size: 13px; color: #5a6370; font-weight: 500; }
+
+  /* ── ALERT ── */
+  .alert {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #9f3028;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #8a9099;
+    margin-bottom: 40px;
+    line-height: 1.65;
+  }
+  .alert strong { color: #e8e4dd; }
+  .alert code { font-family: monospace; background: #151a1e; padding: 2px 6px; border-radius: 2px; color: #38b4c8; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    margin: 48px 0 16px;
+    border-bottom: 1px solid #1a1f24;
+    padding-bottom: 10px;
+  }
+  .section-label { font-size: 9px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 4px; }
+  .section-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e8e4dd;
+  }
+
+  /* ── FIELD LABEL ── */
+  .field-label {
+    display: block;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+
+  /* ── COPY BLOCKS ── */
+  .copy-block {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-radius: 3px;
+    padding: 20px 24px;
+    font-size: 13.5px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+    color: #c0bbb4;
+  }
+  .copy-block strong { color: #e8e4dd; font-weight: 700; }
+
+  .char-count {
+    font-size: 11px;
+    color: #5a6370;
+    margin-bottom: 16px;
+    font-family: monospace;
+  }
+
+  /* ── TITLE COMPARISON TABLE ── */
+  .title-compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .title-compare th {
+    background: #0e1215;
+    color: #5a6370;
+    padding: 7px 14px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a1f24;
+  }
+  .title-compare td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #111518;
+    vertical-align: top;
+    color: #c0bbb4;
+    line-height: 1.55;
+  }
+  .title-compare tr.selected td { background: rgba(159,48,40,0.06); }
+  .title-compare .title-text { color: #e8e4dd; font-weight: 600; }
+  .badge-selected {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    background: rgba(159,48,40,0.3);
+    border: 1px solid rgba(159,48,40,0.6);
+    color: #ff8070;
+    border-radius: 2px;
+    margin-left: 8px;
+  }
+
+  /* ── TAG GRID ── */
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .tag {
+    padding: 4px 10px;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    color: #8a9099;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .tag.primary { background: rgba(159,48,40,0.15); border-color: rgba(159,48,40,0.4); color: #e8804a; }
+
+  /* ── CHAPTERS BLOCK ── */
+  .chapters {
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 2.1;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-radius: 3px;
+    padding: 18px 22px;
+    margin-bottom: 8px;
+    white-space: pre;
+    color: #c0bbb4;
+  }
+
+  /* ── TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-bottom: 24px;
+  }
+  th {
+    background: #0e1215;
+    color: #5a6370;
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a1f24;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #111518;
+    vertical-align: top;
+    color: #c0bbb4;
+    line-height: 1.55;
+  }
+  td strong { color: #e8e4dd; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin-bottom: 24px; }
+  .checklist li {
+    padding: 9px 12px;
+    border-bottom: 1px solid #111518;
+    font-size: 13px;
+    color: #8a9099;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .checklist li::before { content: '☐'; font-size: 15px; color: #9f3028; flex-shrink: 0; margin-top: -1px; }
+
+  /* ── THUMBNAIL BRIEF ── */
+  .thumbnail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 24px;
+  }
+  .thumb-card {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 20px;
+  }
+  .thumb-card.selected { border-color: rgba(159,48,40,0.5); }
+  .thumb-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 10px;
+  }
+  .thumb-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #e8e4dd;
+    margin-bottom: 10px;
+  }
+  .thumb-desc {
+    font-size: 12px;
+    color: #8a9099;
+    line-height: 1.6;
+  }
+  .thumb-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #c8a840;
+    margin-top: 10px;
+    font-family: monospace;
+  }
+
+  .rule { height: 1px; background: #1a1f24; margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress Grow Series · Episode 01 · Upload Package · v2.0 — Cinematic Reframe</div>
+  <div class="doc-title">YouTube Upload Package<br>Episode 01</div>
+  <div class="doc-sub">Copy-paste ready · Title · Description · Chapters · Tags · Thumbnail brief · Cards · Checklist</div>
+</div>
+
+<div class="alert">
+  <strong>Before uploading:</strong> Replace <code>data-youtube-id</code> in <code>watch/index.html</code> and <code>watch/episode-01.html</code> with the actual YouTube video ID once published. The placeholder value controls the embedded player on the site. Also verify all cola-xpress.com links are live before publishing.
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Video Title</div>
+  <div class="section-name">Selected Title + Alternates</div>
+</div>
+
+<table class="title-compare">
+  <thead><tr><th>Title</th><th>Chars</th><th>Strategy</th></tr></thead>
+  <tbody>
+    <tr class="selected">
+      <td class="title-text">The End of Complicated Cannabis Growing <span class="badge-selected">Selected</span></td>
+      <td>39</td>
+      <td>Manifesto tone. Targets "complicated cannabis growing" intent. Luxury register — no volume, no specs. The statement is the hook. Short enough to read fully in mobile search.</td>
+    </tr>
+    <tr>
+      <td class="title-text">The Machine Quietly Changing Home Growing</td>
+      <td>42</td>
+      <td>Intrigue-forward. "Quietly" carries the luxury register. "Machine" creates object curiosity. Alt if primary underperforms after 2 weeks.</td>
+    </tr>
+    <tr>
+      <td class="title-text">I Let a Machine Grow Cannabis for 60 Days. Here's the Truth.</td>
+      <td>61</td>
+      <td>More YouTube-native. Higher CTR potential in cold audience. Lower brand register. Test as A/B option if channel has no existing audience yet.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">YouTube Description</div>
+  <div class="section-name">Full Description — Copy-Paste Ready</div>
+</div>
+
+<span class="field-label">Complete description — paste into YouTube description field exactly as written below</span>
+<div class="copy-block">Growing became complicated.
+
+Not all at once. Gradually. The pH pen. The 2 AM alerts. The eight bottles of nutrients that were supposed to simplify things. A hobby that quietly became a second job.
+
+This is a different story.
+
+The vGrow is a sealed environment — integrated LED, climate control, one plant, one focus. Over sixty days, I documented what it actually produces. Not the setup. Not the specs. The result.
+
+The craft question — whether automation removes the art of growing — gets answered at the end.
+
+━━━━━━━━━━━━━━━━━━━━━━
+CHAPTERS
+━━━━━━━━━━━━━━━━━━━━━━
+0:00 The Weight
+3:30 The Idea
+6:30 The Reveal
+10:30 The Evidence
+14:30 The Manifesto
+
+━━━━━━━━━━━━━━━━━━━━━━
+FULL DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━
+Every stage of this grow is documented at cola-xpress.com — VPD charts, DWC nutrient schedules, trichome harvest guide, drying and curing protocols. Free. No sign-up.
+
+→ https://cola-xpress.com
+
+VPD chart for cannabis by stage:
+→ https://cola-xpress.com/grow/vpd-chart-cannabis.html
+
+DWC nutrient schedule:
+→ https://cola-xpress.com/grow/dwc-nutrient-schedule.html
+
+Trichome stages — when to harvest:
+→ https://cola-xpress.com/learn/trichome-stages-chart.html
+
+━━━━━━━━━━━━━━━━━━━━━━
+EQUIPMENT
+━━━━━━━━━━━━━━━━━━━━━━
+VIVOSUN vGrow Smart Grow Cabinet
+VIVOSUN DWC Hydroponics System
+Apera Instruments pH meter
+General Hydroponics Flora Series
+Rapid Rooter plugs
+
+Full equipment list with links:
+→ https://cola-xpress.com/equipment/index.html
+
+━━━━━━━━━━━━━━━━━━━━━━
+ABOUT
+━━━━━━━━━━━━━━━━━━━━━━
+ColaXpress documents small-space, craft-quality cannabis cultivation. The standard isn't maximum yield — it's the jar you open six weeks after harvest.
+
+#cannabis #homegrow #DWC #craftcannabis #vivosun #vgrow #growyourown #hydroponics #cannabisgrowing</div>
+<div class="char-count">~1,480 characters · Chapters at 0:00 trigger YouTube auto-chapter markers · All links verified before publishing</div>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Chapter Timestamps</div>
+  <div class="section-name">5-Act Structure — Align to Edit</div>
+</div>
+
+<span class="field-label">Paste these into the description — YouTube generates chapter markers automatically</span>
+<div class="chapters">0:00 The Weight
+3:30 The Idea
+6:30 The Reveal
+10:30 The Evidence
+14:30 The Manifesto</div>
+<div class="char-count">Chapter timestamps must begin at 0:00 for YouTube to recognize them. Adjust other timestamps to match actual edited runtime — these are script targets, not guarantees.</div>
+
+<div class="alert" style="margin-top:16px;">
+  <strong>Runtime note:</strong> Script targets 12–17 minutes. If the edit runs shorter, compress chapter timestamps proportionally. Chapter names are fixed — the act titles are the brand language. Do not substitute "Introduction" or "Setup" for the act names.
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Thumbnail</div>
+  <div class="section-name">Concept 01: "The Split" — Selected Direction</div>
+</div>
+
+<div class="thumbnail-grid">
+  <div class="thumb-card selected">
+    <div class="thumb-label">Concept 01 — Selected</div>
+    <div class="thumb-title">The Split</div>
+    <div class="thumb-desc">
+      Left half of frame: the cluttered complexity — tent corner, ducting tape, nutrient bottles, dim and harsh. Right half: the vGrow enclosure in the living room, teal glow, clean. A literal split-screen contrast. The two worlds side by side.
+    </div>
+    <div class="thumb-text">Overlay text: "THE END OF COMPLICATED"</div>
+    <div class="thumb-desc" style="margin-top:10px;">
+      Text treatment: Cormorant Garamond, white, lowercase in actual display — large and centered across both halves. No subtext. The image plus headline is the complete argument.
+    </div>
+  </div>
+  <div class="thumb-card">
+    <div class="thumb-label">Concept 02 — Alternate</div>
+    <div class="thumb-title">The Door</div>
+    <div class="thumb-desc">
+      The enclosure door, partially open. Teal LED light spilling out into a dark room. The plant just visible inside. Centered, minimal. The mystery of what's inside is the hook.
+    </div>
+    <div class="thumb-text">Overlay text: "60 DAYS. NO 2AM CHECKS."</div>
+    <div class="thumb-desc" style="margin-top:10px;">
+      Use if Concept 01 underperforms after 2 weeks. This concept leans harder on curiosity — "what's inside" rather than "here's the contrast."
+    </div>
+  </div>
+</div>
+
+<span class="field-label">Thumbnail Specs</span>
+<div class="copy-block">Size: 1280 × 720 px
+Format: PNG or JPG (PNG preferred for text sharpness)
+File: thumbnail-ep01.png
+Export from: thumbnail-ep01.html at 2× → downscale to 1280×720
+
+Color palette: Left half desaturated + harsh warm tone. Right half near-black + #38b4c8 teal accent.
+Text: Cormorant Garamond 700, white, all caps, centered across full width.
+No border. No gradient. No bright colors beyond the teal glow.</div>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Tags</div>
+  <div class="section-name">Primary + Supporting Keywords</div>
+</div>
+
+<div class="tag-grid">
+  <span class="tag primary">craft cannabis</span>
+  <span class="tag primary">end of complicated growing</span>
+  <span class="tag primary">cannabis automation</span>
+  <span class="tag primary">VIVOSUN vGrow</span>
+  <span class="tag primary">DWC cannabis</span>
+  <span class="tag primary">home grow cabinet</span>
+  <span class="tag">deep water culture cannabis</span>
+  <span class="tag">cannabis grow documentary</span>
+  <span class="tag">small space cannabis grow</span>
+  <span class="tag">cannabis grow series</span>
+  <span class="tag">VPD cannabis</span>
+  <span class="tag">vapor pressure deficit</span>
+  <span class="tag">hydroponic cannabis</span>
+  <span class="tag">grow your own cannabis</span>
+  <span class="tag">cannabis seedling</span>
+  <span class="tag">VIVOSUN DWC</span>
+  <span class="tag">cannabis grow cabinet</span>
+  <span class="tag">cannabis curing</span>
+  <span class="tag">trichome harvest</span>
+  <span class="tag">ColaXpress</span>
+  <span class="tag">CannaHustle</span>
+  <span class="tag">cannabis quality</span>
+  <span class="tag">cannabis luxury grow</span>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Upload Settings</div>
+  <div class="section-name">Platform Configuration</div>
+</div>
+
+<table>
+  <thead><tr><th>Setting</th><th>Value</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Visibility</strong></td><td>Unlisted → Public</td><td>Upload unlisted, verify thumbnail, chapters, and all links render correctly, then switch to Public</td></tr>
+    <tr><td><strong>Category</strong></td><td>Howto &amp; Style</td><td>Better search visibility than Entertainment for this content type</td></tr>
+    <tr><td><strong>Language</strong></td><td>English</td><td></td></tr>
+    <tr><td><strong>Caption/Subtitles</strong></td><td>Auto + corrected .srt</td><td>Upload corrected .srt within 48–72 hours after auto-captions generate. The VO is quiet and measured — auto-captions will make errors on technical terms (VPD, kPa, EC).</td></tr>
+    <tr><td><strong>Thumbnail</strong></td><td>thumbnail-ep01.png</td><td>Concept 01 "The Split." Upload custom thumbnail immediately — do not use auto-generated frame.</td></tr>
+    <tr><td><strong>Playlist</strong></td><td>ColaXpress Grow Series</td><td>Create playlist if not yet done. Set playlist to Public.</td></tr>
+    <tr><td><strong>Premiere</strong></td><td>Optional</td><td>Schedule premiere if audience exists — creates live-chat event and increases initial engagement. Skip if channel is new.</td></tr>
+    <tr><td><strong>Age restriction</strong></td><td>Yes — restrict to 18+</td><td>Required for cannabis content. Apply immediately.</td></tr>
+    <tr><td><strong>Paid promotion</strong></td><td>No</td><td>Unless direct brand arrangement with VIVOSUN exists</td></tr>
+    <tr><td><strong>Comments</strong></td><td>On — hold potentially inappropriate</td><td></td></tr>
+  </tbody>
+</table>
+
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">In-Video Cards</div>
+  <div class="section-name">Timed Cards by Act</div>
+</div>
+
+<table>
+  <thead><tr><th>Timestamp</th><th>Act</th><th>Card Type</th><th>Target</th><th>Teaser Text</th></tr></thead>
+  <tbody>
+    <tr><td>6:30</td><td>The Reveal</td><td>Link</td><td>cola-xpress.com/grow/vpd-chart-cannabis.html</td><td>"VPD chart"</td></tr>
+    <tr><td>10:30</td><td>The Evidence</td><td>Link</td><td>cola-xpress.com/grow/dwc-nutrient-schedule.html</td><td>"DWC schedule"</td></tr>
+    <tr><td>14:30</td><td>The Manifesto</td><td>Playlist</td><td>ColaXpress Grow Series playlist</td><td>"Full series"</td></tr>
+    <tr><td>16:00</td><td>Act V close</td><td>Subscribe</td><td>Channel</td><td>"Day 08 is next"</td></tr>
+  </tbody>
+</table>
+
+<div class="rule"></div>
+
+<!-- ══════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Post-Publish</div>
+  <div class="section-name">Checklist After Going Live</div>
+</div>
+
+<ul class="checklist">
+  <li>Video published and visible at correct URL — confirm thumbnail, title, description all render correctly</li>
+  <li>Copy YouTube video ID (11-character string from URL after "v=")</li>
+  <li>Update <code>data-youtube-id</code> in <strong>watch/index.html</strong> and <strong>watch/episode-01.html</strong> with actual ID</li>
+  <li>Update <strong>sitemap.xml</strong> lastmod date for watch/episode-01.html to publish date</li>
+  <li>Pin a comment: <em>"Full documentation at cola-xpress.com — VPD charts, DWC guides, curing protocols. Free."</em></li>
+  <li>Add video to ColaXpress Grow Series playlist and confirm playlist is Public</li>
+  <li>Share watch/episode-01.html URL (not direct YouTube URL) in any social posts — drives site traffic</li>
+  <li>Upload Shorts clips within 48 hours — see ep01-shorts-plan.html for extraction plan</li>
+  <li>Submit sitemap.xml to Google Search Console after all site updates are live</li>
+  <li>Upload corrected .srt subtitle file within 72 hours — prioritize VPD, kPa, EC, DWC terminology corrections</li>
+</ul>
+
+<div class="rule"></div>
+
+<div class="section-header">
+  <div class="section-label">Site Update</div>
+  <div class="section-name">One Change Required After Publishing</div>
+</div>
+
+<div class="alert">
+  After publishing, update one value in two files.<br><br>
+  In both <code>watch/index.html</code> and <code>watch/episode-01.html</code>, find:<br>
+  <code>data-youtube-id="_-AS5DtDeqs"</code><br><br>
+  Replace <code>_-AS5DtDeqs</code> with the actual YouTube video ID from the published URL.<br>
+  If URL is <strong>youtube.com/watch?v=dQw4w9WgXcQ</strong>, the ID is <strong>dQw4w9WgXcQ</strong>.<br><br>
+  That's the only change. The video facade and embed update automatically.
+</div>
+
+</body>
+</html>

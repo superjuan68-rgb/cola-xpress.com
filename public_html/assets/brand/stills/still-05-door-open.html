@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#020304;overflow:hidden}
+
+/* ═══════════════════════════════════════════════════
+   THE vGROW — DOOR OPEN
+   Unit body: shell without door face
+   Door: single panel, hinged left, swung 90°+ to the right
+   Interior: brilliant white reflective cavity
+   LED: Samsung LM301H EVO bar at top — warm white
+   Plant: inside, net cup at bottom
+   Light: floods forward onto floor and walls
+   ═══════════════════════════════════════════════════ */
+
+/* Unit is centered. Interior cavity is the hero. */
+/* vGrow shell: left side, top cap, bottom base visible as dark frame */
+
+/* Interior cavity dimensions — 18" inside = 200px wide, 516px tall */
+/* Unit outer: 222px wide × 592px tall, positioned with bottom at y=820 */
+/* top = 228, left = 50%−111px = 849px */
+
+/* LIGHT SPILL — radiating forward from the open unit */
+.spill-wide{
+  position:absolute;
+  left:50%;top:228px;
+  transform:translateX(-50%);
+  width:1200px;height:700px;
+  background:radial-gradient(ellipse 60% 85% at 50% 45%,
+    rgba(255,248,220,0.08) 0%,
+    rgba(56,180,200,0.06) 25%,
+    rgba(56,180,200,0.03) 45%,
+    transparent 65%);
+  pointer-events:none
+}
+.spill-floor{
+  position:absolute;bottom:0;
+  left:50%;transform:translateX(-50%);
+  width:900px;height:380px;
+  background:radial-gradient(ellipse 70% 100% at 50% 0%,
+    rgba(255,248,220,0.1) 0%,
+    rgba(56,180,200,0.08) 20%,
+    rgba(56,180,200,0.04) 45%,
+    transparent 70%);
+  pointer-events:none
+}
+
+/* ── UNIT SHELL ── */
+/* Left side panel */
+.shell-left{
+  position:absolute;
+  left:calc(50% - 111px);top:228px;
+  width:11px;height:592px;
+  background:linear-gradient(to right,#111416,#0d1012);
+  border-left:1px solid rgba(56,180,200,0.15);
+  border-top:1px solid rgba(56,180,200,0.15);
+  border-bottom:1px solid rgba(56,180,200,0.1);
+}
+/* Top cap */
+.shell-top{
+  position:absolute;
+  left:calc(50% - 111px);top:228px;
+  width:222px;height:36px;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.85) 0,rgba(0,0,0,0.85) 4px,
+      rgba(255,255,255,0.09) 4px,rgba(255,255,255,0.09) 7px),
+    rgba(0,0,0,0.5);
+  border:1px solid rgba(56,180,200,0.14);
+  border-bottom:none;
+}
+/* Bottom base */
+.shell-bottom{
+  position:absolute;
+  left:calc(50% - 111px);bottom:260px;
+  width:222px;height:48px;
+  background:
+    rgba(0,0,0,0.48);
+  border:1px solid rgba(56,180,200,0.1);
+  border-top:none;
+}
+.shell-bottom::after{
+  content:'';position:absolute;
+  left:18px;right:18px;top:15px;height:11px;
+  background:repeating-linear-gradient(90deg,
+    rgba(0,0,0,0.85) 0,rgba(0,0,0,0.85) 4px,
+    rgba(255,255,255,0.08) 4px,rgba(255,255,255,0.08) 7px);
+}
+
+/* ── INTERIOR CAVITY — the reveal ── */
+.interior{
+  position:absolute;
+  left:calc(50% - 100px);top:264px;
+  width:200px;height:516px;
+  /* Highly reflective white/silver interior walls */
+  background:linear-gradient(to bottom,
+    #f5f5ef 0%,
+    #ededE5 8%,
+    #e4e8e4 25%,
+    #dce4e8 50%,
+    #d0dce4 75%,
+    #c8d4dc 100%);
+  border-left:1px solid rgba(255,255,255,0.4);
+  border-right:1px solid rgba(255,255,255,0.2);
+  overflow:hidden;
+}
+
+/* Interior back wall reflection — bright center column */
+.int-reflection{
+  position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);
+  width:120px;
+  background:linear-gradient(to right,transparent,rgba(255,255,255,0.18) 50%,transparent);
+}
+
+/* ── SAMSUNG LM301H EVO LED BAR ── */
+/* Two LED strips, horizontal, at top of interior */
+.led-pcb{
+  position:absolute;left:10px;right:10px;top:14px;height:22px;
+  background:#e0e0d8;
+  border-radius:2px;
+  border:1px solid rgba(180,180,160,0.6);
+  overflow:hidden;
+}
+/* Individual LED chips — warm white dots */
+.led-pcb::before{
+  content:'';position:absolute;
+  left:6px;right:6px;top:4px;height:6px;
+  background:repeating-linear-gradient(90deg,
+    rgba(255,250,230,0.95) 0,rgba(255,250,230,0.95) 5px,
+    rgba(220,215,200,0.7) 5px,rgba(220,215,200,0.7) 7px,
+    rgba(255,250,230,0.95) 7px,rgba(255,250,230,0.95) 12px,
+    rgba(220,215,200,0.7) 12px,rgba(220,215,200,0.7) 14px);
+  border-radius:1px;
+}
+.led-pcb::after{
+  content:'';position:absolute;
+  left:6px;right:6px;bottom:4px;height:6px;
+  background:repeating-linear-gradient(90deg,
+    rgba(255,250,230,0.9) 0,rgba(255,250,230,0.9) 5px,
+    rgba(220,215,200,0.65) 5px,rgba(220,215,200,0.65) 7px,
+    rgba(255,250,230,0.9) 7px,rgba(255,250,230,0.9) 12px,
+    rgba(220,215,200,0.65) 12px,rgba(220,215,200,0.65) 14px);
+  border-radius:1px;
+}
+
+/* LED light output — strong downward warm flood */
+.led-light{
+  position:absolute;top:36px;left:0;right:0;height:180px;
+  background:linear-gradient(to bottom,
+    rgba(255,248,215,0.85) 0%,
+    rgba(255,245,205,0.5) 15%,
+    rgba(255,242,200,0.22) 40%,
+    rgba(255,240,195,0.08) 65%,
+    transparent 100%);
+  mix-blend-mode:screen;
+}
+/* Ambient fill — interior walls lit from above */
+.led-ambient{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 10%,
+    rgba(255,248,215,0.35) 0%,
+    rgba(255,245,210,0.12) 35%,
+    transparent 65%);
+}
+
+/* ── DWC NET CUP AT BOTTOM ── */
+.net-cup-holder{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:160px;height:80px;
+  background:linear-gradient(to bottom,#c8d0d8,#b8c0c8);
+  /* Reservoir lid / top deck */
+}
+/* Net cup insert */
+.net-cup{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:68px;height:68px;
+  background:linear-gradient(to bottom,#2a2e34,#1e2228);
+  border-radius:4px 4px 6px 6px;
+  overflow:hidden;
+}
+/* Net cup holes */
+.net-cup::before{
+  content:'';position:absolute;
+  left:8px;right:8px;bottom:8px;height:30px;
+  background:repeating-linear-gradient(90deg,
+    transparent 0,transparent 6px,
+    rgba(0,0,0,0.6) 6px,rgba(0,0,0,0.6) 9px);
+}
+/* Grow medium (perlite/hydroton) visible in net cup */
+.medium{
+  position:absolute;top:6px;left:6px;right:6px;height:24px;
+  background:radial-gradient(ellipse at 50% 50%,#5a4830,#3a3020);
+  border-radius:2px;
+}
+/* Stem emerging from medium */
+.stem{
+  position:absolute;bottom:60px;left:50%;transform:translateX(-50%);
+  width:4px;height:180px;
+  background:linear-gradient(to top,rgba(40,80,30,0.8),rgba(50,100,40,0.6));
+}
+/* Canopy */
+.canopy{
+  position:absolute;bottom:240px;left:50%;transform:translateX(-50%);
+  width:130px;height:110px;
+  background:radial-gradient(ellipse at 50% 60%,
+    rgba(45,110,40,0.55) 0%,
+    rgba(35,90,35,0.35) 35%,
+    rgba(25,70,30,0.15) 65%,
+    transparent 85%);
+  filter:blur(1px);
+}
+.canopy-top{
+  position:absolute;bottom:340px;left:50%;transform:translateX(-50%);
+  width:90px;height:70px;
+  background:radial-gradient(ellipse at 50% 60%,
+    rgba(50,120,45,0.45) 0%,
+    rgba(35,95,35,0.2) 55%,
+    transparent 80%);
+  filter:blur(1px);
+}
+
+/* Reservoir water shimmer — faint at bottom of cup */
+.water{
+  position:absolute;bottom:0;left:0;right:0;height:8px;
+  background:rgba(56,180,200,0.25);
+}
+
+/* ── DOOR — swung open to the RIGHT ── */
+/* Hinged at right edge of unit (x=960+111=1071), door swings right */
+/* In 3D: rotateY(-80deg) around right edge of interior */
+.door{
+  position:absolute;
+  /* door left edge at unit right interior edge */
+  left:calc(50% + 100px);
+  top:264px;
+  width:218px;height:516px;
+  transform-origin:left center;
+  transform:perspective(1100px) rotateY(78deg);
+  /* Matte black exterior facing away */
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.014) 0,rgba(255,255,255,0.014) 1px,
+      transparent 1px,transparent 5px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.014) 0,rgba(255,255,255,0.014) 1px,
+      transparent 1px,transparent 5px),
+    linear-gradient(175deg,#111416 0%,#0d1012 100%);
+  border:1px solid rgba(56,180,200,0.18);
+}
+/* Viewing window on the door — foreshortened */
+.door-window{
+  position:absolute;left:50%;top:55px;transform:translateX(-50%);
+  width:160px;height:125px;
+  background:linear-gradient(150deg,#030507,#020408);
+  border:1px solid rgba(56,180,200,0.35);
+  border-radius:2px;
+}
+/* Handle on door edge */
+.door-handle{
+  position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:4px;height:56px;
+  background:rgba(255,255,255,0.1);border-radius:2px;
+}
+/* Door inner face — teal edge from interior light hitting it */
+.door::after{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:rgba(56,180,200,0.5);filter:blur(2px);
+}
+
+/* ── AMBIENT GLOW from interior ── */
+.interior-glow{
+  position:absolute;
+  left:calc(50% - 100px);top:264px;
+  width:200px;height:516px;
+  box-shadow:
+    -40px 0 80px 30px rgba(255,248,215,0.12),
+    0 0 100px 40px rgba(56,180,200,0.1),
+    0 80px 120px 40px rgba(56,180,200,0.08);
+  pointer-events:none
+}
+
+/* Wall darks */
+.wall-l{position:absolute;left:0;top:0;bottom:0;width:480px;
+  background:linear-gradient(to right,rgba(0,0,0,0.55),transparent)}
+.wall-r{position:absolute;right:0;top:0;bottom:0;width:350px;
+  background:linear-gradient(to left,rgba(0,0,0,0.6),transparent)}
+
+/* Floor line */
+.floor-line{
+  position:absolute;bottom:256px;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent 5%,
+    rgba(255,248,215,0.12) 35%,rgba(255,248,215,0.18) 50%,
+    rgba(255,248,215,0.12) 65%,transparent 95%)}
+
+/* Vignette */
+.vignette{position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 50% 52%,
+    transparent 22%,rgba(0,0,0,0.72) 100%)}
+</style></head>
+<body><div class="canvas">
+  <div class="spill-wide"></div>
+  <div class="spill-floor"></div>
+
+  <!-- Unit shell frame -->
+  <div class="shell-top"></div>
+  <div class="shell-left"></div>
+  <div class="shell-bottom"></div>
+
+  <!-- Interior cavity -->
+  <div class="interior">
+    <div class="int-reflection"></div>
+    <div class="led-pcb"></div>
+    <div class="led-light"></div>
+    <div class="led-ambient"></div>
+    <div class="canopy-top"></div>
+    <div class="canopy"></div>
+    <div class="stem"></div>
+    <div class="net-cup-holder">
+      <div class="net-cup">
+        <div class="medium"></div>
+        <div class="water"></div>
+      </div>
+    </div>
+  </div>
+  <div class="interior-glow"></div>
+
+  <!-- Door swung open right -->
+  <div class="door">
+    <div class="door-window"></div>
+    <div class="door-handle"></div>
+  </div>
+
+  <div class="wall-l"></div>
+  <div class="wall-r"></div>
+  <div class="floor-line"></div>
+  <div class="vignette"></div>
+</div></body></html>

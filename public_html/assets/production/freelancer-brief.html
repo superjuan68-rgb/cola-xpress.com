@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Freelancer Brief — EP01 — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Manrope', sans-serif; background: #f5f5f2; color: #151515; padding: 60px 40px; max-width: 960px; margin: 0 auto; line-height: 1.6; }
+  .doc-header { border-bottom: 3px solid #9f3028; padding-bottom: 24px; margin-bottom: 40px; }
+  .doc-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; margin-bottom: 6px; }
+  .doc-meta { font-size: 11px; font-weight: 700; color: #9f3028; letter-spacing: 0.18em; text-transform: uppercase; }
+  .role-tabs { display: flex; gap: 0; margin-bottom: 40px; border: 1px solid rgba(21,21,21,0.15); border-radius: 4px; overflow: hidden; }
+  .role-tab { flex: 1; padding: 14px 20px; font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; background: rgba(21,21,21,0.04); color: rgba(21,21,21,0.5); border-right: 1px solid rgba(21,21,21,0.12); }
+  .role-tab:last-child { border-right: none; }
+  .role-tab.active { background: #9f3028; color: #fff; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(21,21,21,0.1); }
+  h3 { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #9f3028; margin: 28px 0 10px; }
+  .role-section {
+    background: #fff;
+    border: 1px solid rgba(21,21,21,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .role-header {
+    background: #151515;
+    color: #fff;
+    padding: 14px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .role-header h3 { color: #fff; margin: 0; font-size: 14px; letter-spacing: 0.08em; }
+  .role-header .role-label { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #9f3028; }
+  .role-body { padding: 22px; }
+  p { font-size: 13px; line-height: 1.75; color: rgba(21,21,21,0.75); margin-bottom: 14px; }
+  ul { padding-left: 20px; font-size: 13px; line-height: 2; color: rgba(21,21,21,0.75); margin-bottom: 14px; }
+  li { margin-bottom: 2px; }
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .spec-item { padding: 10px 14px; background: rgba(21,21,21,0.03); border-radius: 3px; }
+  .spec-item .key { font-size: 9px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(21,21,21,0.4); margin-bottom: 3px; }
+  .spec-item .val { font-size: 13px; font-weight: 700; color: #151515; }
+  .deliverable-list { list-style: none; padding: 0; }
+  .deliverable-list li { padding: 9px 14px; border-bottom: 1px solid rgba(21,21,21,0.07); display: flex; gap: 12px; align-items: flex-start; font-size: 13px; }
+  .deliverable-list li::before { content: '→'; color: #9f3028; font-weight: 800; flex-shrink: 0; }
+  .alert { background: rgba(159,48,40,0.07); border-left: 3px solid #9f3028; padding: 14px 16px; font-size: 13px; color: rgba(21,21,21,0.7); margin: 16px 0; line-height: 1.7; }
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0 20px; }
+  .do-block { background: rgba(56,200,80,0.07); border-left: 3px solid rgba(56,200,80,0.6); padding: 14px 16px; border-radius: 0 3px 3px 0; }
+  .dont-block { background: rgba(159,48,40,0.07); border-left: 3px solid #9f3028; padding: 14px 16px; border-radius: 0 3px 3px 0; }
+  .do-block h4, .dont-block h4 { font-size: 9px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 8px; }
+  .do-block h4 { color: rgba(56,200,80,0.8); }
+  .dont-block h4 { color: #9f3028; }
+  .do-block ul, .dont-block ul { padding-left: 16px; font-size: 12px; line-height: 1.9; color: rgba(21,21,21,0.65); }
+  .section-divider { height: 2px; background: rgba(21,21,21,0.08); margin: 48px 0; }
+  .file-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+  .file-table th { background: #151515; color: #fff; padding: 8px 12px; text-align: left; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .file-table td { padding: 9px 12px; border-bottom: 1px solid rgba(21,21,21,0.08); }
+  .file-table code { font-family: monospace; font-size: 12px; background: rgba(21,21,21,0.06); padding: 2px 6px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-meta">ColaXpress · Episode 01 · Freelancer Brief · 3 Roles</div>
+  <h1>Freelancer Brief<br/>Episode 01</h1>
+  <div class="doc-meta" style="margin-top:6px;color:rgba(21,21,21,0.4);">Editor · Shorts Clipper · Scriptwriter (future episodes)</div>
+</div>
+
+<div class="role-tabs">
+  <div class="role-tab active">Editor</div>
+  <div class="role-tab">Shorts Clipper</div>
+  <div class="role-tab">Scriptwriter</div>
+</div>
+
+<div class="alert">
+  <strong>Brand overview for all roles:</strong> ColaXpress is a craft cannabis cultivation media brand. The tone is cinematic, precise, and serious — think high-end spirits documentary meets technical journal. No stoner aesthetics. No fast-cut content farming. The audience is knowledgeable. Treat them that way.
+</div>
+
+<!-- ══════════════════════════════════ -->
+<div class="section-divider"></div>
+<div class="role-section">
+  <div class="role-header">
+    <div>
+      <div class="role-label">Role 01</div>
+      <h3>Video Editor — Episode 01 Master Cut</h3>
+    </div>
+  </div>
+  <div class="role-body">
+
+    <h3>What You're Editing</h3>
+    <p>A 18–24 minute YouTube documentary episode about a Day 01 cannabis grow setup using the VIVOSUN vGrow DWC cabinet. The episode follows a 5-act structure with on-camera segments, B-roll sequences, and VO narration. Reference ep01-script.html for the full script and scene-by-scene breakdown.</p>
+
+    <h3>Deliverable Specs</h3>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Format</div><div class="val">MP4, H.264, 4K or 1080p</div></div>
+      <div class="spec-item"><div class="key">Frame Rate</div><div class="val">24fps</div></div>
+      <div class="spec-item"><div class="key">Aspect Ratio</div><div class="val">16:9 (1920×1080 or 3840×2160)</div></div>
+      <div class="spec-item"><div class="key">Audio</div><div class="val">Stereo, -14 LUFS (YouTube standard)</div></div>
+      <div class="spec-item"><div class="key">Color Space</div><div class="val">Rec.709</div></div>
+      <div class="spec-item"><div class="key">Captions</div><div class="val">.SRT file delivered separately</div></div>
+    </div>
+
+    <h3>Files You'll Receive</h3>
+    <table class="file-table">
+      <thead><tr><th>File</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>CX_EP01_ONCAM.mp4</code></td><td>All on-camera footage, labeled by scene number</td></tr>
+        <tr><td><code>CX_EP01_BROLL/</code></td><td>Folder: all B-roll clips labeled by shot number (see shot list)</td></tr>
+        <tr><td><code>hud-overlay.png</code></td><td>HUD data overlay — composite at Screen or Normal @ 90%</td></tr>
+        <tr><td><code>thumbnail-ep01.png</code></td><td>YouTube thumbnail — do not modify, upload as-is</td></tr>
+        <tr><td><code>ep01-script.html</code></td><td>Full script with scene-by-scene direction</td></tr>
+        <tr><td><code>ep01-shot-list.html</code></td><td>Shot list with timecodes and editing notes</td></tr>
+        <tr><td><code>brand-sheet.html</code></td><td>Type, color, and overlay specs</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Color Grade Direction</h3>
+    <p>Dark, cool-neutral base. The teal LED from the vGrow cabinet is the practical key color — let it influence the grade, don't correct it out. Skin tones warm but not orange. Shadows lifted slightly — not crushed black. Deep blacks in cabinet shots are intentional. Reference: high-end spirits or coffee documentary grade. NOT bright/saturated YouTube creator aesthetic.</p>
+
+    <h3>Music Direction</h3>
+    <p>Minimal electronic or ambient. Slow, deliberate, infrastructure-feeling. NOT: trap, hip-hop, stoner music, upbeat anything. Suggested search on Epidemic Sound: "dark minimal", "subtle tension", "cinematic ambient". Music should support the silence — not fill it.</p>
+
+    <h3>Text Overlay / Lower Thirds</h3>
+    <ul>
+      <li>Font: Manrope (display), Cormorant Garamond (quotes/headlines)</li>
+      <li>Color: White (#ffffff) on dark backgrounds, accent red (#9f3028) for emphasis</li>
+      <li>Data labels: white, letter-spaced caps, small (Manrope 700)</li>
+      <li>HUD overlay: composite from hud-overlay.png, position bottom-left, Screen mode ~90% opacity</li>
+      <li>Chapter title cards: black full-frame, Cormorant Garamond white, cut to black hold for 0.5s</li>
+    </ul>
+
+    <h3>Pacing Notes</h3>
+    <div class="do-dont">
+      <div class="do-block">
+        <h4>Do This</h4>
+        <ul>
+          <li>Hold long silences on the cabinet</li>
+          <li>Let the bubble/hum ambient audio breathe</li>
+          <li>Slow cuts in B-roll sequences</li>
+          <li>Match cut on hands (cold open → Act 3)</li>
+          <li>Pause after key philosophical lines</li>
+          <li>Build to the tension point in Act 3 slowly</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <h4>Do Not Do This</h4>
+        <ul>
+          <li>Fast cuts, jump cuts in VO segments</li>
+          <li>Add music over the silence beats</li>
+          <li>Cut away from the cabinet before the VO finishes</li>
+          <li>Use any brightness/saturation LUT preset</li>
+          <li>Add intro bumpers, outros with channel music</li>
+          <li>Speed ramp any footage</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Deliverables</h3>
+    <ul class="deliverable-list">
+      <li>Master cut: CX_EP01_MASTER.mp4 (full episode, 18–24 min)</li>
+      <li>Proxy/web cut: CX_EP01_WEB.mp4 (same edit, compressed for web review)</li>
+      <li>.SRT captions file (auto-generated + corrected for cannabis terminology)</li>
+      <li>Project file (.prproj or .drp) delivered in case of revisions</li>
+      <li>Thumbnail: thumbnail-ep01.png (delivered by brand team — just confirm it's correct)</li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<div class="section-divider"></div>
+<div class="role-section">
+  <div class="role-header">
+    <div>
+      <div class="role-label">Role 02</div>
+      <h3>Shorts Clipper — 7 Clips from Episode 01</h3>
+    </div>
+  </div>
+  <div class="role-body">
+
+    <h3>What You're Cutting</h3>
+    <p>7 vertical Shorts clips extracted from the master episode. Each clip has a specific in/out timestamp, hook text overlay, and branded end card (pre-designed). Reference ep01-shorts-plan.html for full specs on all 7 clips.</p>
+
+    <h3>Deliverable Specs</h3>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Format</div><div class="val">MP4, H.264</div></div>
+      <div class="spec-item"><div class="key">Resolution</div><div class="val">1080×1920 (vertical)</div></div>
+      <div class="spec-item"><div class="key">Frame Rate</div><div class="val">24fps or 30fps</div></div>
+      <div class="spec-item"><div class="key">Crop</div><div class="val">Center crop from 16:9 master</div></div>
+      <div class="spec-item"><div class="key">Audio</div><div class="val">-14 LUFS, stereo</div></div>
+      <div class="spec-item"><div class="key">Duration</div><div class="val">30–60s each (max 60s)</div></div>
+    </div>
+
+    <h3>For Each Clip You'll Add</h3>
+    <ul>
+      <li><strong>Hook text overlay:</strong> First 3 seconds — hook line in large white text, Manrope bold, centered, over black frame or darkened footage. Exact text specified per clip in the shorts plan.</li>
+      <li><strong>Lower-third data bar</strong> (data clips only): Spec in shorts plan per clip</li>
+      <li><strong>Branded end card:</strong> Pre-designed Shorts card PNG (shorts-card.png) — each clip specifies which variant (A, B, or C). Hold end card for 3 seconds at end of clip.</li>
+      <li><strong>Brand bug:</strong> ColaXpress logo bug bottom-left throughout (small, not distracting)</li>
+    </ul>
+
+    <h3>What You Will NOT Do</h3>
+    <ul>
+      <li>Add royalty-free music independently — ask if uncertain</li>
+      <li>Add subtitles/captions (handled by YouTube auto-captions for Shorts)</li>
+      <li>Reorder the clips or change the planned in/out points without asking</li>
+      <li>Use any bright colors, emojis, or non-brand fonts</li>
+      <li>Add engagement bait text ("WATCH TO THE END", arrows, etc.)</li>
+    </ul>
+
+    <h3>Deliverables</h3>
+    <ul class="deliverable-list">
+      <li>CX_EP01_SHORT_01.mp4 through CX_EP01_SHORT_07.mp4</li>
+      <li>All clips in a single delivery folder labeled CX_EP01_SHORTS/</li>
+      <li>Naming must match exactly — these get uploaded in sequence order</li>
+    </ul>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ -->
+<div class="section-divider"></div>
+<div class="role-section">
+  <div class="role-header">
+    <div>
+      <div class="role-label">Role 03</div>
+      <h3>Scriptwriter — Episodes 02–07 (Future)</h3>
+    </div>
+  </div>
+  <div class="role-body">
+
+    <h3>Series Arc Overview</h3>
+    <p>ColaXpress Grow Series documents a full cannabis grow from seed to cured jar using the VIVOSUN vGrow DWC setup. Episode 01 (scripted by brand team) establishes the tone, question, and characters. Episodes 02–07 follow the same format — each anchored to a grow stage with a specific craft-relevant question.</p>
+
+    <h3>Episode Arc (Reference)</h3>
+    <div style="font-size:13px;line-height:2;background:rgba(21,21,21,0.04);padding:16px 20px;border-radius:4px;margin-bottom:16px;">
+      <strong>EP 01</strong> — Day 01 · Seedling · "Can automation produce craft cannabis?" ✓ (completed)<br/>
+      <strong>EP 02</strong> — Day 08 · First roots into reservoir · "Does the plant know it's in a machine?"<br/>
+      <strong>EP 03</strong> — Day 21 · Early veg · LST training begins · "Where does craft happen in a cabinet?"<br/>
+      <strong>EP 04</strong> — Day 35 · Pre-flower transition · "What VPD looks like when the plant changes"<br/>
+      <strong>EP 05</strong> — Day 50 · Full flower · "The decision the automation can't make: when to flush"<br/>
+      <strong>EP 06</strong> — Harvest day · Trichome evaluation · "The harvest is not the finish line"<br/>
+      <strong>EP 07</strong> — 6 weeks post-harvest · Opening the jar · "Did the automation produce craft?"<br/>
+    </div>
+
+    <h3>Voice and Tone Requirements</h3>
+    <div class="do-dont">
+      <div class="do-block">
+        <h4>Write Like This</h4>
+        <ul>
+          <li>Precise language — name the metric, give the number</li>
+          <li>Short declarative sentences in on-cam segments</li>
+          <li>Longer, slower sentences in VO (they breathe on screen)</li>
+          <li>Questions that have real tension — no rhetorical filler</li>
+          <li>Respect the audience's intelligence — no over-explaining</li>
+          <li>Craft = attention, not a product descriptor</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <h4>Never Write This</h4>
+        <ul>
+          <li>"Hey guys" / "What's up everyone"</li>
+          <li>"Smash that subscribe button"</li>
+          <li>Stoner slang, weed jokes, pun-based headers</li>
+          <li>Hype language ("INSANE results", "you won't believe")</li>
+          <li>Filler content that isn't about craft or the grow</li>
+          <li>Any content that treats cannabis as recreational only</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Script Format</h3>
+    <p>Match the format in ep01-script.html exactly. Each scene tagged: ON CAM / VO / B-ROLL / DIRECTION. Act structure with timecode targets. Editor notes at the end. Delivered as HTML using the provided template — brand team will handle all visual production of the document.</p>
+
+    <h3>Research Required Per Episode</h3>
+    <ul>
+      <li>Actual grow data for that stage (provided by brand team from the real grow journal)</li>
+      <li>VPD target for the specific growth stage</li>
+      <li>One primary craft-relevant concept to explain (e.g., flush timing, trichome maturity, cure science)</li>
+      <li>One tension point (something that could go wrong at this stage)</li>
+      <li>Bridge to next episode — tease the next question</li>
+    </ul>
+
+  </div>
+</div>
+
+</body>
+</html>

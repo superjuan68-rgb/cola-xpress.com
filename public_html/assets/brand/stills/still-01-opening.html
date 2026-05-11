@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#030406;overflow:hidden}
+/* Far edge teal — the enclosure exists just off frame left */
+.glow-left{position:absolute;left:-200px;top:50%;transform:translateY(-50%);width:700px;height:900px;background:radial-gradient(ellipse at 28% 50%,rgba(56,180,200,0.22) 0%,rgba(56,180,200,0.09) 30%,rgba(20,70,110,0.04) 58%,transparent 74%)}
+.glow-floor{position:absolute;bottom:-80px;left:0;width:600px;height:300px;background:radial-gradient(ellipse at 20% 80%,rgba(56,180,200,0.06) 0%,transparent 60%)}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 95% 95% at 50% 50%,transparent 20%,rgba(0,0,0,0.82) 100%)}
+/* Very thin teal sliver — the door seam */
+.seam{position:absolute;left:18px;top:18%;height:64%;width:1.5px;background:linear-gradient(to bottom,transparent,rgba(56,180,200,0.6) 20%,rgba(56,180,200,0.75) 50%,rgba(56,180,200,0.6) 80%,transparent);filter:blur(0.5px)}
+</style></head>
+<body><div class="canvas">
+<div class="glow-left"></div>
+<div class="glow-floor"></div>
+<div class="seam"></div>
+<div class="vignette"></div>
+</div></body></html>

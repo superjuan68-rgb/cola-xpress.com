@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VPD Cannabis Chart by Stage — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:       #0a0d0f;
+    --surface:  #0e1215;
+    --border:   #1a1f24;
+    --text:     #e8e4dd;
+    --muted:    #5a6370;
+    --accent:   #9f3028;
+    --cyan:     #38b4c8;
+  }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', system-ui, sans-serif;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 68px 1fr 50px;
+  }
+
+  /* ── HEADER ─────────────────────────────────────── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px 0 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .h-left { display: flex; align-items: baseline; gap: 14px; }
+  .h-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .h-title em { color: var(--accent); font-style: normal; }
+  .h-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 7px;
+  }
+  .h-right {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* ── MAIN ────────────────────────────────────────── */
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 336px;
+    overflow: hidden;
+  }
+
+  /* LEFT: grid panel */
+  .grid-panel {
+    padding: 18px 20px 18px 28px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+  .grid-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+  .canvas-wrap {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+  canvas#vpd { display: block; }
+
+  /* RIGHT: stage cards */
+  .stages-panel {
+    padding: 14px 18px 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .stage-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 13px 10px 13px;
+    flex-shrink: 0;
+  }
+  .stage-card.s { border-left-color: #38b4c8; }
+  .stage-card.v { border-left-color: #4caf65; }
+  .stage-card.f { border-left-color: #e8a830; }
+
+  .sc-stage {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .stage-card.s .sc-stage { color: #38b4c8; }
+  .stage-card.v .sc-stage { color: #4caf65; }
+  .stage-card.f .sc-stage { color: #e8a830; }
+
+  .sc-vpd {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+    letter-spacing: -0.01em;
+  }
+  .sc-vpd sub {
+    font-family: 'Manrope', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    vertical-align: baseline;
+    margin-left: 3px;
+  }
+
+  .sc-targets {
+    display: flex;
+    gap: 14px;
+  }
+  .sc-t {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .sc-t b {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .sc-note {
+    font-size: 8.5px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  /* Legend */
+  .legend {
+    border-top: 1px solid var(--border);
+    padding-top: 9px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 8px;
+    margin-top: auto;
+  }
+  .lg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8.5px;
+    color: var(--muted);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .lg-swatch {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────── */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .brand {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .brand span { color: var(--accent); }
+  .footer-meta {
+    font-size: 8.5px;
+    color: var(--muted);
+    opacity: 0.55;
+    letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="h-left">
+    <div class="h-title">VPD <em>Cannabis</em> Chart by Stage</div>
+    <div class="h-badge">kPa Reference</div>
+  </div>
+  <div class="h-right">
+    Vapor Pressure Deficit &nbsp;=&nbsp; SVP &times; (1 &minus; RH / 100)<br>
+    Leaf temp assumed equal to air temp
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: canvas grid -->
+  <div class="grid-panel">
+    <div class="grid-label">Temperature (°C) vs Relative Humidity (%) &mdash; each cell shows VPD in kPa</div>
+    <div class="canvas-wrap">
+      <canvas id="vpd"></canvas>
+    </div>
+  </div>
+
+  <!-- RIGHT: stage cards + legend -->
+  <div class="stages-panel">
+
+    <div class="stage-card s">
+      <div class="sc-stage">Seedling / Clone</div>
+      <div class="sc-vpd">0.4 &ndash; 0.8 <sub>kPa</sub></div>
+      <div class="sc-targets">
+        <div class="sc-t"><b>Temp</b> 20&ndash;25&deg;C</div>
+        <div class="sc-t"><b>RH</b> 70&ndash;85%</div>
+      </div>
+    </div>
+
+    <div class="stage-card v">
+      <div class="sc-stage">Vegetative</div>
+      <div class="sc-vpd">0.8 &ndash; 1.2 <sub>kPa</sub></div>
+      <div class="sc-targets">
+        <div class="sc-t"><b>Temp</b> 22&ndash;28&deg;C</div>
+        <div class="sc-t"><b>RH</b> 55&ndash;70%</div>
+      </div>
+    </div>
+
+    <div class="stage-card f">
+      <div class="sc-stage">Flowering</div>
+      <div class="sc-vpd">1.0 &ndash; 1.6 <sub>kPa</sub></div>
+      <div class="sc-targets">
+        <div class="sc-t"><b>Temp</b> 20&ndash;27&deg;C</div>
+        <div class="sc-t"><b>RH</b> 45&ndash;60%</div>
+      </div>
+      <div class="sc-note">Late / ripening: push 1.5&ndash;2.0 kPa &mdash; drop RH to 40&ndash;50%</div>
+    </div>
+
+    <div class="legend">
+      <div class="lg-item"><div class="lg-swatch" style="background:#0b2a34"></div>Seedling</div>
+      <div class="lg-item"><div class="lg-swatch" style="background:#0b2618"></div>Vegetative</div>
+      <div class="lg-item"><div class="lg-swatch" style="background:#271d06"></div>Flowering</div>
+      <div class="lg-item"><div class="lg-swatch" style="background:#270808"></div>Too high (&gt;2.0)</div>
+      <div class="lg-item"><div class="lg-swatch" style="background:#0a1520"></div>Too low (&lt;0.4)</div>
+      <div class="lg-item"><div class="lg-swatch" style="background:#1a1f24; border:1px solid #2a3040"></div>Transition</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="footer-meta">cola-xpress.com &nbsp;&middot;&nbsp; Phase 2 Visual Asset &nbsp;&middot;&nbsp; CC0 / Educational Use</div>
+</footer>
+
+<script>
+(function () {
+  // ── VPD math ──────────────────────────────────────────
+  function svp(t) {
+    return 0.6108 * Math.exp(17.27 * t / (t + 237.3));
+  }
+  function calcVpd(t, rh) {
+    return svp(t) * (1 - rh / 100);
+  }
+
+  // ── Zone → style ──────────────────────────────────────
+  function zone(v) {
+    if (v < 0.4)  return { bg: '#0a1520', txt: '#1c3648', zone: 'low' };
+    if (v <= 0.8) return { bg: '#0b2a34', txt: '#38b4c8', zone: 'seedling' };
+    if (v <= 1.2) return { bg: '#0b2618', txt: '#4caf65', zone: 'veg' };
+    if (v <= 2.0) return { bg: '#271d06', txt: '#e8a830', zone: 'flower' };
+    return           { bg: '#270808', txt: '#c04040', zone: 'high' };
+  }
+
+  // ── Grid params ───────────────────────────────────────
+  const temps = [18, 20, 22, 24, 26, 28, 30];          // 7 cols
+  const rhs   = [90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40]; // 11 rows
+
+  const CELL_W  = 96;
+  const CELL_H  = 38;
+  const PAD_L   = 38;   // room for RH label
+  const PAD_B   = 26;   // room for temp label
+
+  const CW = PAD_L + temps.length * CELL_W;   // 38 + 672 = 710
+  const CH = rhs.length * CELL_H + PAD_B;     // 418 + 26 = 444
+
+  const canvas = document.getElementById('vpd');
+  canvas.width  = CW;
+  canvas.height = CH;
+
+  const ctx = canvas.getContext('2d');
+
+  // Font setup (inline — no external needed for canvas)
+  ctx.textRendering = 'optimizeLegibility';
+
+  // ── Draw cells ────────────────────────────────────────
+  rhs.forEach(function (rh, row) {
+    temps.forEach(function (temp, col) {
+      var v   = calcVpd(temp, rh);
+      var z   = zone(v);
+      var x   = PAD_L + col * CELL_W;
+      var y   = row * CELL_H;
+
+      // Background
+      ctx.fillStyle = z.bg;
+      ctx.fillRect(x, y, CELL_W, CELL_H);
+
+      // Subtle border
+      ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+      ctx.lineWidth   = 1;
+      ctx.strokeRect(x + 0.5, y + 0.5, CELL_W - 1, CELL_H - 1);
+
+      // VPD value
+      ctx.fillStyle    = z.txt;
+      ctx.font         = '600 11px Manrope, system-ui, sans-serif';
+      ctx.textAlign    = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(v.toFixed(2), x + CELL_W / 2, y + CELL_H / 2);
+    });
+  });
+
+  // ── RH axis labels (left) ─────────────────────────────
+  ctx.fillStyle    = '#5a6370';
+  ctx.font         = '500 9px Manrope, system-ui, sans-serif';
+  ctx.textAlign    = 'right';
+  ctx.textBaseline = 'middle';
+  rhs.forEach(function (rh, row) {
+    ctx.fillText(rh + '%', PAD_L - 6, row * CELL_H + CELL_H / 2);
+  });
+
+  // ── Temp axis labels (bottom) ─────────────────────────
+  var labelY = rhs.length * CELL_H + 9;
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'top';
+  temps.forEach(function (temp, col) {
+    ctx.fillText(temp + '°C', PAD_L + col * CELL_W + CELL_W / 2, labelY);
+  });
+
+  // ── Stage zone highlight overlays (top border lines) ──
+  // Draw a subtle top-border glow for seedling, veg, flower columns to hint at temp sweet spots
+  // We'll skip this for clarity and let colors speak for themselves.
+
+  // ── Separator after last cell ─────────────────────────
+  ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+  ctx.lineWidth   = 1;
+  // bottom edge of grid
+  ctx.beginPath();
+  ctx.moveTo(PAD_L, rhs.length * CELL_H);
+  ctx.lineTo(CW, rhs.length * CELL_H);
+  ctx.stroke();
+  // right edge
+  ctx.beginPath();
+  ctx.moveTo(CW, 0);
+  ctx.lineTo(CW, rhs.length * CELL_H);
+  ctx.stroke();
+
+  // ── "RH" rotated y-axis label ─────────────────────────
+  ctx.save();
+  ctx.translate(9, (rhs.length * CELL_H) / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle    = '#3a4550';
+  ctx.font         = '600 8px Manrope, system-ui, sans-serif';
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('HUMIDITY  RH', 0, 0);
+  ctx.restore();
+
+}());
+</script>
+</body>
+</html>

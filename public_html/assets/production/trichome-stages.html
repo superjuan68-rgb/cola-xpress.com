@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Trichome Stages Cannabis Chart — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0d0f; --surface:#0e1215; --border:#1a1f24;
+    --text:#e8e4dd; --muted:#5a6370; --accent:#9f3028;
+    --c1:#2a4870; --c2:#e8e8ff; --c3:#d4b060; --c4:#9f3028;
+  }
+  body {
+    width:1200px; height:630px; background:var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif; overflow:hidden;
+    display:grid; grid-template-rows:64px 1fr 48px;
+  }
+  .hdr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px 0 32px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .hdr-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; }
+  .hdr-title em { color:var(--accent); font-style:normal; }
+  .hdr-right { font-size:9.5px; color:var(--muted); letter-spacing:.06em; text-align:right; line-height:1.7; }
+
+  .main { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; padding:14px 20px; }
+
+  .stage-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:6px; padding:14px 14px 12px; display:flex; flex-direction:column;
+    position:relative; overflow:hidden;
+  }
+  .stage-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  }
+  .card-1::before { background:#4a8fcc; }
+  .card-2::before { background:#c8c8e8; }
+  .card-3::before { background:#d4b060; }
+  .card-4::before { background:#c04040; }
+
+  /* Trichome visual */
+  .trichome-visual {
+    height:90px; display:flex; align-items:flex-end; justify-content:center;
+    gap:6px; margin-bottom:10px; padding:8px 0 0;
+  }
+  .trich {
+    display:flex; flex-direction:column; align-items:center; gap:0;
+  }
+  .trich-head {
+    border-radius:50%; flex-shrink:0;
+  }
+  .trich-stalk {
+    width:2px; flex-shrink:0;
+    background:rgba(255,255,255,0.12);
+  }
+
+  .stage-num {
+    font-size:8px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .card-1 .stage-num { color:#4a8fcc; }
+  .card-2 .stage-num { color:#c8c8e8; }
+  .card-3 .stage-num { color:#d4b060; }
+  .card-4 .stage-num { color:#c04040; }
+
+  .stage-name {
+    font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700;
+    line-height:1; margin-bottom:6px;
+  }
+  .stage-timing {
+    font-size:8.5px; color:var(--muted); margin-bottom:8px; font-weight:500;
+  }
+  .stage-desc {
+    font-size:9px; color:var(--muted); line-height:1.5; margin-bottom:8px; flex:1;
+  }
+  .harvest-rec {
+    padding:6px 8px; border-radius:4px; font-size:8.5px; font-weight:700;
+    letter-spacing:.06em; text-align:center; margin-top:auto;
+  }
+  .card-1 .harvest-rec { background:#0d1e32; color:#4a8fcc; }
+  .card-2 .harvest-rec { background:#1a1a2a; color:#c8c8e8; }
+  .card-3 .harvest-rec { background:#221b06; color:#d4b060; }
+  .card-4 .harvest-rec { background:#220808; color:#c04040; }
+
+  .effect-pills { display:flex; flex-wrap:wrap; gap:3px; margin-bottom:8px; }
+  .pill {
+    font-size:7.5px; font-weight:600; letter-spacing:.06em; padding:2px 6px;
+    border-radius:10px; border:1px solid;
+  }
+  .card-1 .pill { border-color:#4a8fcc44; color:#4a8fcc; background:#0d1e3233; }
+  .card-2 .pill { border-color:#c8c8e844; color:#c8c8e8; background:#1a1a2a33; }
+  .card-3 .pill { border-color:#d4b06044; color:#d4b060; background:#221b0633; }
+  .card-4 .pill { border-color:#c0404044; color:#c04040; background:#22080833; }
+
+  .ftr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--surface); border-top:1px solid var(--border); }
+  .brand { font-size:9.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .brand span { color:var(--accent); }
+  .ftr-note { font-size:8px; color:var(--muted); opacity:.55; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title"><em>Trichome</em> Development Stages — When to Harvest</div>
+  </div>
+  <div class="hdr-right">
+    Visual guide to trichome color under a loupe or microscope<br>
+    Use a 60–100x jeweler's loupe or USB microscope to inspect calyxes
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- STAGE 1: CLEAR -->
+  <div class="stage-card card-1">
+    <div class="trichome-visual" id="tv1"></div>
+    <div class="stage-num">Stage 01</div>
+    <div class="stage-name">Clear</div>
+    <div class="stage-timing">Early–mid flower &nbsp;·&nbsp; Wk 8–11</div>
+    <div class="stage-desc">Trichomes are fully transparent. Capitate-stalked heads just forming. THC and other cannabinoids are still synthesizing — essentially zero potency. Plant is still putting on mass.</div>
+    <div class="effect-pills"><span class="pill">Immature</span><span class="pill">No potency</span></div>
+    <div class="harvest-rec">Too early — do not harvest</div>
+  </div>
+
+  <!-- STAGE 2: CLOUDY / MILKY -->
+  <div class="stage-card card-2">
+    <div class="trichome-visual" id="tv2"></div>
+    <div class="stage-num">Stage 02</div>
+    <div class="stage-name">Cloudy / Milky</div>
+    <div class="stage-timing">Late flower &nbsp;·&nbsp; Wk 11–14</div>
+    <div class="stage-desc">Trichome heads turn opaque white-milky. THC is at its highest concentration. Harvest now for a more cerebral, energetic, uplifting effect. Most sativa-leaning growers aim here.</div>
+    <div class="effect-pills"><span class="pill">Peak THC</span><span class="pill">Uplifting</span><span class="pill">Cerebral</span></div>
+    <div class="harvest-rec">Prime window — harvest for energetic effect</div>
+  </div>
+
+  <!-- STAGE 3: MIXED CLOUDY + AMBER -->
+  <div class="stage-card card-3">
+    <div class="trichome-visual" id="tv3"></div>
+    <div class="stage-num">Stage 03</div>
+    <div class="stage-name">Cloudy + Amber</div>
+    <div class="stage-timing">Ripening &nbsp;·&nbsp; Wk 13–16</div>
+    <div class="stage-desc">Mix of milky and amber heads — typically 70-80% cloudy, 20-30% amber. THC beginning to convert to CBN. Balanced effect: cerebral high with body relaxation. Most popular harvest window for indica-dominant grows.</div>
+    <div class="effect-pills"><span class="pill">Balanced</span><span class="pill">Relaxing</span><span class="pill">Full spectrum</span></div>
+    <div class="harvest-rec">Peak full-spectrum — most popular window</div>
+  </div>
+
+  <!-- STAGE 4: MOSTLY AMBER -->
+  <div class="stage-card card-4">
+    <div class="trichome-visual" id="tv4"></div>
+    <div class="stage-num">Stage 04</div>
+    <div class="stage-name">Mostly Amber</div>
+    <div class="stage-timing">Over-ripe &nbsp;·&nbsp; Wk 15+</div>
+    <div class="stage-desc">50%+ amber trichomes. THC has heavily degraded to CBN. Sedative, couch-lock effect. Smell may become hay-like. Bud is past peak potency but prized for sleep or pain applications.</div>
+    <div class="effect-pills"><span class="pill">Sedative</span><span class="pill">High CBN</span><span class="pill">Past peak</span></div>
+    <div class="harvest-rec">Harvest now — potency declining</div>
+  </div>
+
+</div>
+
+<div class="ftr">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="ftr-note">cola-xpress.com &nbsp;·&nbsp; Inspect trichomes on sugar leaves AND calyxes &nbsp;·&nbsp; Calyxes trail by 1–2 weeks</div>
+</div>
+
+<script>
+// Draw trichome visuals using canvas inside each div
+const configs = [
+  // [headColor, stalkColor, headOpacity, stalks]
+  { heads:'rgba(100,180,230,0.4)', stalk:'rgba(100,180,230,0.15)', headSize:10, n:9 },  // clear
+  { heads:'rgba(230,230,255,0.85)', stalk:'rgba(200,200,230,0.2)', headSize:10, n:9 },  // cloudy
+  { heads:'mixed', stalk:'rgba(200,180,80,0.2)', headSize:10, n:9 },  // mixed
+  { heads:'rgba(200,80,40,0.9)', stalk:'rgba(180,60,30,0.2)', headSize:10, n:9 },  // amber
+];
+
+['tv1','tv2','tv3','tv4'].forEach((id, idx) => {
+  const el = document.getElementById(id);
+  const cfg = configs[idx];
+  const stalks = [32,26,36,28,34,30,38,25,32];
+  const headSizes = [10,9,11,8,10,9,12,8,10];
+
+  let html = '';
+  for(let i=0;i<9;i++) {
+    const stalkH = stalks[i];
+    const hSize  = headSizes[i];
+    let hColor;
+    if(cfg.heads === 'mixed') {
+      hColor = (i % 3 === 0) ? 'rgba(200,160,50,0.9)' : 'rgba(230,230,255,0.85)';
+    } else {
+      hColor = cfg.heads;
+    }
+    html += `<div class="trich">
+      <div class="trich-head" style="width:${hSize}px;height:${hSize}px;background:${hColor};"></div>
+      <div class="trich-stalk" style="height:${stalkH}px;background:${cfg.stalk};"></div>
+    </div>`;
+  }
+  el.innerHTML = html;
+});
+</script>
+</body>
+</html>

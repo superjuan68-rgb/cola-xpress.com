@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Brand Sheet — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    /* WEB palette */
+    --ink: #151515;
+    --bg: #f5f5f2;
+    --accent: #9f3028;
+    --accent-strong: #701f1a;
+    --accent-soft: rgba(159,48,40,0.09);
+    --muted: #5d5c57;
+    --subtle: #8a8881;
+    --line: rgba(21,21,21,0.1);
+    --surface: #ffffff;
+
+    /* VIDEO / DARK palette */
+    --dark-bg: #060608;
+    --dark-surface: #0d1014;
+    --cyan: #38b4c8;
+    --cyan-dim: rgba(56,180,200,0.5);
+    --plant: rgba(56,200,80,0.85);
+    --warn: rgba(240,180,40,0.9);
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 56px 40px;
+  }
+
+  .sheet-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .sheet-sub {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section {
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--accent-soft);
+  }
+
+  /* ── LOGO ── */
+  .logo-row {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .logo-variant {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .logo-label {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* Light logo */
+  .logo-light {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .logo-mark {
+    width: 38px; height: 38px;
+    border-radius: 7px;
+    background: var(--accent);
+    display: grid; place-items: center;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    font-family: 'Manrope', sans-serif;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Dark logo */
+  .logo-dark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    background: var(--dark-bg);
+  }
+
+  .logo-mark-dark {
+    width: 38px; height: 38px;
+    border-radius: 7px;
+    background: var(--accent);
+    display: grid; place-items: center;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    font-family: 'Manrope', sans-serif;
+    flex-shrink: 0;
+  }
+
+  .logo-wordmark-dark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .logo-sub-dark {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ── COLOUR ── */
+  .color-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .color-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 120px;
+  }
+
+  .color-swatch {
+    height: 72px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .color-name { font-weight: 800; font-size: 12px; color: var(--ink); }
+  .color-hex  { font-size: 11px; color: var(--muted); font-family: 'Manrope', monospace; }
+  .color-role { font-size: 10px; color: var(--subtle); }
+
+  /* ── TYPOGRAPHY ── */
+  .type-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .type-block {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .type-meta {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .type-sample-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .type-sample-serif-sm {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .type-usage {
+    font-size: 10px;
+    color: var(--subtle);
+    line-height: 1.6;
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+    margin-top: 4px;
+  }
+
+  .type-sample-sans-xl { font-size: 28px; font-weight: 800; color: var(--ink); line-height: 1; margin-bottom: 6px; }
+  .type-sample-sans-lg { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 6px; }
+  .type-sample-sans    { font-size: 14px; font-weight: 500; color: var(--muted); line-height: 1.7; margin-bottom: 6px; }
+  .type-sample-cap     { font-size: 10px; font-weight: 800; color: var(--accent); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px; }
+
+  /* ── VOICE ── */
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .voice-card {
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .voice-card-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .voice-list {
+    list-style: none;
+    display: grid;
+    gap: 6px;
+  }
+
+  .voice-list li {
+    font-size: 12px;
+    color: var(--ink);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .voice-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .voice-bad li::before { background: var(--line); }
+  .voice-bad li { color: var(--muted); text-decoration: line-through; }
+
+  /* ── THUMBNAIL ANATOMY ── */
+  .anatomy-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .anatomy-card {
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .anatomy-card-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .anatomy-list {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+
+  .anatomy-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink);
+    align-items: flex-start;
+  }
+
+  .anatomy-num {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 9px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+  }
+
+  /* ── CTA LANGUAGE ── */
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cta-card {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+  }
+
+  .cta-context {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .cta-good {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cta-bad {
+    font-size: 11px;
+    color: var(--subtle);
+    text-decoration: line-through;
+    line-height: 1.5;
+  }
+
+  /* ── SERIES CARD ── */
+  .series-card {
+    padding: 28px;
+    border-radius: 8px;
+    background: var(--dark-bg);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .series-glow-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 40% 40%, rgba(56,180,200,0.3) 0%, rgba(56,180,200,0.08) 60%, transparent 80%);
+    border: 1px solid rgba(56,180,200,0.2);
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: rgba(56,180,200,0.8);
+    letter-spacing: 0.1em;
+    font-family: 'Manrope', monospace;
+  }
+
+  .series-copy-headline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .series-copy-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .series-url {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(56,180,200,0.7);
+    text-align: right;
+    line-height: 1.5;
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="sheet-title">ColaXpress</div>
+  <div class="sheet-sub">Brand Reference Sheet · by CannaHustle · v1.0 · May 2026</div>
+
+  <!-- LOGO -->
+  <div class="section">
+    <div class="section-label">Logo System</div>
+    <div class="logo-row">
+      <div class="logo-variant">
+        <span class="logo-label">Light / Web</span>
+        <div class="logo-light">
+          <div class="logo-mark">CX</div>
+          <div>
+            <div class="logo-wordmark">ColaXpress</div>
+            <div style="font-size:9px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;font-weight:600;margin-top:1px;">by CannaHustle</div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-variant">
+        <span class="logo-label">Dark / Video</span>
+        <div class="logo-dark">
+          <div class="logo-mark-dark">CX</div>
+          <div>
+            <div class="logo-wordmark-dark">ColaXpress</div>
+            <div class="logo-sub-dark">by CannaHustle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLOUR -->
+  <div class="section">
+    <div class="section-label">Colour Palette</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#9f3028;border-color:transparent;"></div>
+        <div class="color-name">Accent Red</div>
+        <div class="color-hex">#9f3028</div>
+        <div class="color-role">CTAs, badges, accents, brand mark</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#701f1a;border-color:transparent;"></div>
+        <div class="color-name">Red Strong</div>
+        <div class="color-hex">#701f1a</div>
+        <div class="color-role">Hover states, links on light</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#151515;border-color:transparent;"></div>
+        <div class="color-name">Ink / Near Black</div>
+        <div class="color-hex">#151515</div>
+        <div class="color-role">Headlines, nav, body on light</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#f5f5f2;"></div>
+        <div class="color-name">Off White</div>
+        <div class="color-hex">#f5f5f2</div>
+        <div class="color-role">Page background (web)</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#060608;border-color:transparent;"></div>
+        <div class="color-name">Void Black</div>
+        <div class="color-hex">#060608</div>
+        <div class="color-role">Thumbnails, video, dark UI</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:#38b4c8;border-color:transparent;"></div>
+        <div class="color-name">LED Cyan</div>
+        <div class="color-hex">#38b4c8</div>
+        <div class="color-role">HUD data, cabinet glow, video only</div>
+      </div>
+      <div class="color-chip">
+        <div class="color-swatch" style="background:rgba(56,200,80,0.9);border-color:transparent;"></div>
+        <div class="color-name">Plant Green</div>
+        <div class="color-hex">rgba(56,200,80,.9)</div>
+        <div class="color-role">HUD: healthy/active state only</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">Typography</div>
+    <div class="type-row">
+      <div class="type-block">
+        <div class="type-meta">Cormorant Garamond — Serif Display</div>
+        <div class="type-sample-serif">Craft Cannabis</div>
+        <div class="type-sample-serif-sm">"Quality is preserved, not created."</div>
+        <div class="type-usage">
+          Use for: H1, H2, H3, logo wordmark, quote lines,<br />
+          thumbnail headlines, episode titles, pull quotes.<br />
+          Weight: 700 primary / 600 italic secondary.<br />
+          Google Fonts: Cormorant+Garamond:wght@600;700
+        </div>
+      </div>
+      <div class="type-block">
+        <div class="type-meta">Manrope — Sans-serif System</div>
+        <div class="type-sample-sans-xl">76.4°F</div>
+        <div class="type-sample-sans-lg">Environmental Control</div>
+        <div class="type-sample-sans">Root zone oxygenation prevents anaerobic bacteria from colonizing the DWC reservoir before the plant shows stress above.</div>
+        <div class="type-sample-cap">VPD · Craft Method · Day 01</div>
+        <div class="type-usage">
+          Use for: body copy, nav, kicker labels, HUD data,<br />
+          badges, captions, environmental readouts.<br />
+          Weights: 400 body / 600–700 emphasis / 800 caps.<br />
+          Google Fonts: Manrope:wght@400;500;600;700;800
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE -->
+  <div class="section">
+    <div class="section-label">Voice and Tone</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <span class="voice-card-label">Write this way</span>
+        <ul class="voice-list">
+          <li>Calm, precise, declarative</li>
+          <li>Sensory — smell, texture, aroma, feel</li>
+          <li>Educational but never condescending</li>
+          <li>Restrained — let the concept land, then move on</li>
+          <li>Process-obsessed, not result-obsessed</li>
+          <li>"Quality is not created at harvest. It is preserved after it."</li>
+          <li>"A rushed dry destroys volatile compounds."</li>
+          <li>"The reservoir speaks before the canopy does."</li>
+        </ul>
+      </div>
+      <div class="voice-card">
+        <span class="voice-card-label">Never write this way</span>
+        <ul class="voice-list voice-bad">
+          <li>Fire, gas, bro, smacks, insane yield</li>
+          <li>"Yo what's up guys welcome back"</li>
+          <li>Hype language around THC numbers</li>
+          <li>Exaggerated reactions or meme tone</li>
+          <li>"Smash the like button" or "limited spots"</li>
+          <li>Stoner clichés or cultural coding</li>
+          <li>Max yield bragging as success metric</li>
+          <li>Marketing speak without substance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- THUMBNAIL ANATOMY -->
+  <div class="section">
+    <div class="section-label">Thumbnail Anatomy</div>
+    <div class="anatomy-row">
+      <div class="anatomy-card">
+        <span class="anatomy-card-label">Must include</span>
+        <ul class="anatomy-list">
+          <li><div class="anatomy-num">1</div><div>Dark background — #060608 or near black</div></li>
+          <li><div class="anatomy-num">2</div><div>LED cabinet glow (teal/blue radial) — visual anchor</div></li>
+          <li><div class="anatomy-num">3</div><div>Episode badge — small, red, top placement</div></li>
+          <li><div class="anatomy-num">4</div><div>Headline — Cormorant Garamond, 72–90px, max 6 words</div></li>
+          <li><div class="anatomy-num">5</div><div>Accent word in red — "craft" / "cannabis" / "automation"</div></li>
+          <li><div class="anatomy-num">6</div><div>ColaXpress lockup — bottom left, small, not dominant</div></li>
+          <li><div class="anatomy-num">7</div><div>Optional: environmental data bottom right (temp/RH/VPD)</div></li>
+        </ul>
+      </div>
+      <div class="anatomy-card">
+        <span class="anatomy-card-label">Avoid</span>
+        <ul class="anatomy-list">
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Shocked or exaggerated face</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Cluttered background or busy room</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Giant arrows or circle callouts</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Neon or oversaturated color</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Yield weight as headline hook</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Text covering more than 40% of frame</div></li>
+          <li><div class="anatomy-num" style="background:rgba(0,0,0,0.06);color:var(--muted);">✕</div><div>Stock photo feel — must look cinematic</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA LANGUAGE -->
+  <div class="section">
+    <div class="section-label">CTA Language</div>
+    <div class="cta-grid">
+      <div class="cta-card">
+        <span class="cta-context">End of video</span>
+        <div class="cta-good">"Craft cultivation is environmental discipline. Learn more at ColaXpress by CannaHustle."</div>
+        <div class="cta-bad">"Smash the like button and subscribe!"</div>
+      </div>
+      <div class="cta-card">
+        <span class="cta-context">Description / caption</span>
+        <div class="cta-good">"Full craft cultivation methodology and process guides at cola-xpress.com"</div>
+        <div class="cta-bad">"Check out my course! Limited spots available!"</div>
+      </div>
+      <div class="cta-card">
+        <span class="cta-context">Comment pin</span>
+        <div class="cta-good">"Deeper environmental frameworks and craft cultivation resources at cola-xpress.com"</div>
+        <div class="cta-bad">"Hit the link in bio!"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERIES LOCKUP -->
+  <div class="section">
+    <div class="section-label">Series Identity</div>
+    <div class="series-card">
+      <div class="series-glow-dot">EP 01</div>
+      <div>
+        <div class="series-copy-headline">Can Automation Produce Craft Cannabis?</div>
+        <div class="series-copy-sub">The ColaXpress Grow Series · VIVOSUN vGrow · DWC · Humidifier · Seed to Jar</div>
+      </div>
+      <div class="series-url">
+        ColaXpress<br />
+        by CannaHustle<br />
+        <span style="font-size:11px;color:rgba(56,180,200,0.5);">cola-xpress.com</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

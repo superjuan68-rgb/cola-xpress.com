@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#060709;overflow:hidden;font-family:'Manrope',sans-serif}
+/* Surface — dark countertop */
+.surface{position:absolute;top:420px;left:0;right:0;height:660px;background:linear-gradient(to bottom,#0a0c0f,#070809)}
+.surface-line{position:absolute;top:419px;left:0;right:0;height:1px;background:rgba(255,255,255,0.04)}
+/* pH pen */
+.ph-pen{position:absolute;top:300px;left:380px;width:28px;height:300px;background:linear-gradient(to bottom,#1a1d22,#232830,#1a1d22);border-radius:14px 14px 4px 4px;border:1px solid rgba(255,255,255,0.08)}
+.ph-display{position:absolute;top:52px;left:6px;width:16px;height:40px;background:#001a10;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:rgba(56,200,80,0.9);letter-spacing:0.05em}
+.ph-probe{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);width:6px;height:34px;background:linear-gradient(to bottom,#888,#555);border-radius:3px}
+.ph-label{position:absolute;top:280px;left:330px;font-size:14px;font-weight:800;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.12);transform:rotate(-90deg);transform-origin:center}
+/* Nutrient bottles */
+.bottle{position:absolute;border-radius:6px 6px 3px 3px}
+.b1{top:320px;left:680px;width:72px;height:260px;background:linear-gradient(135deg,#1a2a1e,#0f1a12);border:1px solid rgba(56,180,60,0.2)}
+.b1::before{content:'GROW A';position:absolute;top:30%;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:0.15em;color:rgba(56,200,80,0.6);white-space:nowrap}
+.b1::after{content:'500 ml';position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,0.18);white-space:nowrap}
+.b2{top:340px;left:768px;width:72px;height:240px;background:linear-gradient(135deg,#1a1a2e,#0f0f1c);border:1px solid rgba(80,80,200,0.2)}
+.b2::before{content:'GROW B';position:absolute;top:30%;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;letter-spacing:0.15em;color:rgba(100,100,220,0.7);white-space:nowrap}
+.b2::after{content:'500 ml';position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(255,255,255,0.18);white-space:nowrap}
+.b3{top:350px;left:856px;width:62px;height:220px;background:linear-gradient(135deg,#2a1a10,#1a0f08);border:1px solid rgba(200,100,40,0.2)}
+.b3::before{content:'CAL-MAG';position:absolute;top:30%;left:50%;transform:translateX(-50%);font-size:10px;font-weight:800;letter-spacing:0.1em;color:rgba(220,130,60,0.7);white-space:nowrap}
+.b4{top:380px;left:930px;width:58px;height:180px;background:linear-gradient(135deg,#221a2a,#15101c);border:1px solid rgba(160,80,200,0.2)}
+.b4::before{content:'PH DOWN';position:absolute;top:30%;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:0.08em;color:rgba(180,100,220,0.7);white-space:nowrap}
+.b5{top:390px;left:998px;width:54px;height:160px;background:linear-gradient(135deg,#2a2210,#1c170a);border:1px solid rgba(200,180,40,0.2)}
+.b5::before{content:'PH UP';position:absolute;top:30%;left:50%;transform:translateX(-50%);font-size:9px;font-weight:800;letter-spacing:0.08em;color:rgba(200,190,60,0.7);white-space:nowrap}
+/* PPM meter */
+.ppm-meter{position:absolute;top:360px;left:1130px;width:110px;height:200px;background:#0d1014;border:1px solid rgba(56,180,200,0.15);border-radius:4px;padding:12px}
+.ppm-label{font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(56,180,200,0.5);margin-bottom:6px}
+.ppm-reading{font-size:32px;font-weight:700;color:rgba(56,180,200,0.85);font-family:monospace;line-height:1;margin-bottom:4px}
+.ppm-unit{font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:0.1em}
+/* Notebook + pen */
+.notebook{position:absolute;top:430px;left:1320px;width:260px;height:340px;background:#0c0d10;border:1px solid rgba(255,255,255,0.06);transform:rotate(3deg)}
+.nb-line{position:absolute;left:24px;right:12px;height:1px;background:rgba(255,255,255,0.04)}
+.nb-text{position:absolute;left:28px;font-size:11px;color:rgba(255,255,255,0.18);font-weight:400;letter-spacing:0.03em}
+/* Scattered items: marker cap */
+.marker{position:absolute;top:395px;left:1620px;width:18px;height:180px;background:#1c1c1c;border-radius:9px;transform:rotate(-15deg)}
+/* Syringe */
+.syringe{position:absolute;top:418px;left:480px;width:14px;height:180px;background:linear-gradient(to bottom,#222,#333,#222);border-radius:7px;transform:rotate(12deg)}
+/* Scattered paper — open browser tab suggestion */
+.tablet{position:absolute;top:335px;left:1480px;width:300px;height:220px;background:#08090c;border:1px solid rgba(255,255,255,0.06);border-radius:8px}
+.tab-bar{height:28px;background:#0a0b0f;border-bottom:1px solid rgba(255,255,255,0.05);border-radius:8px 8px 0 0;display:flex;align-items:center;padding:0 10px;gap:6px}
+.tab-dot{width:8px;height:8px;border-radius:50%}
+.tab-content{padding:10px;font-size:9px;color:rgba(255,255,255,0.12);line-height:1.7;letter-spacing:0.02em}
+/* Vignette */
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 55% 45%,transparent 20%,rgba(0,0,0,0.72) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="surface"></div>
+<div class="surface-line"></div>
+<!-- pH pen -->
+<div class="ph-pen"><div class="ph-display">5.8</div><div class="ph-probe"></div></div>
+<div class="ph-label">pH PEN</div>
+<!-- Syringe -->
+<div class="syringe"></div>
+<!-- Nutrient bottles -->
+<div class="bottle b1"></div>
+<div class="bottle b2"></div>
+<div class="bottle b3"></div>
+<div class="bottle b4"></div>
+<div class="bottle b5"></div>
+<!-- PPM meter -->
+<div class="ppm-meter">
+  <div class="ppm-label">PPM</div>
+  <div class="ppm-reading">847</div>
+  <div class="ppm-unit">ppm · 500 scale</div>
+</div>
+<!-- Marker -->
+<div class="marker"></div>
+<!-- Tablet -->
+<div class="tablet">
+  <div class="tab-bar">
+    <div class="tab-dot" style="background:#9f3028;opacity:0.5"></div>
+    <div class="tab-dot" style="background:#c8a840;opacity:0.5"></div>
+    <div class="tab-dot" style="background:rgba(56,200,80,0.5)"></div>
+  </div>
+  <div class="tab-content">r/microgrowery · Posted by u/autoflower_nyc<br><br>"Week 4 DWC and my pH keeps crashing. Running GH Flora series at 1200 ppm, RO water, coco/perlite mix..."<br><br>248 comments · 94% upvoted</div>
+</div>
+<!-- Notebook -->
+<div class="notebook">
+  <div class="nb-line" style="top:40px"></div>
+  <div class="nb-line" style="top:60px"></div>
+  <div class="nb-line" style="top:80px"></div>
+  <div class="nb-line" style="top:100px"></div>
+  <div class="nb-line" style="top:120px"></div>
+  <div class="nb-text" style="top:45px">Day 3 - pH drift again 6.2 → 5.6</div>
+  <div class="nb-text" style="top:65px">Topped off 2L, recalibrated probe</div>
+  <div class="nb-text" style="top:85px">RH spike overnight — 74%</div>
+  <div class="nb-text" style="top:105px">2:47AM check → EC 1.8 dropping</div>
+  <div class="nb-text" style="top:125px">?? adjust feed schedule</div>
+</div>
+<div class="vignette"></div>
+</div></body></html>

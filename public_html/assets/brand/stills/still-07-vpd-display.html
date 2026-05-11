@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#030506;overflow:hidden;font-family:'Manrope',sans-serif}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(56,180,200,0.07) 0%,transparent 65%)}
+/* Display panel — the enclosure's built-in screen */
+.panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:720px;height:480px;background:#040709;border:1px solid rgba(56,180,200,0.18);border-radius:8px;box-shadow:0 0 60px rgba(56,180,200,0.08),inset 0 0 40px rgba(56,180,200,0.03)}
+.panel-header{padding:18px 28px;border-bottom:1px solid rgba(56,180,200,0.08);display:flex;align-items:center;justify-content:space-between}
+.panel-title{font-size:11px;font-weight:800;letter-spacing:0.28em;text-transform:uppercase;color:rgba(56,180,200,0.5)}
+.panel-time{font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.1em}
+.panel-status{font-size:10px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(56,200,80,0.7)}
+/* Main VPD reading — the hero number */
+.vpd-hero{padding:28px 28px 20px;display:flex;align-items:baseline;gap:14px}
+.vpd-label{font-size:13px;font-weight:800;letter-spacing:0.24em;text-transform:uppercase;color:rgba(56,180,200,0.45);align-self:center}
+.vpd-number{font-size:110px;font-weight:700;color:rgba(56,180,200,0.95);font-family:monospace;letter-spacing:-0.04em;line-height:1;text-shadow:0 0 40px rgba(56,180,200,0.3)}
+.vpd-unit{font-size:22px;font-weight:600;color:rgba(56,180,200,0.55);align-self:flex-end;padding-bottom:14px;letter-spacing:0.08em}
+.vpd-range{font-size:11px;color:rgba(255,255,255,0.18);padding:0 28px 16px;letter-spacing:0.1em}
+/* Divider */
+.divider{height:1px;background:rgba(56,180,200,0.08);margin:0 28px 20px}
+/* Secondary metrics grid */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 16px 24px}
+.metric{padding:12px;border-right:1px solid rgba(56,180,200,0.06)}
+.metric:last-child{border-right:none}
+.m-label{font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:6px}
+.m-val{font-size:28px;font-weight:700;font-family:monospace;letter-spacing:-0.02em;color:rgba(255,255,255,0.6);line-height:1}
+.m-unit{font-size:10px;color:rgba(255,255,255,0.2);margin-top:3px;letter-spacing:0.08em}
+.m-val.green{color:rgba(56,200,80,0.8)}
+.m-val.teal{color:rgba(56,180,200,0.8)}
+/* Bar graph — VPD in range indicator */
+.range-bar{margin:0 28px 0;height:4px;background:rgba(255,255,255,0.05);border-radius:2px;position:relative}
+.range-fill{position:absolute;left:0;top:0;width:58%;height:100%;background:linear-gradient(to right,rgba(56,180,200,0.3),rgba(56,180,200,0.8));border-radius:2px}
+.range-marker{position:absolute;left:58%;top:-5px;width:2px;height:14px;background:rgba(56,180,200,1);border-radius:1px}
+.range-labels{display:flex;justify-content:space-between;padding:6px 28px 0;font-size:9px;color:rgba(255,255,255,0.15);letter-spacing:0.08em}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 78% 82% at 50% 50%,transparent 38%,rgba(0,0,0,0.82) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="bg"></div>
+<div class="panel">
+  <div class="panel-header">
+    <div class="panel-title">Environmental Monitor · Day 14</div>
+    <div class="panel-status">● All nominal</div>
+    <div class="panel-time">11:24 AM</div>
+  </div>
+  <div class="vpd-hero">
+    <div class="vpd-label">VPD</div>
+    <div class="vpd-number">1.1</div>
+    <div class="vpd-unit">kPa</div>
+  </div>
+  <div class="vpd-range">Target range: 0.8 – 1.2 kPa · Mid-veg to early flower</div>
+  <div class="range-bar"><div class="range-fill"></div><div class="range-marker"></div></div>
+  <div class="range-labels"><span>0.0</span><span>0.5</span><span>1.0</span><span>1.5</span><span>2.0</span></div>
+  <div class="divider" style="margin-top:18px"></div>
+  <div class="metrics">
+    <div class="metric">
+      <div class="m-label">Temp</div>
+      <div class="m-val">76.4</div>
+      <div class="m-unit">°F</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">Humidity</div>
+      <div class="m-val teal">62</div>
+      <div class="m-unit">% RH</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">pH</div>
+      <div class="m-val green">5.9</div>
+      <div class="m-unit">reservoir</div>
+    </div>
+    <div class="metric">
+      <div class="m-label">EC</div>
+      <div class="m-val">1.2</div>
+      <div class="m-unit">mS/cm</div>
+    </div>
+  </div>
+</div>
+<div class="vignette"></div>
+</div></body></html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shorts Extraction Plan — EP01 — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Manrope', sans-serif; background: #f5f5f2; color: #151515; padding: 60px 40px; max-width: 960px; margin: 0 auto; line-height: 1.6; }
+  .doc-header { border-bottom: 3px solid #9f3028; padding-bottom: 24px; margin-bottom: 40px; }
+  .doc-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; margin-bottom: 6px; }
+  .doc-meta { font-size: 11px; font-weight: 700; color: #9f3028; letter-spacing: 0.18em; text-transform: uppercase; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; margin: 40px 0 14px; }
+  .clip-card {
+    background: #fff;
+    border: 1px solid rgba(21,21,21,0.1);
+    border-radius: 4px;
+    padding: 0;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .clip-header {
+    background: #151515;
+    color: #fff;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .clip-num {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  .clip-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .clip-duration {
+    font-size: 11px;
+    font-weight: 700;
+    color: #9f3028;
+    font-family: monospace;
+  }
+  .clip-body { padding: 18px 20px; }
+  .clip-meta { display: flex; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+  .clip-tag {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: rgba(21,21,21,0.08);
+    color: rgba(21,21,21,0.6);
+  }
+  .clip-tag.red { background: rgba(159,48,40,0.1); color: #9f3028; }
+  .field { margin-bottom: 14px; }
+  .field-name {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(21,21,21,0.4);
+    margin-bottom: 4px;
+  }
+  .field-val { font-size: 13px; color: #151515; line-height: 1.65; }
+  .field-val.hook {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #151515;
+  }
+  .timecode-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 14px;
+    font-family: monospace;
+    font-size: 13px;
+    background: rgba(21,21,21,0.04);
+    padding: 10px 14px;
+    border-radius: 3px;
+  }
+  .timecode-row span { color: rgba(21,21,21,0.45); margin-right: 4px; }
+  .copy-block {
+    background: rgba(21,21,21,0.03);
+    border-left: 3px solid rgba(21,21,21,0.15);
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+    color: rgba(21,21,21,0.75);
+  }
+  .section-divider { height: 2px; background: rgba(21,21,21,0.08); margin: 40px 0; }
+  .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .strategy-card { padding: 16px 18px; background: #fff; border: 1px solid rgba(21,21,21,0.1); border-radius: 3px; }
+  .strategy-card h4 { font-size: 10px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: #9f3028; margin-bottom: 8px; }
+  .strategy-card p { font-size: 12px; color: rgba(21,21,21,0.65); line-height: 1.7; }
+  .alert { background: rgba(159,48,40,0.07); border-left: 3px solid #9f3028; padding: 14px 16px; font-size: 13px; color: rgba(21,21,21,0.7); margin: 16px 0 28px; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-meta">ColaXpress · Episode 01 · Shorts Extraction Plan · 7 Clips</div>
+  <h1>Shorts Plan<br/>Episode 01</h1>
+  <div class="doc-meta" style="margin-top:6px;color:rgba(21,21,21,0.4);">7 clips · each with title, hook, description, timestamps, thumbnail card variant</div>
+</div>
+
+<h2>Distribution Strategy</h2>
+<div class="strategy-grid">
+  <div class="strategy-card">
+    <h4>Timing</h4>
+    <p>Upload Shorts within 24–48 hours of main episode publish. They drive discovery for the full video. Each Short links back to the main episode and to cola-xpress.com.</p>
+  </div>
+  <div class="strategy-card">
+    <h4>Format Rule</h4>
+    <p>Shorts are vertical (1080×1920). Do not letterbox the horizontal footage — crop to 9:16. Keep subject centered. Add branded lower-third and hook text as text overlay in editing.</p>
+  </div>
+  <div class="strategy-card">
+    <h4>Description Rule</h4>
+    <p>Every Short description ends with: "Full series → cola-xpress.com". No exceptions. This is the traffic engine back to the site.</p>
+  </div>
+  <div class="strategy-card">
+    <h4>Thumbnail Rule</h4>
+    <p>Use the Shorts card templates (shorts-card.html). Variant A for philosophy clips. Variant B for data clips. Variant C for hook/question clips. Update copy to match each clip.</p>
+  </div>
+</div>
+
+<div class="alert">
+  For the shorts clipper: the main episode will be delivered as a single exported file labeled <strong>CX_EP01_MASTER.mp4</strong>. Each clip below specifies in/out timestamps referenced against the master. Cut to those timestamps, apply the vertical crop guide, add branded text overlays per spec, export as 1080×1920 H.264 for upload.
+</div>
+
+<div class="section-divider"></div>
+
+<!-- CLIP 01 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 01 of 07</div>
+      <div class="clip-title">Two Ways to Grow. One Matters.</div>
+    </div>
+    <div class="clip-duration">~58s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Philosophy</span>
+      <span class="clip-tag">On-Camera</span>
+      <span class="clip-tag">Hook: Question</span>
+      <span class="clip-tag">Card: Variant A</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>2:30</div>
+      <div><span>OUT:</span>3:28</div>
+      <div><span>Duration:</span>58s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">There are two ways to grow cannabis.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">Two ways to grow cannabis. Only one produces craft. #craftcannabis #homegrow</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">Most growers chase yield. We chase quality. The difference shows up six weeks after harvest — not at the scale.
+
+Full series → cola-xpress.com
+
+#craftcannabis #homegrow #cannabis #DWC #growyourown</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">Open on the line "There are two ways to grow cannabis in a small space." Add on-screen text overlay: those words, large, centered, white — hold 1.5s before cutting to talking head. No cold open needed — the hook line IS the open. Close on "We're going to find out." Hard cut to black, then Variant A shorts card (pre-designed, delivered).</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 02 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 02 of 07</div>
+      <div class="clip-title">What VPD Actually Is (60-Second Explanation)</div>
+    </div>
+    <div class="clip-duration">~60s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Education</span>
+      <span class="clip-tag">On-Camera</span>
+      <span class="clip-tag">Hook: Stat</span>
+      <span class="clip-tag">Card: Variant B</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>10:00</div>
+      <div><span>OUT:</span>11:05</div>
+      <div><span>Duration:</span>65s (trim to 60s)</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">Most growers ignore this number. It controls everything.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">VPD explained in 60 seconds — why it's the only grow metric that matters #VPD #cannabis</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">Vapor Pressure Deficit. If you're not tracking it, you're guessing.
+
+VPD tells you how hard the air is pulling moisture from your plant. Too high = stress. Too low = stagnation. The target shifts at every growth stage.
+
+Seedling target: 0.4 – 0.8 kPa
+We're at: 0.52 kPa Day 01.
+
+Full VPD guide → cola-xpress.com
+
+#VPD #cannabis #hydroponics #DWC #craftcannabis #homegrow</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">Cut the full VPD explanation segment. Add a lower-third data bar: "Current VPD: 0.52 kPa / Target: 0.4–0.8 kPa / Stage: Seedling" in brand type. Variant B shorts card at end with the four data stats filled in (Temp, RH, VPD, pH). This clip has reusability — it's a standalone education piece, not just episode promotion.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 03 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 03 of 07</div>
+      <div class="clip-title">The Humidifier Isn't About Comfort</div>
+    </div>
+    <div class="clip-duration">~45s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Education</span>
+      <span class="clip-tag">On-Camera + B-roll</span>
+      <span class="clip-tag">Hook: Reframe</span>
+      <span class="clip-tag">Card: Variant A</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>8:15</div>
+      <div><span>OUT:</span>9:00</div>
+      <div><span>Duration:</span>45s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">The humidifier isn't making the plant comfortable. It's feeding it.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">The humidifier isn't a comfort accessory at seedling stage — it's the nutrition delivery system</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">At Day 01, the root system isn't developed enough to uptake water from the reservoir.
+
+The plant is drinking through its leaves.
+
+That's why humidity at 65–72% isn't optional in the seedling stage — it's the primary hydration pathway.
+
+Full grow series → cola-xpress.com
+
+#cannabis #seedling #homegrow #humidity #craftcannabis #VPD</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">Start on the line "The humidifier is not a comfort accessory." Cut to B-roll of humidifier mist, then back to talking head for the "drinking through its leaves" explanation. Strong standalone clip — the reframe is the hook. Pair with Variant A card using quote: "The humidifier isn't making the plant comfortable. It's feeding it."</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 04 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 04 of 07</div>
+      <div class="clip-title">Day 01 Numbers — Full Environmental Read</div>
+    </div>
+    <div class="clip-duration">~55s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Data</span>
+      <span class="clip-tag">B-roll + HUD</span>
+      <span class="clip-tag">Hook: Data reveal</span>
+      <span class="clip-tag">Card: Variant B</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>6:30</div>
+      <div><span>OUT:</span>7:25</div>
+      <div><span>Duration:</span>55s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">Day 01. Every number dialed in. Here's what that looks like.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">Day 01 grow data — what a properly dialed seedling environment actually looks like</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">VIVOSUN vGrow · DWC · Day 01 · Seedling Stage
+
+Temp: 76.4°F ✓
+Humidity: 68.2% ✓
+VPD: 0.52 kPa ✓
+Water Temp: 68.4°F ✓
+CO₂: 812 ppm ✓
+pH: 6.10 ✓
+EC: 0.45 mS / PPM: 450 ✓
+
+This is what Day 01 looks like when it's set up correctly.
+
+Episode 01 now live → full series at cola-xpress.com
+
+#cannabis #DWC #VPD #homegrow #craftcannabis #hydroponics</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">This is a HUD-heavy clip. Overlay the environmental HUD data overlay on B-roll footage of the cabinet. Each metric gets a beat — cut on the number reveal rhythm. Use the Variant B shorts card as the outro with all four stat cells filled in. If the HUD overlay isn't composited yet, still frames of the individual meter readings work as a fallback.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 05 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 05 of 07</div>
+      <div class="clip-title">The Cabinet Is Running. The Plant Isn't Here Yet.</div>
+    </div>
+    <div class="clip-duration">~50s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Tension / Hook</span>
+      <span class="clip-tag">B-roll / Cinematic</span>
+      <span class="clip-tag">Hook: Wait</span>
+      <span class="clip-tag">Card: Variant C</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>17:30 (VO)</div>
+      <div><span>OUT:</span>18:20</div>
+      <div><span>Duration:</span>50s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">The system is running. Now we wait.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">The cabinet is running. The seed is in. Now we find out if automation can grow craft cannabis.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">LED on. Air stone running. Humidifier set.
+Seed in the rooter. Reservoir dialed.
+
+The automation is doing exactly what it's designed to do.
+
+The real question doesn't get answered today.
+It gets answered when we open the jar.
+
+Full series → cola-xpress.com
+
+#craftcannabis #cannabis #DWC #homegrow #VIVOSUN #vgrow</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">This is a cinematic / mood clip. Use the closed cabinet B-roll with the teal glow. VO from the script over imagery — no on-camera. Slow cuts. Intentional silence. Sound design: ambient cabinet hum. This is the tension clip — do NOT rush the edit. Let it breathe. Variant C card at end: "Can this cabinet grow craft cannabis?"</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 06 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 06 of 07</div>
+      <div class="clip-title">Air Stones and Root Oxygen — DWC Explained</div>
+    </div>
+    <div class="clip-duration">~45s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Education</span>
+      <span class="clip-tag">B-roll Macro</span>
+      <span class="clip-tag">Hook: Visual</span>
+      <span class="clip-tag">Card: Variant B</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>14:00 (reservoir segment)</div>
+      <div><span>OUT:</span>14:45</div>
+      <div><span>Duration:</span>45s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">No soil. Roots in water. Oxygen does the work.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">Why DWC roots need oxygen more than nutrients at seedling stage #DWC #hydroponics</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">Deep water culture: roots hang directly in a nutrient solution with an air stone providing dissolved oxygen.
+
+At seedling stage, we run very low nutrient EC (0.45 mS / 450 PPM) because the root system is too young to handle concentrated feed.
+
+The air stone isn't optional. Without dissolved oxygen, you get root rot — fast.
+
+Water temp: 68.4°F. Above 72°F, DO drops off significantly. Watch the water temperature.
+
+Full DWC guide → cola-xpress.com/grow/dwc-basics-for-beginners.html
+
+#DWC #deepwaterculture #hydroponics #cannabis #homegrow</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">Lead with macro B-roll of air stone bubbles — this is the visual hook. High-performance footage. Then cut to talking head for the explanation. Lower-third: "DWC Day 01 / pH 6.10 / EC 0.45 / PPM 450 / Water 68.4°F". Variant B card as outro. This clip can drive traffic directly to the DWC guide on the site.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIP 07 -->
+<div class="clip-card">
+  <div class="clip-header">
+    <div>
+      <div class="clip-num">Short 07 of 07</div>
+      <div class="clip-title">What Craft Means. One Sentence.</div>
+    </div>
+    <div class="clip-duration">~30s</div>
+  </div>
+  <div class="clip-body">
+    <div class="clip-meta">
+      <span class="clip-tag red">Brand / Quote</span>
+      <span class="clip-tag">On-Camera</span>
+      <span class="clip-tag">Hook: Philosophy</span>
+      <span class="clip-tag">Card: Variant A</span>
+    </div>
+    <div class="timecode-row">
+      <div><span>IN:</span>15:45</div>
+      <div><span>OUT:</span>16:15</div>
+      <div><span>Duration:</span>30s</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Hook (first 3 seconds on screen text)</div>
+      <div class="field-val hook">Craft isn't a vibe. It's a standard of attention.</div>
+    </div>
+    <div class="field">
+      <div class="field-name">YouTube Shorts Title</div>
+      <div class="field-val">Craft cannabis isn't a vibe. Here's what it actually is. #craftcannabis</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Description</div>
+      <div class="copy-block">"Craft isn't a vibe. It's not a word you put on packaging. It's a standard of attention."
+
+The question this entire series is built around: can a sensor replace that attention?
+
+We're documenting the full answer at cola-xpress.com.
+
+#craftcannabis #cannabis #homegrow #growyourown</div>
+    </div>
+    <div class="field">
+      <div class="field-name">Edit Notes for Clipper</div>
+      <div class="field-val">This is the shortest clip — 30 seconds, pure philosophy. Text overlay: the full quote in large white text on black frame, letter-spaced, then cut to on-cam delivery. This clip is the brand statement — it's not about the product, it's about the philosophy. Use Variant A card with this exact quote. This clip is the one to pin or feature on the channel.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<h2>Shorts Upload Sequence</h2>
+<div class="alert">Upload Shorts in this order over 5 days post-episode launch. Spacing keeps the channel active and extends the episode's discovery window. Do not drop all 7 at once.</div>
+
+<div style="font-size:13px;line-height:2;padding:16px 20px;background:#fff;border:1px solid rgba(21,21,21,0.1);border-radius:4px;">
+  <strong>Day 0</strong> — Main episode goes live<br/>
+  <strong>Day 1</strong> — Short 01 (Philosophy hook), Short 04 (Day 01 data)<br/>
+  <strong>Day 2</strong> — Short 02 (VPD explainer)<br/>
+  <strong>Day 3</strong> — Short 05 (Cinematic tension clip)<br/>
+  <strong>Day 4</strong> — Short 03 (Humidifier reframe), Short 06 (DWC/air stone)<br/>
+  <strong>Day 5</strong> — Short 07 (Brand statement / craft definition) — pin this to top
+</div>
+
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>YouTube Channel Setup — Cola-Xpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 980px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .doc-header { border-bottom: 1px solid #1e2428; padding-bottom: 32px; margin-bottom: 48px; }
+  .doc-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 14px; }
+  .doc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 700; color: #e8e4dd; line-height: 1.1; margin-bottom: 10px; }
+  .doc-sub { font-size: 13px; color: #5a6370; font-weight: 500; }
+
+  /* ── SECTION ── */
+  .section-header { margin: 52px 0 16px; border-bottom: 1px solid #1a1f24; padding-bottom: 10px; }
+  .section-label { font-size: 9px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 4px; }
+  .section-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 700; color: #e8e4dd; }
+
+  /* ── PASTE BLOCKS ── */
+  .paste-block {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #38b4c8;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #d0cbc4;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+  }
+  .paste-label {
+    font-size: 8px; font-weight: 800; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #38b4c8; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .char-count { color: #5a6370; font-size: 9px; }
+
+  /* ── INSIGHT ── */
+  .insight {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #c8a840;
+    padding: 18px 22px;
+    margin-bottom: 28px;
+    font-size: 12.5px;
+    color: #8a9099;
+    line-height: 1.75;
+  }
+  .insight h3 { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #c8a840; margin-bottom: 8px; }
+  .insight strong { color: #e8e4dd; }
+
+  /* ── FIELD ROWS ── */
+  .field-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .field-table th { background: #0b0e11; color: #5a6370; padding: 8px 14px; text-align: left; font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid #1a1f24; }
+  .field-table td { padding: 12px 14px; border-bottom: 1px solid #111518; font-size: 12.5px; color: #c0bbb4; vertical-align: top; line-height: 1.6; }
+  .field-table td:first-child { color: #8a9099; font-size: 11px; font-weight: 700; white-space: nowrap; width: 180px; }
+  .field-table td strong { color: #e8e4dd; }
+  .field-table tr:hover td { background: #0e1215; }
+
+  /* ── SEARCH TERM TABLE ── */
+  .st-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; font-size: 12px; }
+  .st-table th { background: #0b0e11; color: #5a6370; padding: 7px 12px; text-align: left; font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid #1a1f24; }
+  .st-table td { padding: 10px 12px; border-bottom: 1px solid #111518; color: #c0bbb4; vertical-align: top; line-height: 1.55; }
+  .st-table tr:hover td { background: #0e1215; }
+  .st-table td strong { color: #e8e4dd; }
+
+  /* ── COMPETITION BADGES ── */
+  .comp { display: inline-block; padding: 2px 8px; border-radius: 2px; font-size: 8px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
+  .comp-zero { background: rgba(56,200,80,0.15); border: 1px solid rgba(56,200,80,0.3); color: rgba(56,200,80,0.9); }
+  .comp-low  { background: rgba(56,180,200,0.12); border: 1px solid rgba(56,180,200,0.3); color: #38b4c8; }
+  .comp-med  { background: rgba(200,168,64,0.15); border: 1px solid rgba(200,168,64,0.3); color: #c8a840; }
+  .comp-own  { background: rgba(159,48,40,0.2); border: 1px solid rgba(159,48,40,0.45); color: #ff8070; }
+
+  /* ── BANNER MOCKUP ── */
+  .banner-mockup {
+    width: 100%;
+    height: 180px;
+    background: #060608;
+    border: 1px solid #1a1f24;
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .banner-safe {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 60.4%;
+    height: 55%;
+    border: 1px dashed rgba(56,180,200,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+  .banner-left { }
+  .banner-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #e8e4dd;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .banner-tagline {
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #38b4c8;
+  }
+  .banner-right {
+    text-align: right;
+  }
+  .banner-url {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.55);
+  }
+  .banner-series {
+    font-size: 8px;
+    color: #5a6370;
+    margin-top: 4px;
+  }
+  .banner-edge-note {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
+    color: #5a6370;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .banner-bleed-left {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 19.8%;
+    background: linear-gradient(to right, rgba(56,180,200,0.04), transparent);
+    border-right: 1px dashed rgba(56,180,200,0.1);
+  }
+  .banner-bleed-right {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 19.8%;
+    background: linear-gradient(to left, rgba(56,180,200,0.04), transparent);
+    border-left: 1px dashed rgba(56,180,200,0.1);
+  }
+
+  /* ── PLAYLIST GRID ── */
+  .playlist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 28px; }
+  .playlist-card { background: #0e1215; border: 1px solid #1a1f24; padding: 16px 18px; }
+  .pl-num { font-size: 22px; font-family: 'Cormorant Garamond', serif; font-weight: 700; color: rgba(159,48,40,0.5); line-height: 1; margin-bottom: 6px; }
+  .pl-name { font-size: 13px; font-weight: 700; color: #e8e4dd; margin-bottom: 4px; }
+  .pl-desc { font-size: 11px; color: #5a6370; line-height: 1.6; }
+  .pl-seed { font-size: 10px; color: #38b4c8; margin-top: 6px; font-weight: 700; }
+
+  /* ── KEYWORD STRING ── */
+  .keyword-string {
+    background: #060608;
+    border: 1px solid #1a1f24;
+    padding: 18px 22px;
+    font-family: monospace;
+    font-size: 12px;
+    color: #38b4c8;
+    line-height: 1.8;
+    word-break: break-all;
+    margin-bottom: 10px;
+  }
+
+  /* ── CONTENT CALENDAR ── */
+  .cal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 28px; }
+  .cal-card { background: #0e1215; border: 1px solid #1a1f24; padding: 16px; }
+  .cal-label { font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #9f3028; margin-bottom: 8px; }
+  .cal-title { font-size: 12.5px; font-weight: 700; color: #e8e4dd; margin-bottom: 4px; line-height: 1.35; }
+  .cal-target { font-size: 10px; color: #38b4c8; margin-top: 6px; }
+  .cal-comp { margin-top: 4px; }
+
+  .rule { height: 1px; background: #1a1f24; margin: 36px 0; }
+  .note { font-size: 12px; color: #5a6370; font-style: italic; margin-bottom: 16px; line-height: 1.6; }
+  .highlight { color: #38b4c8; }
+  .red { color: #ff8070; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress · YouTube · Channel Setup · v1.0 — May 2026</div>
+  <div class="doc-title">YouTube Channel Setup<br>Cola-Xpress</div>
+  <div class="doc-sub">Identity · Copy · Media asset briefs · Channel keywords · Search term takeover map · Playlist architecture · First 90 days</div>
+</div>
+
+<div class="insight">
+  <h3>The Core Opportunity</h3>
+  <strong>VIVOSUN sells tens of thousands of vGrow units. Almost no quality YouTube content exists for it.</strong> Someone buying a vGrow right now searches YouTube and finds short, low-production unboxings and a handful of grow logs with no craft angle. Cola-Xpress can own the entire vGrow search space — "vgrow review," "vgrow dwc," "vivosun vgrow setup" — with three well-produced episodes before any competitor notices. That is the fastest route to 1,000 subscribers and the first meaningful backlink signal from YouTube itself.<br><br>
+  The cinematic format is not just aesthetic positioning — it is a <strong>compression moat</strong>. Matching the production level requires real effort. Most cannabis channels will not bother. The moat builds itself.
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 1 — Channel Identity</div>
+  <div class="section-name">Fields to Enter on Setup</div>
+</div>
+
+<table class="field-table">
+  <thead><tr><th>Field</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Channel name</td>
+      <td><strong>Cola-Xpress</strong><br><span style="font-size:11px;color:#5a6370;">Hyphenated to match the new canonical domain (cola-xpress.com). Consistent across all platforms.</span></td>
+    </tr>
+    <tr>
+      <td>Handle</td>
+      <td><strong>@cola-xpress</strong><br><span style="font-size:11px;color:#5a6370;">Check availability at youtube.com/handle — if taken, @colaxpress or @cola.xpress as fallbacks. Claim it first.</span></td>
+    </tr>
+    <tr>
+      <td>Channel tagline<br><span style="font-size:9px;color:#5a6370;">(shown under name)</span></td>
+      <td><strong>compact. craft. documented.</strong><br><span style="font-size:11px;color:#5a6370;">All lowercase. Three words. Registers the aesthetic and format in one line. Do not change this.</span></td>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td><strong>United States</strong></td>
+    </tr>
+    <tr>
+      <td>Website link</td>
+      <td><strong>https://cola-xpress.com</strong></td>
+    </tr>
+    <tr>
+      <td>Link label</td>
+      <td><strong>Grow guides + charts</strong><br><span style="font-size:11px;color:#5a6370;">Not "website" or "my site" — make it clear what they'll find there.</span></td>
+    </tr>
+    <tr>
+      <td>Contact email<br><span style="font-size:9px;color:#5a6370;">(shown publicly)</span></td>
+      <td><strong>Your real email or a dedicated brand address.</strong> This is what brands like VIVOSUN will use to contact you. Don't leave it blank.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 2 — Channel Description</div>
+  <div class="section-name">About Section — Copy-Ready</div>
+</div>
+
+<p class="note">YouTube shows the first ~150 characters in search results without expanding. The first sentence is the meta description. Write for that constraint first, then expand for readers who click "more."</p>
+
+<div class="paste-label">
+  <span>Channel Description — Paste into YouTube Studio → Customization → Basic info</span>
+  <span class="char-count">~870 characters · well within 1,000 limit</span>
+</div>
+<div class="paste-block">Compact DWC cannabis grows. Craft methodology. Documented.
+
+Cola-Xpress documents compact cannabis cultivation with the same attention applied to craft coffee, audio engineering, and fine photography — environments controlled, data visible, process recorded.
+
+The Grow Series follows a single plant from seed to jar inside a VIVOSUN vGrow enclosure: deep water culture, automated environment, 60 days documented in full. No presenter. No tutorial format. Closer to a short film than a how-to video.
+
+Between episodes: VPD charts, DWC nutrient schedules, trichome harvest guides, and New York home grow resources — all at cola-xpress.com.
+
+Growing became complicated. It doesn't have to be.
+
+🌿 Full grow guides: cola-xpress.com
+📍 New York City</div>
+
+<div class="insight" style="margin-top:0;">
+  <h3>Why This Description Works</h3>
+  <strong>First sentence (search meta):</strong> "Compact DWC cannabis grows. Craft methodology. Documented." — three keyword clusters in 53 characters. Shows up clean in search before the fold.<br><br>
+  <strong>"same attention applied to craft coffee, audio engineering"</strong> — signals the aesthetic register to the right viewer without saying "luxury" or "cinematic." Filters out the wrong audience before they subscribe.<br><br>
+  <strong>"Growing became complicated. It doesn't have to be."</strong> — the thesis line from Episode 01. Ends on the emotional hook rather than a call to action. This is what gets remembered.
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 3 — Media Assets</div>
+  <div class="section-name">Banner, Profile Picture, Watermark</div>
+</div>
+
+<p class="note">All specs are YouTube's current requirements. Build at full resolution — do not downscale. The safe zone is the only area guaranteed to show on all devices including TV.</p>
+
+<!-- BANNER MOCKUP -->
+<div class="banner-mockup">
+  <div class="banner-bleed-left"></div>
+  <div class="banner-bleed-right"></div>
+  <div class="banner-safe">
+    <div class="banner-left">
+      <div class="banner-wordmark">Cola-Xpress</div>
+      <div class="banner-tagline">compact · craft · documented</div>
+    </div>
+    <div class="banner-right">
+      <div class="banner-url">cola-xpress.com</div>
+      <div class="banner-series">The Grow Series — Now Documenting</div>
+    </div>
+  </div>
+  <div class="banner-edge-note">← bleed area (TV/large screens) · · · safe zone (all devices) · · · bleed area →</div>
+</div>
+
+<table class="field-table">
+  <thead><tr><th>Asset</th><th>Spec</th><th>Brief</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Channel Banner</td>
+      <td><strong>2560 × 1440 px</strong><br>Safe zone: 1546 × 423 px (centered)<br>Max 6 MB · JPG or PNG</td>
+      <td>
+        <strong>Background:</strong> #060608 (near-black from brand sheet)<br>
+        <strong>Safe zone left:</strong> "Cola-Xpress" in Cormorant Garamond 700, #e8e4dd, ~80px. Below it: "compact · craft · documented" in Manrope 800, tracked wide, #38b4c8, ~14px<br>
+        <strong>Safe zone right:</strong> "cola-xpress.com" in Manrope 700, small, #38b4c8 dimmed. Below: "The Grow Series — Now Documenting" in Manrope 500, #5a6370<br>
+        <strong>Bleed area (visible on TV):</strong> Subtle teal atmospheric gradient left edge. Right edge: abstract plant macro or dark enclosure glow — no text.<br>
+        <strong>Reference:</strong> assets/brand/brand-sheet.html for exact hex values and type specs
+      </td>
+    </tr>
+    <tr>
+      <td>Profile Picture</td>
+      <td><strong>800 × 800 px</strong><br>Circular crop in most views<br>PNG recommended</td>
+      <td>
+        <strong>Option A (recommended):</strong> "CX" monogram — Cormorant Garamond 700, #e8e4dd letterforms on #060608 background. The "C" slightly overlapping the "X" at the junction, teal (#38b4c8) at the overlap point only.<br>
+        <strong>Option B:</strong> Full "Cola-Xpress" wordmark — Cormorant Garamond, single line, centered, on dark. Works but letterforms shrink heavily at 32px (channel icon in comments).<br>
+        <strong>Not option C:</strong> A plant photo. Channel icons need to work at 32px in comment threads. A plant disappears. The monogram reads.
+      </td>
+    </tr>
+    <tr>
+      <td>Video Watermark<br><span style="font-size:9px;color:#5a6370;">(branding watermark shown in video player)</span></td>
+      <td><strong>150 × 150 px</strong><br>PNG with transparency<br>Shown bottom-right of player</td>
+      <td>
+        The "CX" monogram at 150px, white (#ffffff or #e8e4dd) on transparent background. No background box — it floats over video content. Set display timing to "End of video" in YouTube Studio so it appears at the subscribe-prompt moment.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 4 — Channel Keywords</div>
+  <div class="section-name">Paste into YouTube Studio → Settings → Channel → Basic info</div>
+</div>
+
+<p class="note">Channel keywords are hidden metadata YouTube uses to understand your channel's topic and serve it in "Up Next" and Browse suggestions. Max 500 characters. Use exact-match search terms — these are not visible to viewers.</p>
+
+<div class="paste-label">
+  <span>Channel Keywords — 500 character limit</span>
+  <span class="char-count">~480 characters</span>
+</div>
+<div class="keyword-string">compact cannabis grow, dwc cannabis, deep water culture cannabis, vivosun vgrow, vgrow dwc, craft cannabis, cannabis grow journal, cannabis documentary, cannabis grow series, compact grow setup, 12 12 from seed, cannabis automation, vpd cannabis, cannabis drying, cannabis curing, new york home grow, nyc cannabis grow, cannabis beginner, dwc beginner, cannabis grow guide</div>
+
+<p class="note" style="margin-top:10px;">Order matters slightly — put highest-priority terms first. "compact cannabis grow" and "dwc cannabis" are first because they are the two core content pillars. "vivosun vgrow" is third because it is the fastest search-term takeover opportunity.</p>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 5 — Search Term Takeover Map</div>
+  <div class="section-name">YouTube Search Opportunities by Competition Level</div>
+</div>
+
+<div class="insight">
+  <h3>How YouTube Search Differs from Google</h3>
+  A new channel with 0 subscribers can rank #1 on YouTube for a specific search term if: (1) it's the most-watched video for that query, or (2) there's no existing video targeting that exact term. <strong>YouTube has massive gaps in cannabis content</strong> — most channels are broad, inconsistent, or low-production. Targeted, specific titles with good watch-time win over high subscriber counts. The terms below are ranked by how fast Cola-Xpress can reach page 1.
+</div>
+
+<p class="note"><span class="comp comp-own">Own now</span> = near-zero existing quality content · <span class="comp comp-zero">Low comp</span> = few good videos · <span class="comp comp-low">Medium</span> = established content but beatable · <span class="comp comp-med">Long game</span> = high competition, build toward</p>
+
+<table class="st-table">
+  <thead><tr><th>Search Term</th><th>Competition</th><th>Monthly Searches</th><th>Why Cola-Xpress Wins</th><th>Content to make</th></tr></thead>
+  <tbody>
+
+    <tr>
+      <td><strong>vgrow review</strong><br>vgrow cannabis<br>vivosun vgrow review</td>
+      <td><span class="comp comp-own">Own now</span></td>
+      <td>Low–moderate volume, <em>rapidly growing</em> as VIVOSUN sells more units</td>
+      <td>Almost no quality content exists. VIVOSUN's own channel barely covers it. Any well-produced, specific video ranks within days. The buyer intent is high — people who search this are about to spend $400.</td>
+      <td>Episode 01 companion + a dedicated "Is the vGrow worth it?" short-form answer video</td>
+    </tr>
+
+    <tr>
+      <td><strong>vgrow dwc setup</strong><br>vgrow deep water culture<br>vgrow grow journal</td>
+      <td><span class="comp comp-own">Own now</span></td>
+      <td>Very low — but almost all buyers want this content</td>
+      <td>Zero dedicated content found. Any video with this title and decent watch-time is a guaranteed #1. The Grow Series is this content by definition.</td>
+      <td>Episode 01 — title must include "vGrow DWC" in the first 60 characters</td>
+    </tr>
+
+    <tr>
+      <td><strong>compact cannabis grow</strong><br>small space cannabis grow<br>apartment cannabis grow</td>
+      <td><span class="comp comp-own">Own now</span></td>
+      <td>Moderate — driven by home grow legalization wave nationally</td>
+      <td>Existing videos are low-production tent grows from 2018–2021. No cinematic content exists in this niche. The aesthetic alone differentiates the first frame.</td>
+      <td>Episode 01 + a standalone "compact grow setup" video pointing to the checklist page</td>
+    </tr>
+
+    <tr>
+      <td><strong>nyc home grow cannabis</strong><br>new york home grow setup<br>grow cannabis new york apartment</td>
+      <td><span class="comp comp-own">Own now</span></td>
+      <td>Low volume, <em>very</em> low competition — geo-specific with almost no YouTube content</td>
+      <td>NY Marihuana Regulation and Taxation Act passed in 2021. Home grows became legal in 2023. Almost no YouTube content covers the NYC-specific constraints (apartments, landlords, compact spaces). This is an unclaimed category.</td>
+      <td>Dedicated "Growing in a NYC Apartment" video — references the cola-xpress.com NY law guide</td>
+    </tr>
+
+    <tr>
+      <td><strong>cannabis grow documentary</strong><br>cannabis documentary short film<br>craft cannabis film</td>
+      <td><span class="comp comp-own">Own now</span></td>
+      <td>Low but growing — the documentary format on YouTube is exploding in 2025–26</td>
+      <td>This genre barely exists for cannabis. No one is making Apple × A24 style cannabis cultivation docs. The format itself is the differentiation — there is no direct competitor to beat, just a category to define.</td>
+      <td>Episode 01 exactly as planned. Tag it as a documentary. Title it as a documentary.</td>
+    </tr>
+
+    <tr>
+      <td><strong>12/12 from seed dwc</strong><br>autoflower dwc setup<br>12 12 from seed results</td>
+      <td><span class="comp comp-zero">Low comp</span></td>
+      <td>Moderate — high intent, specific search</td>
+      <td>Existing content is mostly old forum threads converted to low-effort YouTube reads. A produced, data-backed video documenting a real 12/12 DWC grow outranks all of them.</td>
+      <td>Episode 01 covers this. A dedicated short "12/12 from seed in a vGrow — what actually happened" drives this term specifically.</td>
+    </tr>
+
+    <tr>
+      <td><strong>vpd cannabis chart</strong><br>cannabis vpd explained<br>vpd grow tent</td>
+      <td><span class="comp comp-zero">Low comp</span></td>
+      <td>Moderate — educational query, searched throughout a grow</td>
+      <td>Most VPD videos are either too complex or too vague. A 4-minute visual explainer with the chart as the centerpiece, linking to cola-xpress.com/grow/vpd-chart-cannabis.html, wins on watch time and click-through to site.</td>
+      <td>Standalone VPD explainer — 3–5 min. References the site chart. Builds a link between YouTube and the site.</td>
+    </tr>
+
+    <tr>
+      <td><strong>cannabis drying humidity</strong><br>how to dry cannabis properly<br>cannabis curing guide</td>
+      <td><span class="comp comp-zero">Low comp</span></td>
+      <td>High — searched by every grower at harvest regardless of setup</td>
+      <td>High volume but most videos are old, unbranded, low-production. A clean, craft-aesthetic drying/curing video with real data gets shared in grow journals, Reddit threads, and wikis — each share is a backlink.</td>
+      <td>Harvest episode — part of the Grow Series arc naturally. Can also be clipped as a standalone.</td>
+    </tr>
+
+    <tr>
+      <td><strong>cannabis automation</strong><br>automated cannabis grow<br>smart cannabis grow cabinet</td>
+      <td><span class="comp comp-low">Medium</span></td>
+      <td>Growing rapidly — driven by smart home + cannabis crossover audience</td>
+      <td>Emerging category. Most content is from smart-home tech channels without craft positioning. Cola-Xpress can own the "craft + automation" angle specifically — "can automation produce craft results?" is the core thesis of the channel.</td>
+      <td>This is the channel's thesis — every episode reinforces it. Episode 01 states it directly.</td>
+    </tr>
+
+    <tr>
+      <td><strong>dwc cannabis beginner</strong><br>deep water culture cannabis tutorial<br>how to start dwc cannabis</td>
+      <td><span class="comp comp-low">Medium</span></td>
+      <td>High — evergreen beginner query</td>
+      <td>Established competition (GrowWeedEasy, etc.) but most tutorial content is aging. A fresh, data-backed, well-produced beginner DWC guide with Cola-Xpress brand aesthetics can rank in 3–6 months with good CTR and watch time.</td>
+      <td>Month 3 standalone video — dedicated beginner DWC setup video. References the DWC nutrient schedule page.</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 6 — Playlist Architecture</div>
+  <div class="section-name">How to Organize Content for Maximum Discovery</div>
+</div>
+
+<p class="note">Playlists on YouTube are discovery multipliers — they keep viewers in the channel, increase session watch time, and get surfaced in browse suggestions. Build the playlists before you have the content to fill them. YouTube shows empty playlists as "coming soon" context.</p>
+
+<div class="playlist-grid">
+  <div class="playlist-card">
+    <div class="pl-num">01</div>
+    <div class="pl-name">The Grow Series — Season 1</div>
+    <div class="pl-desc">The primary content series. Every episode in order. This is the "main course" — all other playlists support it. Set this as the featured playlist on the channel home page.</div>
+    <div class="pl-seed">Seed content: Episode 01 → Episode 02 → Episode 03...</div>
+  </div>
+  <div class="playlist-card">
+    <div class="pl-num">02</div>
+    <div class="pl-name">DWC Fundamentals</div>
+    <div class="pl-desc">All DWC-related videos: setup, nutrient schedules, pH management, root health, reservoir changes. Cross-genre playlist — pulls in both series episodes and standalone explainers. Captures "dwc cannabis" search traffic.</div>
+    <div class="pl-seed">Seed content: DWC setup from Ep01 + future DWC explainer video</div>
+  </div>
+  <div class="playlist-card">
+    <div class="pl-num">03</div>
+    <div class="pl-name">vGrow Setup + Documentation</div>
+    <div class="pl-desc">Everything vGrow-specific. This is the search term takeover playlist — anyone who finds any vGrow video gets pulled into the full collection. The playlist title itself ranks in YouTube search for "vgrow."</div>
+    <div class="pl-seed">Seed content: Episode 01 companion + any vGrow shorts</div>
+  </div>
+  <div class="playlist-card">
+    <div class="pl-num">04</div>
+    <div class="pl-name">Environment — VPD, Humidity, Temperature</div>
+    <div class="pl-desc">VPD explainer, humidity management, temperature control in compact setups. Cross-genre with the Grow Series environmental data. Captures "cannabis vpd" and "grow tent humidity" search traffic independently of series episodes.</div>
+    <div class="pl-seed">Seed content: Future VPD explainer + relevant Ep01 clip</div>
+  </div>
+  <div class="playlist-card">
+    <div class="pl-num">05</div>
+    <div class="pl-name">Harvest — Trichomes, Drying, Curing</div>
+    <div class="pl-desc">End-of-grow content: trichome inspection, harvest timing, drying environment, curing protocol. High search volume category. Eventually fed by the Grow Series harvest episodes and standalone harvest videos.</div>
+    <div class="pl-seed">Seed content: Grow Series harvest episode (future)</div>
+  </div>
+  <div class="playlist-card">
+    <div class="pl-num">06</div>
+    <div class="pl-name">New York Home Grow</div>
+    <div class="pl-desc">NY-specific content: home grow law, apartment setup constraints, compact equipment choices for small spaces. Unique geo-targeted playlist with almost no YouTube competition. Captures the entire NYC home grow search category.</div>
+    <div class="pl-seed">Seed content: Future NYC apartment grow video</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 7 — Channel Trailer</div>
+  <div class="section-name">Shown to Non-Subscribers on Channel Home Page</div>
+</div>
+
+<p class="note">The channel trailer is a 60–90 second video shown to people who find the channel before subscribing. It is not Episode 01 — it is the answer to "why should I subscribe?" Use it to establish the aesthetic and promise in under 90 seconds.</p>
+
+<table class="field-table">
+  <thead><tr><th>Element</th><th>Direction</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Length</td>
+      <td><strong>60–75 seconds.</strong> Not 90. Not 2 minutes. The first 15 seconds determine whether a non-subscriber stays. Structure for the decision at 15 seconds, not 60.</td>
+    </tr>
+    <tr>
+      <td>Opening (0:00–0:12)</td>
+      <td>The same 12-second sound design open from Episode 01 — silence, then ambient enclosure hum. One frame: the vGrow door closed. That's it. No title card, no music yet. The restraint is the hook.</td>
+    </tr>
+    <tr>
+      <td>Statement (0:12–0:25)</td>
+      <td>VO over montage: <em>"Growing became complicated. Not all at once. Gradually — one device, one app, one forum thread at a time. This channel is about what happens when you simplify it. Radically."</em></td>
+    </tr>
+    <tr>
+      <td>Visual sequence (0:25–0:55)</td>
+      <td>Fast montage of the most visually distinct shots from Episode 01: root mass macro, VPD readout at 1.1, day counter progression (Day 1 → Day 28), door-open shot. Ólafur Arnalds register underneath. Each shot 2–3 seconds. No narration, just cuts.</td>
+    </tr>
+    <tr>
+      <td>Close (0:55–1:10)</td>
+      <td>VO: <em>"Compact grows. Craft results. Documented."</em> — then 4 seconds of silence on the Cola-Xpress wordmark. No subscribe animation, no "smash that bell." The subscribe button is always visible on YouTube — you don't need to ask.</td>
+    </tr>
+    <tr>
+      <td>Thumbnail</td>
+      <td>Use the door-open shot. Dark frame, teal glow from inside the enclosure. "Cola-Xpress" wordmark bottom-left in Cormorant Garamond. No text overlay on the shot itself.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 8 — First 90 Days Content Plan</div>
+  <div class="section-name">Publish Order Mapped to Search Term Takeover</div>
+</div>
+
+<p class="note">Each video targets a specific search term cluster. The order is designed to capture the fastest wins first (vGrow + compact grow) while the Grow Series episodes build the audience that finds everything else.</p>
+
+<div class="cal-grid">
+
+  <div class="cal-card">
+    <div class="cal-label">Week 1 — Publish</div>
+    <div class="cal-title">Episode 01: The End of Complicated Cannabis Growing</div>
+    <div class="cal-target">Targets: "vgrow dwc" · "compact cannabis grow" · "cannabis grow documentary" · "vgrow review"</div>
+    <div class="cal-comp"><span class="comp comp-own">Own now</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Week 2 — Short</div>
+    <div class="cal-title">"I slept." — 60 seconds from inside the vGrow</div>
+    <div class="cal-target">Targets: "vivosun vgrow" · "cannabis automation" · Shorts algorithm discovery</div>
+    <div class="cal-comp"><span class="comp comp-own">Own now</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Week 3 — Short</div>
+    <div class="cal-title">Root mass at Day 28 — what DWC actually does</div>
+    <div class="cal-target">Targets: "dwc cannabis results" · "deep water culture cannabis"</div>
+    <div class="cal-comp"><span class="comp comp-zero">Low comp</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Week 4 — Short</div>
+    <div class="cal-title">VPD 1.1 — how we hold it there (30-second data clip)</div>
+    <div class="cal-target">Targets: "vpd cannabis" · "cannabis environment control" · Shorts</div>
+    <div class="cal-comp"><span class="comp comp-zero">Low comp</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Month 2 — Explainer</div>
+    <div class="cal-title">VPD for Cannabis Grows — the chart, the formula, the targets</div>
+    <div class="cal-target">Targets: "vpd cannabis chart" · "cannabis vpd explained" · drives traffic to cola-xpress.com/grow/vpd-chart-cannabis.html</div>
+    <div class="cal-comp"><span class="comp comp-zero">Low comp</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Month 2 — Episode</div>
+    <div class="cal-title">Episode 02: The Grow Continues</div>
+    <div class="cal-target">Targets: "vgrow grow journal" · "cannabis grow update" · retains Ep01 audience</div>
+    <div class="cal-comp"><span class="comp comp-own">Own now</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Month 2 — Short</div>
+    <div class="cal-title">Is the vGrow worth $400? One answer.</div>
+    <div class="cal-target">Targets: "vgrow review" · "vivosun vgrow worth it" — highest-intent buyer query</div>
+    <div class="cal-comp"><span class="comp comp-own">Own now</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Month 3 — Standalone</div>
+    <div class="cal-title">Growing Cannabis in a NYC Apartment — what actually matters</div>
+    <div class="cal-target">Targets: "nyc home grow" · "new york cannabis apartment" · "compact cannabis grow" — geo-specific takeover</div>
+    <div class="cal-comp"><span class="comp comp-own">Own now</span></div>
+  </div>
+
+  <div class="cal-card">
+    <div class="cal-label">Month 3 — Episode</div>
+    <div class="cal-title">Episode 03: Harvest — What the Data Said</div>
+    <div class="cal-target">Targets: "cannabis harvest trichomes" · "cannabis drying humidity" · closes the Grow Series arc</div>
+    <div class="cal-comp"><span class="comp comp-zero">Low comp</span></div>
+  </div>
+
+</div>
+
+<div class="rule"></div>
+
+<div class="insight">
+  <h3>The Search Term Takeover in Practice</h3>
+  <strong>Three videos own the vGrow search space:</strong> Episode 01 + the "worth it?" Short + one setup explainer. That is 3 pieces of content against near-zero competition. VIVOSUN's unit sales create the search demand. Cola-Xpress provides the only quality answer. The algorithm does the rest.<br><br>
+  <strong>The site and the channel compound each other.</strong> YouTube descriptions link to cola-xpress.com — those are indexed links Google sees. The VPD explainer video drives viewers to the chart page. The chart page ranks in Google and drives new viewers to the channel. The loop closes around the 4-month mark if both tracks execute in parallel.<br><br>
+  <strong>The cinematic format is the moat.</strong> The 9 search terms marked "Own now" will be claimed by the first channel to post quality content targeting them. With the production level already planned and scripted, Cola-Xpress posts that content first. No competitor can replicate the format in the time it takes to film three episodes.
+</div>
+
+<div class="section-header" style="margin-top:44px;">
+  <div class="section-label">Step 9 — YouTube Studio Settings Checklist</div>
+  <div class="section-name">Before You Publish Episode 01</div>
+</div>
+
+<table class="field-table">
+  <thead><tr><th>Setting</th><th>Where</th><th>Action</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Channel keywords</td>
+      <td>Studio → Settings → Channel → Basic info</td>
+      <td>Paste the keyword string from Step 4 above</td>
+    </tr>
+    <tr>
+      <td>Default upload settings</td>
+      <td>Studio → Settings → Upload defaults</td>
+      <td>Set default license to "Standard YouTube License." Set default category to "Howto &amp; Style." Pre-fill tags with the core 8–10 channel tags so you don't forget them per video.</td>
+    </tr>
+    <tr>
+      <td>Age restriction</td>
+      <td>Per-video → Audience</td>
+      <td>Set "Made for Kids: No" on every video. Cannabis content requires this. If YouTube auto-restricts, appeal with the Audience setting first.</td>
+    </tr>
+    <tr>
+      <td>Monetization</td>
+      <td>Studio → Earn</td>
+      <td>Enable monetization as soon as eligible (1,000 subscribers + 4,000 watch hours). Cannabis content is monetizable — YouTube does not ban cannabis education content. Explicit drug use or sales are different.</td>
+    </tr>
+    <tr>
+      <td>End screens</td>
+      <td>Per-video → Editor → End screen</td>
+      <td>Add a "Subscribe" element and a "Video" element (pointing to the most-relevant next video) to every upload. Set at 20 seconds before end. Required on every video before publishing.</td>
+    </tr>
+    <tr>
+      <td>Cards</td>
+      <td>Per-video → Editor → Cards</td>
+      <td>Add one info card per video linking to cola-xpress.com. Use the "Link" card type. Place it at the moment in the video where a site resource is referenced in the VO.</td>
+    </tr>
+    <tr>
+      <td>Chapters</td>
+      <td>Video description</td>
+      <td>Paste the timestamp chapters from the upload package (ep01-upload-package.html). Chapters improve watch time by letting viewers navigate — YouTube's algorithm reads chapter engagement.</td>
+    </tr>
+    <tr>
+      <td>Pinned comment</td>
+      <td>Comments → Pin</td>
+      <td>Within 30 minutes of publishing: post a comment with the full resource list (VPD chart, DWC guide, episode companion page) and pin it. The pinned comment is indexed by YouTube and seen by every viewer who scrolls to comments.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="margin-top:48px;font-size:11px;color:#5a6370;border-top:1px solid #1a1f24;padding-top:16px;">
+  ColaXpress by CannaHustle · YouTube Channel Setup v1.0 · May 2026 · Internal production document<br>
+  Cross-reference: ep01-upload-package.html for Episode 01 title/description/tags · backlink-plan.html for YouTube ecosystem link strategy
+</div>
+
+</body>
+</html>

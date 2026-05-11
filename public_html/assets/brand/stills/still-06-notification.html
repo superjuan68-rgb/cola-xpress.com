@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#030405;overflow:hidden;font-family:'Manrope',sans-serif}
+.bg-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;height:700px;background:radial-gradient(ellipse at 50% 50%,rgba(56,200,80,0.06) 0%,transparent 65%)}
+/* Phone screen — dark, slightly illuminated */
+.phone-bg{position:absolute;inset:0;background:linear-gradient(160deg,#05080c,#030507)}
+/* Notification card — large, centered, crisp */
+.notif-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:680px;background:rgba(14,18,22,0.96);border-radius:24px;padding:32px 36px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 60px rgba(56,200,80,0.06)}
+.notif-header{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.notif-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0d1f0e,#152418);border:1px solid rgba(56,200,80,0.3);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.notif-meta{flex:1}
+.notif-app{font-size:13px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:rgba(56,200,80,0.7);margin-bottom:3px}
+.notif-timestamp{font-size:12px;color:rgba(255,255,255,0.22);letter-spacing:0.06em}
+.notif-status-dot{width:8px;height:8px;border-radius:50%;background:rgba(56,200,80,0.85);box-shadow:0 0 10px 3px rgba(56,200,80,0.4);flex-shrink:0}
+.notif-divider{height:1px;background:rgba(255,255,255,0.05);margin-bottom:22px}
+.notif-title{font-size:34px;font-weight:700;color:rgba(255,255,255,0.92);letter-spacing:-0.01em;line-height:1.15;margin-bottom:14px}
+.notif-body{font-size:20px;font-weight:400;color:rgba(255,255,255,0.45);line-height:1.55;margin-bottom:28px}
+.notif-data-row{display:flex;gap:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.05)}
+.data-item{flex:1}
+.data-label{font-size:10px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:4px}
+.data-value{font-size:22px;font-weight:700;color:rgba(56,200,80,0.8);font-family:monospace;letter-spacing:-0.01em}
+.data-value.teal{color:rgba(56,180,200,0.85)}
+.data-value.neutral{color:rgba(255,255,255,0.5)}
+/* Vignette */
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 75% 80% at 50% 50%,transparent 30%,rgba(0,0,0,0.8) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="phone-bg"></div>
+<div class="bg-glow"></div>
+<div class="notif-card">
+  <div class="notif-header">
+    <div class="notif-icon">🌿</div>
+    <div class="notif-meta">
+      <div class="notif-app">vGrow · Grow Monitor</div>
+      <div class="notif-timestamp">Just now · Day 14</div>
+    </div>
+    <div class="notif-status-dot"></div>
+  </div>
+  <div class="notif-divider"></div>
+  <div class="notif-title">Canopy nominal.</div>
+  <div class="notif-body">All environmental parameters within target range. No action required.</div>
+  <div class="notif-data-row">
+    <div class="data-item">
+      <div class="data-label">VPD</div>
+      <div class="data-value teal">1.1 kPa</div>
+    </div>
+    <div class="data-item">
+      <div class="data-label">Temp</div>
+      <div class="data-value neutral">76.4°F</div>
+    </div>
+    <div class="data-item">
+      <div class="data-label">RH</div>
+      <div class="data-value neutral">62%</div>
+    </div>
+    <div class="data-item">
+      <div class="data-label">pH</div>
+      <div class="data-value teal">5.9</div>
+    </div>
+  </div>
+</div>
+<div class="vignette"></div>
+</div></body></html>

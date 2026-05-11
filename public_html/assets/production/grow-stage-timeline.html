@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cannabis Grow Stage Timeline — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0d0f; --surface:#0e1215; --border:#1a1f24;
+    --text:#e8e4dd; --muted:#5a6370; --accent:#9f3028;
+    --germ:#38b4c8; --seed:#4caf65; --veg:#3d8f52; --preflower:#b8a040;
+    --flower:#e8a830; --ripe:#c05820; --harvest:#9f3028;
+  }
+  body {
+    width:1200px; height:630px; background:var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif; overflow:hidden;
+    display:grid; grid-template-rows:64px 1fr 48px;
+  }
+  /* HEADER */
+  .hdr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px 0 32px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .hdr-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; }
+  .hdr-title em { color:var(--accent); font-style:normal; }
+  .hdr-right { font-size:9.5px; font-weight:500; color:var(--muted); letter-spacing:.1em;
+    text-align:right; line-height:1.7; }
+  /* MAIN */
+  .main { padding:16px 24px 16px 24px; display:flex; flex-direction:column; gap:0; overflow:hidden; }
+  /* timeline rows */
+  .row { display:flex; align-items:stretch; }
+  .row-label {
+    width:82px; flex-shrink:0; font-size:8.5px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); display:flex; align-items:center;
+    padding-right:8px; justify-content:flex-end; line-height:1.2;
+  }
+  .cells { flex:1; display:flex; }
+  /* WEEK NUMBERS ROW */
+  .week-row { margin-bottom:6px; }
+  .week-cell {
+    flex:1; text-align:center; font-size:8.5px; font-weight:600; color:var(--muted);
+    letter-spacing:.06em; border-left:1px solid var(--border);
+  }
+  .week-cell:last-child { border-right:1px solid var(--border); }
+  /* PHASE ROW */
+  .phase-row { margin-bottom:5px; }
+  .phase-seg {
+    display:flex; align-items:center; justify-content:center;
+    font-size:8.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    border-radius:3px; margin:0 1px; height:36px; text-align:center; line-height:1.3;
+  }
+  /* METRIC ROWS */
+  .metric-row { height:38px; margin-bottom:3px; }
+  .metric-seg {
+    display:flex; align-items:center; justify-content:center;
+    font-size:8px; font-weight:600; text-align:center; line-height:1.35;
+    border-radius:2px; margin:0 1px; height:100%;
+  }
+  /* NOTES ROW */
+  .notes-row { margin-top:4px; }
+  .notes-seg {
+    display:flex; align-items:flex-start; padding:6px 4px 0;
+    font-size:7.5px; color:var(--muted); line-height:1.4;
+    border-top:1px solid var(--border); flex-direction:column; gap:2px;
+  }
+  .notes-seg b { color:var(--text); font-weight:600; font-size:8px; }
+  /* FOOTER */
+  .ftr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--surface); border-top:1px solid var(--border); }
+  .brand { font-size:9.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .brand span { color:var(--accent); }
+  .ftr-note { font-size:8px; color:var(--muted); opacity:.55; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title"><em>Cannabis</em> Grow Stage Timeline</div>
+  </div>
+  <div class="hdr-right">
+    Compact DWC grow — Weeks 1–16 from seed to harvest<br>
+    Photoperiod: 18/6 veg &nbsp;·&nbsp; 12/12 flower flip at Week 7
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- WEEK NUMBERS -->
+  <div class="row week-row">
+    <div class="row-label">Week</div>
+    <div class="cells" id="weeks"></div>
+  </div>
+
+  <!-- PHASE BAR -->
+  <div class="row phase-row">
+    <div class="row-label">Stage</div>
+    <div class="cells" id="phases"></div>
+  </div>
+
+  <!-- VPD ROW -->
+  <div class="row metric-row">
+    <div class="row-label">VPD<br>kPa</div>
+    <div class="cells" id="vpd"></div>
+  </div>
+
+  <!-- RH ROW -->
+  <div class="row metric-row">
+    <div class="row-label">RH<br>%</div>
+    <div class="cells" id="rh"></div>
+  </div>
+
+  <!-- LIGHT ROW -->
+  <div class="row metric-row">
+    <div class="row-label">Light</div>
+    <div class="cells" id="light"></div>
+  </div>
+
+  <!-- NOTES ROW -->
+  <div class="row notes-row">
+    <div class="row-label" style="align-items:flex-start;padding-top:6px;">Key<br>checks</div>
+    <div class="cells" id="notes" style="gap:2px;"></div>
+  </div>
+
+</div>
+
+<div class="ftr">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="ftr-note">cola-xpress.com &nbsp;·&nbsp; Times are typical — phenotype, strain, and environment shift actual pace</div>
+</div>
+
+<script>
+const W = 16; // total weeks
+
+// Phase definitions: [label, startWeek(0-indexed), endWeek, color, textColor]
+const phases = [
+  { label:'Seedling',   start:0, end:2,  bg:'#0b2a34', color:'#38b4c8', border:'#38b4c8' },
+  { label:'Veg',        start:2, end:7,  bg:'#0b2618', color:'#4caf65', border:'#3d8f52' },
+  { label:'Flip /\nStretch', start:6, end:8, bg:'#221c08', color:'#b8a040', border:'#b8a040' },
+  { label:'Early\nFlower',   start:8, end:12, bg:'#271d06', color:'#e8a830', border:'#c07820' },
+  { label:'Late Flower\n& Ripening', start:12, end:15, bg:'#231408', color:'#d07030', border:'#c05820' },
+  { label:'Flush &\nHarvest', start:15, end:16, bg:'#2a0a0a', color:'#9f3028', border:'#9f3028' },
+];
+
+// Simplified: single-row phases (non-overlapping)
+const phaseSimple = [
+  { label:'Seedling / Germ', start:0, end:2,  bg:'#0b2a34', color:'#38b4c8' },
+  { label:'Vegetative',      start:2, end:7,  bg:'#0b2618', color:'#4caf65' },
+  { label:'Pre-flower',      start:7, end:9,  bg:'#1c1a06', color:'#b8a040' },
+  { label:'Flower',          start:9, end:14, bg:'#271d06', color:'#e8a830' },
+  { label:'Ripening & Flush',start:14,end:16, bg:'#2a0a0a', color:'#9f3028' },
+];
+
+// Per-week data
+const wkData = [
+  // w1
+  { vpd:'0.4–0.6', rh:'75–85', light:'18/6',  note:'Germination\nsprout & tap root' },
+  // w2
+  { vpd:'0.5–0.7', rh:'72–80', light:'18/6',  note:'Seedling\nfirst true leaves' },
+  // w3
+  { vpd:'0.6–0.8', rh:'68–75', light:'18/6',  note:'Early veg\ncanopy starts' },
+  // w4
+  { vpd:'0.8–1.0', rh:'65–72', light:'18/6',  note:'Veg\nnode stacking' },
+  // w5
+  { vpd:'0.9–1.1', rh:'62–70', light:'18/6',  note:'Veg\nroot expansion' },
+  // w6
+  { vpd:'1.0–1.2', rh:'60–68', light:'18/6',  note:'Veg\ntraining window' },
+  // w7
+  { vpd:'1.0–1.2', rh:'58–65', light:'12/12', note:'Flip to 12/12\nwatch for sex' },
+  // w8
+  { vpd:'1.0–1.3', rh:'56–63', light:'12/12', note:'Pre-flower\nstretch begins' },
+  // w9
+  { vpd:'1.1–1.4', rh:'54–60', light:'12/12', note:'Stretch\npistils visible' },
+  // w10
+  { vpd:'1.2–1.5', rh:'52–60', light:'12/12', note:'Early flower\nbud sites set' },
+  // w11
+  { vpd:'1.3–1.6', rh:'50–58', light:'12/12', note:'Flower\ncalyx stacking' },
+  // w12
+  { vpd:'1.4–1.7', rh:'50–56', light:'12/12', note:'Flower\nresin building' },
+  // w13
+  { vpd:'1.5–1.8', rh:'48–55', light:'12/12', note:'Late flower\nswelling' },
+  // w14
+  { vpd:'1.6–1.9', rh:'46–52', light:'12/12', note:'Ripening\ntrichomes check' },
+  // w15
+  { vpd:'1.7–2.0', rh:'44–50', light:'12/12', note:'Flush begins\npH water only' },
+  // w16
+  { vpd:'1.8–2.0', rh:'42–48', light:'12/12', note:'Harvest\ncloudy+amber' },
+];
+
+function hexCol(bg, textColor, content, extra='') {
+  return `<div class="metric-seg" style="background:${bg};color:${textColor};${extra}">${content}</div>`;
+}
+
+// Build week numbers
+const weeksEl = document.getElementById('weeks');
+for(let i=0;i<W;i++){
+  weeksEl.innerHTML += `<div class="week-cell">${i+1}</div>`;
+}
+
+// Build phase bar
+const phasesEl = document.getElementById('phases');
+phaseSimple.forEach(p => {
+  const span = p.end - p.start;
+  const pct = (span / W * 100).toFixed(2);
+  const label = p.label.replace('\n','<br>');
+  phasesEl.innerHTML += `<div class="phase-seg" style="flex:${span};background:${p.bg};color:${p.color};border:1px solid ${p.color}33;font-size:${span<=2?7.5:8.5}px;">${label}</div>`;
+});
+
+// VPD per week
+const vpdEl = document.getElementById('vpd');
+wkData.forEach((d,i) => {
+  const v = parseFloat(d.vpd);
+  let bg = '#0b2a34', col = '#38b4c8';
+  if(v >= 0.8 && v < 1.2)  { bg='#0b2618'; col='#4caf65'; }
+  if(v >= 1.2 && v < 1.6)  { bg='#271d06'; col='#e8a830'; }
+  if(v >= 1.6)              { bg='#2a1008'; col='#c06030'; }
+  vpdEl.innerHTML += hexCol(bg, col, `<span style="font-size:7.5px">${d.vpd}</span>`);
+});
+
+// RH per week
+const rhEl = document.getElementById('rh');
+wkData.forEach((d,i) => {
+  const r = parseInt(d.rh);
+  let bg = '#0b2a34', col = '#38b4c8';
+  if(r < 70 && r >= 55)    { bg='#0b2618'; col='#4caf65'; }
+  if(r < 55 && r >= 45)    { bg='#271d06'; col='#e8a830'; }
+  if(r < 45)               { bg='#2a1008'; col='#c06030'; }
+  rhEl.innerHTML += hexCol(bg, col, `<span style="font-size:7.5px">${d.rh}%</span>`);
+});
+
+// Light per week
+const lightEl = document.getElementById('light');
+wkData.forEach((d,i) => {
+  const is12 = d.light === '12/12';
+  const bg = is12 ? '#1a1208' : '#0d1a28';
+  const col = is12 ? '#e8a830' : '#38b4c8';
+  lightEl.innerHTML += hexCol(bg, col, `<span style="font-size:8px;font-weight:700">${d.light}</span>`);
+});
+
+// Notes per week
+const notesEl = document.getElementById('notes');
+wkData.forEach((d,i) => {
+  const lines = d.note.split('\n');
+  notesEl.innerHTML += `<div class="notes-seg" style="flex:1;min-width:0;">
+    <b>${lines[0]}</b>${lines[1] ? `<span>${lines[1]}</span>` : ''}
+  </div>`;
+});
+</script>
+</body>
+</html>

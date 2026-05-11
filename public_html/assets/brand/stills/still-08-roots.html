@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;overflow:hidden}
+/* Deep water — teal-dark reservoir background */
+.water{position:absolute;inset:0;background:linear-gradient(to bottom,#030b0e 0%,#040d10 40%,#061214 70%,#030b0e 100%)}
+/* Water surface shimmer — horizontal light bands */
+.shimmer-1{position:absolute;top:380px;left:0;right:0;height:2px;background:linear-gradient(to right,transparent 5%,rgba(56,180,200,0.08) 20%,rgba(56,180,200,0.15) 50%,rgba(56,180,200,0.08) 80%,transparent 95%)}
+.shimmer-2{position:absolute;top:395px;left:0;right:0;height:1px;background:linear-gradient(to right,transparent 15%,rgba(56,180,200,0.05) 35%,rgba(56,180,200,0.1) 52%,rgba(56,180,200,0.05) 70%,transparent 90%);filter:blur(0.5px)}
+/* Net pot — the container the plant sits in */
+.net-pot{position:absolute;top:200px;left:50%;transform:translateX(-50%);width:200px;height:180px;background:linear-gradient(to bottom,#0a0c0e,#060809);border:1px solid rgba(255,255,255,0.08);border-bottom:none;clip-path:polygon(0 0,100% 0,90% 100%,10% 100%)}
+/* Net pot holes */
+.pot-hole{position:absolute;width:18px;height:18px;border-radius:50%;background:#030507;border:1px solid rgba(255,255,255,0.05)}
+/* Root mass — complex white filament system */
+/* Using multiple thin lines / shapes to simulate root structure */
+.roots{position:absolute;top:370px;left:50%;transform:translateX(-50%);width:800px;height:600px}
+/* Main tap roots */
+.root{position:absolute;background:rgba(230,240,235,0.82);border-radius:2px;transform-origin:top center}
+/* Ambient nutrient glow in water */
+.water-glow{position:absolute;top:400px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse 80% 70% at 50% 30%,rgba(56,180,200,0.12) 0%,rgba(56,180,200,0.05) 45%,transparent 72%)}
+/* Root tip glow — healthy white root tips are slightly luminescent */
+.root-glow{position:absolute;top:420px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse 70% 60% at 50% 30%,rgba(220,240,232,0.07) 0%,transparent 65%)}
+/* Fine root hairs — smaller elements */
+.hair{position:absolute;background:rgba(220,235,228,0.45);border-radius:1px}
+/* Vignette — darkness framing the macro */
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 72% 68% at 50% 48%,transparent 18%,rgba(0,0,0,0.88) 100%)}
+/* Net pot collar top */
+.collar{position:absolute;top:198px;left:50%;transform:translateX(-50%);width:220px;height:12px;background:#0a0d10;border:1px solid rgba(255,255,255,0.07);border-radius:2px}
+</style></head>
+<body><div class="canvas">
+<div class="water"></div>
+<div class="water-glow"></div>
+<!-- Net pot -->
+<div class="collar"></div>
+<div class="net-pot">
+  <div class="pot-hole" style="top:30px;left:20px"></div>
+  <div class="pot-hole" style="top:30px;left:60px"></div>
+  <div class="pot-hole" style="top:30px;left:100px"></div>
+  <div class="pot-hole" style="top:30px;left:140px"></div>
+  <div class="pot-hole" style="top:70px;left:40px"></div>
+  <div class="pot-hole" style="top:70px;left:80px"></div>
+  <div class="pot-hole" style="top:70px;left:120px"></div>
+  <div class="pot-hole" style="top:110px;left:60px"></div>
+  <div class="pot-hole" style="top:110px;left:100px"></div>
+</div>
+<!-- Root mass — main roots -->
+<div class="roots">
+  <!-- Primary tap roots -->
+  <div class="root" style="left:388px;top:0;width:4px;height:320px;transform:rotate(-2deg)"></div>
+  <div class="root" style="left:400px;top:0;width:3px;height:280px;transform:rotate(4deg)"></div>
+  <div class="root" style="left:378px;top:20px;width:2px;height:240px;transform:rotate(-8deg)"></div>
+  <div class="root" style="left:412px;top:30px;width:3px;height:260px;transform:rotate(7deg)"></div>
+  <!-- Secondary roots branching left -->
+  <div class="root" style="left:300px;top:80px;width:2px;height:180px;transform:rotate(-15deg)"></div>
+  <div class="root" style="left:280px;top:120px;width:2px;height:150px;transform:rotate(-22deg)"></div>
+  <div class="root" style="left:320px;top:100px;width:1.5px;height:130px;transform:rotate(-12deg)"></div>
+  <div class="root" style="left:260px;top:160px;width:1.5px;height:110px;transform:rotate(-28deg)"></div>
+  <div class="root" style="left:240px;top:200px;width:1px;height:90px;transform:rotate(-35deg);opacity:0.6"></div>
+  <!-- Secondary roots branching right -->
+  <div class="root" style="left:480px;top:80px;width:2px;height:180px;transform:rotate(15deg)"></div>
+  <div class="root" style="left:500px;top:120px;width:2px;height:150px;transform:rotate(22deg)"></div>
+  <div class="root" style="left:460px;top:100px;width:1.5px;height:130px;transform:rotate(12deg)"></div>
+  <div class="root" style="left:520px;top:160px;width:1.5px;height:110px;transform:rotate(28deg)"></div>
+  <!-- Tertiary roots — finer, lower -->
+  <div class="root" style="left:350px;top:180px;width:1px;height:100px;transform:rotate(-6deg);opacity:0.7"></div>
+  <div class="root" style="left:430px;top:190px;width:1px;height:90px;transform:rotate(8deg);opacity:0.7"></div>
+  <div class="root" style="left:370px;top:200px;width:1px;height:85px;transform:rotate(-14deg);opacity:0.6"></div>
+  <div class="root" style="left:410px;top:195px;width:1px;height:95px;transform:rotate(11deg);opacity:0.6"></div>
+  <!-- Deep trailing roots -->
+  <div class="root" style="left:390px;top:250px;width:1.5px;height:160px;transform:rotate(-3deg);opacity:0.55"></div>
+  <div class="root" style="left:398px;top:260px;width:1px;height:140px;transform:rotate(5deg);opacity:0.5"></div>
+  <!-- Root hair filaments -->
+  <div class="hair" style="left:340px;top:140px;width:1px;height:40px;transform:rotate(-45deg);opacity:0.4"></div>
+  <div class="hair" style="left:355px;top:155px;width:1px;height:35px;transform:rotate(-38deg);opacity:0.35"></div>
+  <div class="hair" style="left:440px;top:145px;width:1px;height:38px;transform:rotate(42deg);opacity:0.4"></div>
+  <div class="hair" style="left:460px;top:170px;width:1px;height:32px;transform:rotate(50deg);opacity:0.35"></div>
+  <div class="hair" style="left:310px;top:180px;width:1px;height:28px;transform:rotate(-60deg);opacity:0.3"></div>
+  <div class="hair" style="left:490px;top:185px;width:1px;height:28px;transform:rotate(58deg);opacity:0.3"></div>
+</div>
+<div class="root-glow"></div>
+<!-- Surface shimmer -->
+<div class="shimmer-1"></div>
+<div class="shimmer-2"></div>
+<div class="vignette"></div>
+</div></body></html>

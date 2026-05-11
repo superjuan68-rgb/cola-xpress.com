@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find ~/OneDrive ~/Documents ~/Desktop -maxdepth 4 -type d 2>/dev/null | head -60)",
+      "Bash(python3)",
+      "WebSearch",
+      "Bash(python3 -c ' *)",
+      "Bash(python -c ' *)",
+      "Bash(python assets/production/export-assets.py)",
+      "WebFetch(domain:www.vivosun.com)",
+      "WebFetch(domain:migrolight.com)",
+      "WebFetch(domain:www.idsa.org)",
+      "WebFetch(domain:vivosun.com)",
+      "WebFetch(domain:hydrobuilder.com)",
+      "Bash(set OPENAI_API_KEY=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)",
+      "Bash(python assets/production/generate-images.py)",
+      "Bash(ping -n 16 127.0.0.1)",
+      "Bash(taskkill /F /IM python.exe /T)",
+      "Bash(exit 0)",
+      "Bash(find /c/Users/j-pre/AppData/Local/Temp/claude -name \"*.output\" -newer /c/Users/j-pre/OneDrive/Documents/public_html/assets/production/generate-images.py 2>/dev/null | head -5)",
+      "Bash(kill 1072)",
+      "Bash(kill 1063)",
+      "Bash(python -u assets/production/generate-images.py)",
+      "Bash(ping -n 21 127.0.0.1)",
+      "Bash(ping -n 31 127.0.0.1)",
+      "Bash(ping -n 61 127.0.0.1)",
+      "Bash(ping -n 121 127.0.0.1)",
+      "Bash(ping -n 241 127.0.0.1)",
+      "Bash(npx --version)",
+      "Bash(claude --version)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /docs/
+Disallow: /tools/
+Disallow: /visual-qa/
+Disallow: /assets/production/
+Disallow: /assets/brand/
+
+Sitemap: https://cola-xpress.com/sitemap.xml

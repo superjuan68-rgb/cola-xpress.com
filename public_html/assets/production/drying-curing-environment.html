@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cannabis Drying and Curing Environment Chart — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0d0f; --surface:#0e1215; --border:#1a1f24;
+    --text:#e8e4dd; --muted:#5a6370; --accent:#9f3028;
+    --dry:#38b4c8; --cure:#4caf65;
+  }
+  body {
+    width:1200px; height:630px; background:var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif; overflow:hidden;
+    display:grid; grid-template-rows:64px 1fr 48px;
+  }
+  .hdr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px 0 32px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .hdr-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; }
+  .hdr-title em { color:var(--accent); font-style:normal; }
+  .hdr-right { font-size:9.5px; color:var(--muted); letter-spacing:.06em; text-align:right; line-height:1.7; }
+
+  .main { display:grid; grid-template-columns:1fr 24px 1fr; gap:0; padding:16px 20px; }
+
+  .phase { display:flex; flex-direction:column; gap:8px; }
+  .phase-hdr {
+    padding:10px 14px; border-radius:5px 5px 0 0; border:1px solid; border-bottom:none;
+    display:flex; align-items:baseline; gap:10px;
+  }
+  .phase-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; }
+  .phase-duration { font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+
+  .dry .phase-hdr  { border-color:#38b4c844; background:#0b2a3433; }
+  .dry .phase-name { color:#38b4c8; }
+  .dry .phase-duration { color:#38b4c8; opacity:.7; }
+  .cure .phase-hdr  { border-color:#4caf6544; background:#0b261833; }
+  .cure .phase-name { color:#4caf65; }
+  .cure .phase-duration { color:#4caf65; opacity:.7; }
+
+  .metrics-grid {
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;
+  }
+
+  .metric-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:10px 12px;
+  }
+  .metric-lbl { font-size:7.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:4px; }
+  .metric-val { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700; line-height:1; }
+  .metric-unit { font-size:8px; color:var(--muted); margin-top:2px; }
+  .dry  .metric-val { color:#38b4c8; }
+  .cure .metric-val { color:#4caf65; }
+
+  .checklist {
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:10px 12px;
+  }
+  .checklist-title { font-size:8px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:6px; }
+  .check-item {
+    display:flex; gap:7px; align-items:flex-start; margin-bottom:5px;
+    font-size:9px; color:var(--muted); line-height:1.4;
+  }
+  .check-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+  .dry  .check-dot { background:#38b4c8; }
+  .cure .check-dot { background:#4caf65; }
+  .check-item b { color:var(--text); font-weight:600; }
+
+  .done-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:10px 12px;
+  }
+  .done-title { font-size:7.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:4px; }
+  .done-text { font-size:9px; color:var(--text); line-height:1.5; }
+
+  /* Divider arrow */
+  .divider { display:flex; align-items:center; justify-content:center; }
+  .arrow { font-size:18px; color:var(--muted); opacity:.4; }
+
+  .ftr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--surface); border-top:1px solid var(--border); }
+  .brand { font-size:9.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .brand span { color:var(--accent); }
+  .ftr-note { font-size:8px; color:var(--muted); opacity:.55; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title">Cannabis <em>Drying + Curing</em> Environment Targets</div>
+  </div>
+  <div class="hdr-right">
+    Post-harvest environment for quality preservation<br>
+    Terpene retention &nbsp;·&nbsp; Mold prevention &nbsp;·&nbsp; Smooth cure
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- DRYING PHASE -->
+  <div class="phase dry">
+    <div class="phase-hdr">
+      <div class="phase-name">Drying</div>
+      <div class="phase-duration">Phase 01 &nbsp;·&nbsp; 7–14 days</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">Temperature</div>
+        <div class="metric-val">60–70°F</div>
+        <div class="metric-unit">15–21°C &nbsp;·&nbsp; cool and stable</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Humidity</div>
+        <div class="metric-val">55–65%</div>
+        <div class="metric-unit">RH &nbsp;·&nbsp; slow even dry</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Light</div>
+        <div class="metric-val">Dark</div>
+        <div class="metric-unit">No UV &nbsp;·&nbsp; protects terpenes</div>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-title">Drying requirements</div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Airflow:</b> gentle indirect circulation — no fans blowing directly on buds</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Hang whole branches</b> upside-down or use drying rack for trimmed buds</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Avoid below 55% RH</b> — drying too fast locks in chlorophyll and harshness</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Avoid above 70% RH</b> — mold risk on dense buds within 24–48 hours</div></div>
+    </div>
+
+    <div class="done-card">
+      <div class="done-title">Ready to jar when</div>
+      <div class="done-text">Small stems <b>snap</b> cleanly rather than bend. Outer buds feel dry to touch but interior still slightly soft. Hay smell beginning to fade — never jar if still strong hay smell.</div>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider"><div class="arrow">&#8594;</div></div>
+
+  <!-- CURING PHASE -->
+  <div class="phase cure">
+    <div class="phase-hdr">
+      <div class="phase-name">Curing</div>
+      <div class="phase-duration">Phase 02 &nbsp;·&nbsp; 2–8+ weeks</div>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-lbl">Temperature</div>
+        <div class="metric-val">60–70°F</div>
+        <div class="metric-unit">15–21°C &nbsp;·&nbsp; same as drying</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Humidity</div>
+        <div class="metric-val">58–65%</div>
+        <div class="metric-unit">RH &nbsp;·&nbsp; ideal: 62%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-lbl">Container</div>
+        <div class="metric-val">Glass</div>
+        <div class="metric-unit">Mason jars &nbsp;·&nbsp; 62% Boveda</div>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <div class="checklist-title">Burping schedule</div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Week 1:</b> open jars 2× daily for 10–15 min — release CO2 and moisture</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Week 2:</b> once daily — smell improves, hay fades, terpenes emerge</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Weeks 3–4:</b> every 2–3 days — most cures are smoke-ready here</div></div>
+      <div class="check-item"><div class="check-dot"></div><div><b>Weeks 6–8:</b> full terpene development, maximum smoothness, peak cure</div></div>
+    </div>
+
+    <div class="done-card">
+      <div class="done-title">Cure is complete when</div>
+      <div class="done-text">Hay smell fully gone. Strain-specific aroma present. Smoke is smooth with no harshness on exhale. Hygrometer inside jar reads <b>58–65% RH</b> stable between burps.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="ftr">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="ftr-note">cola-xpress.com &nbsp;·&nbsp; Boveda 62 packs maintain RH in sealed jars &nbsp;·&nbsp; Discard any jar showing mold immediately</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cannabis Light Schedule Chart — 12/12 vs 18/6 — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#0a0d0f; --surface:#0e1215; --border:#1a1f24;
+    --text:#e8e4dd; --muted:#5a6370; --accent:#9f3028;
+    --light:#f5d060; --dark:#1a1f24;
+  }
+  body {
+    width:1200px; height:630px; background:var(--bg); color:var(--text);
+    font-family:'Manrope',system-ui,sans-serif; overflow:hidden;
+    display:grid; grid-template-rows:64px 1fr 48px;
+  }
+  .hdr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px 0 32px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .hdr-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; }
+  .hdr-title em { color:var(--accent); font-style:normal; }
+  .hdr-right { font-size:9.5px; color:var(--muted); letter-spacing:.06em; text-align:right; line-height:1.7; }
+
+  .main { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:14px 20px; }
+
+  .sched-card {
+    display:flex; flex-direction:column; background:var(--surface);
+    border:1px solid var(--border); border-radius:6px; overflow:hidden;
+  }
+
+  /* TOP COLOR BAR */
+  .sched-card-hdr {
+    padding:12px 14px 10px; border-bottom:1px solid var(--border);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .sched-ratio {
+    font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:700; line-height:1;
+  }
+  .sched-name { font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+
+  /* CLOCK */
+  .clock-wrap { padding:12px 14px; display:flex; justify-content:center; }
+  canvas.clock { display:block; }
+
+  /* STATS */
+  .sched-stats { padding:0 14px 10px; display:flex; gap:10px; }
+  .stat { flex:1; }
+  .stat-lbl { font-size:7.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+  .stat-val { font-size:13px; font-weight:700; line-height:1.2; margin-top:2px; }
+
+  /* USE CASES */
+  .use-cases { padding:0 14px; display:flex; flex-direction:column; gap:4px; flex:1; }
+  .use-item { display:flex; gap:6px; align-items:flex-start; font-size:8.5px; color:var(--muted); line-height:1.4; }
+  .use-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+
+  /* VERDICT */
+  .verdict { margin:8px 14px 12px; padding:6px 10px; border-radius:4px;
+    font-size:8.5px; font-weight:700; text-align:center; letter-spacing:.04em; }
+
+  /* Schedule-specific colors */
+  .s24 .sched-ratio { color:#f5d060; }
+  .s24 .sched-name  { color:#f5d060; opacity:.7; }
+  .s24 .stat-val    { color:#f5d060; }
+  .s24 .use-dot     { background:#f5d060; }
+  .s24 .verdict     { background:#1e1a0a; color:#f5d060; }
+  .s24 .sched-card-hdr { border-top:2px solid #f5d060; }
+
+  .s18 .sched-ratio { color:#38b4c8; }
+  .s18 .sched-name  { color:#38b4c8; opacity:.7; }
+  .s18 .stat-val    { color:#38b4c8; }
+  .s18 .use-dot     { background:#38b4c8; }
+  .s18 .verdict     { background:#0b2a34; color:#38b4c8; }
+  .s18 .sched-card-hdr { border-top:2px solid #38b4c8; }
+
+  .s12 .sched-ratio { color:#e8a830; }
+  .s12 .sched-name  { color:#e8a830; opacity:.7; }
+  .s12 .stat-val    { color:#e8a830; }
+  .s12 .use-dot     { background:#e8a830; }
+  .s12 .verdict     { background:#271d06; color:#e8a830; }
+  .s12 .sched-card-hdr { border-top:2px solid #e8a830; }
+
+  .ftr { display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; background:var(--surface); border-top:1px solid var(--border); }
+  .brand { font-size:9.5px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+  .brand span { color:var(--accent); }
+  .ftr-note { font-size:8px; color:var(--muted); opacity:.55; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="hdr-title">Cannabis <em>Light Schedule</em> Chart — 24/0 · 18/6 · 12/12</div>
+  </div>
+  <div class="hdr-right">
+    Hours of light vs darkness per 24-hour cycle<br>
+    Photoperiod response — how cannabis reads the season
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- 24/0 -->
+  <div class="sched-card s24">
+    <div class="sched-card-hdr">
+      <div class="sched-ratio">24/0</div>
+      <div class="sched-name">Continuous Light</div>
+    </div>
+    <div class="clock-wrap"><canvas class="clock" id="c24" width="140" height="140"></canvas></div>
+    <div class="sched-stats">
+      <div class="stat"><div class="stat-lbl">Light hours</div><div class="stat-val">24 h</div></div>
+      <div class="stat"><div class="stat-lbl">Dark hours</div><div class="stat-val">0 h</div></div>
+      <div class="stat"><div class="stat-lbl">DLI advantage</div><div class="stat-val">+33%</div></div>
+    </div>
+    <div class="use-cases">
+      <div class="use-item"><div class="use-dot"></div>Autoflowering varieties only — not photoperiod</div>
+      <div class="use-item"><div class="use-dot"></div>Fastest seedling and early veg development</div>
+      <div class="use-item"><div class="use-dot"></div>Higher power cost — rarely used past week 3</div>
+      <div class="use-item"><div class="use-dot"></div>Some strains show stress — watch for abnormal growth</div>
+    </div>
+    <div class="verdict">Autoflowers only &nbsp;·&nbsp; Skip for photoperiod</div>
+  </div>
+
+  <!-- 18/6 -->
+  <div class="sched-card s18">
+    <div class="sched-card-hdr">
+      <div class="sched-ratio">18/6</div>
+      <div class="sched-name">Vegetative Standard</div>
+    </div>
+    <div class="clock-wrap"><canvas class="clock" id="c18" width="140" height="140"></canvas></div>
+    <div class="sched-stats">
+      <div class="stat"><div class="stat-lbl">Light hours</div><div class="stat-val">18 h</div></div>
+      <div class="stat"><div class="stat-lbl">Dark hours</div><div class="stat-val">6 h</div></div>
+      <div class="stat"><div class="stat-lbl">Rest period</div><div class="stat-val">6 h</div></div>
+    </div>
+    <div class="use-cases">
+      <div class="use-item"><div class="use-dot"></div>Standard vegetative schedule for all photoperiod strains</div>
+      <div class="use-item"><div class="use-dot"></div>Plant stays in veg indefinitely — flip to 12/12 to flower</div>
+      <div class="use-item"><div class="use-dot"></div>6-hour dark period allows root repair and metabolism</div>
+      <div class="use-item"><div class="use-dot"></div>Lower energy use vs 24/0 with minimal growth sacrifice</div>
+    </div>
+    <div class="verdict">Photoperiod veg — hold until ready to flip</div>
+  </div>
+
+  <!-- 12/12 -->
+  <div class="sched-card s12">
+    <div class="sched-card-hdr">
+      <div class="sched-ratio">12/12</div>
+      <div class="sched-name">Flowering Trigger</div>
+    </div>
+    <div class="clock-wrap"><canvas class="clock" id="c12" width="140" height="140"></canvas></div>
+    <div class="sched-stats">
+      <div class="stat"><div class="stat-lbl">Light hours</div><div class="stat-val">12 h</div></div>
+      <div class="stat"><div class="stat-lbl">Dark hours</div><div class="stat-val">12 h</div></div>
+      <div class="stat"><div class="stat-lbl">Dark window</div><div class="stat-val">12 h</div></div>
+    </div>
+    <div class="use-cases">
+      <div class="use-item"><div class="use-dot"></div>Triggers flowering in all photoperiod cannabis strains</div>
+      <div class="use-item"><div class="use-dot"></div>12/12 from seed: compact plants, earlier harvest, less veg mass</div>
+      <div class="use-item"><div class="use-dot"></div><b>Dark period must be uninterrupted</b> — any light leak re-sets</div>
+      <div class="use-item"><div class="use-dot"></div>Maintain for full flower cycle — 8–12 weeks depending on strain</div>
+    </div>
+    <div class="verdict">Flowering photoperiod &nbsp;·&nbsp; Guard the dark</div>
+  </div>
+
+</div>
+
+<div class="ftr">
+  <div class="brand"><span>ColaXpress</span> by CannaHustle</div>
+  <div class="ftr-note">cola-xpress.com &nbsp;·&nbsp; Consistent timing matters — irregular schedules cause hermaphrodism in photoperiod strains</div>
+</div>
+
+<script>
+function drawClock(canvasId, lightHours, lightColor, darkColor) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  const cx = 70, cy = 70, r = 58, lineW = 14;
+
+  // Background circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.strokeStyle = '#1a1f24';
+  ctx.lineWidth = lineW;
+  ctx.stroke();
+
+  // Light arc
+  const lightFrac = lightHours / 24;
+  const startAngle = -Math.PI / 2;
+  const lightEnd = startAngle + lightFrac * Math.PI * 2;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, startAngle, lightEnd);
+  ctx.strokeStyle = lightColor;
+  ctx.lineWidth = lineW;
+  ctx.stroke();
+
+  // Center text: light hours
+  ctx.fillStyle = lightColor;
+  ctx.font = `700 28px Cormorant Garamond, serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(lightHours, cx, cy - 6);
+
+  ctx.fillStyle = '#5a6370';
+  ctx.font = `500 9px Manrope, system-ui`;
+  ctx.fillText('hrs light', cx, cy + 14);
+
+  // Hour ticks (every 2 hours)
+  ctx.strokeStyle = '#1a1f24';
+  ctx.lineWidth = 1;
+  for(let h = 0; h < 24; h += 2) {
+    const angle = -Math.PI/2 + (h/24) * Math.PI * 2;
+    const ir = r - lineW/2 - 3;
+    const or = r + lineW/2 + 1;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(angle)*ir, cy + Math.sin(angle)*ir);
+    ctx.lineTo(cx + Math.cos(angle)*or, cy + Math.sin(angle)*or);
+    ctx.stroke();
+  }
+}
+
+drawClock('c24', 24, '#f5d060', '#0a0d0f');
+drawClock('c18', 18, '#38b4c8', '#1a1f24');
+drawClock('c12', 12, '#e8a830', '#1a1f24');
+</script>
+</body>
+</html>

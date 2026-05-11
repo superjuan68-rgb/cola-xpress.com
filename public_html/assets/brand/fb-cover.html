@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Facebook Cover — Cola-Xpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 820px;
+    height: 312px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  .canvas {
+    position: relative;
+    width: 820px;
+    height: 312px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  /* ══════════════════════════════
+     BACKGROUND LAYERS
+  ══════════════════════════════ */
+
+  /* Left third — complexity atmosphere: very faint data stack */
+  .complexity-field {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* Data text stack — barely visible, ambient noise */
+  .data-stack {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    opacity: 0.11;
+  }
+  .data-item {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #e8e4dd;
+    white-space: nowrap;
+  }
+  .data-val {
+    color: #38b4c8;
+    margin-left: 6px;
+  }
+
+  /* Secondary data column — offset, even fainter */
+  .data-stack-2 {
+    position: absolute;
+    left: 140px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    opacity: 0.06;
+  }
+
+  /* Fade left data field toward center */
+  .complexity-fade {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 160px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #060608);
+    pointer-events: none;
+  }
+
+  /* Right third — clean teal atmospheric glow */
+  .clean-glow {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(ellipse at 65% 50%,
+      rgba(56, 180, 200, 0.13) 0%,
+      rgba(56, 180, 200, 0.06) 35%,
+      rgba(20, 90, 120, 0.03) 60%,
+      transparent 75%
+    );
+    pointer-events: none;
+  }
+
+  /* Nested plant warmth inside the glow */
+  .clean-plant {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 240px;
+    height: 280px;
+    background: radial-gradient(ellipse at 60% 52%,
+      rgba(56, 200, 80, 0.05) 0%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  /* Vignette — darkens all four edges */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 110% 130% at 50% 50%,
+        transparent 30%,
+        rgba(0, 0, 0, 0.6) 100%
+      );
+    pointer-events: none;
+  }
+
+  /* Fine grain */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+  }
+
+  /* Vertical divider — subtle teal line between complexity / craft */
+  .split-line {
+    position: absolute;
+    left: 254px;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: linear-gradient(to bottom,
+      transparent,
+      rgba(56,180,200,0.15) 25%,
+      rgba(56,180,200,0.22) 50%,
+      rgba(56,180,200,0.15) 75%,
+      transparent
+    );
+  }
+
+  /* ══════════════════════════════
+     SAFE ZONE CONTENT
+     Mobile safe zone: center 50% width × 57% height
+     At 820×312: x 205–615 (410w), y 66–246 (180h)
+  ══════════════════════════════ */
+  .safe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    z-index: 10;
+  }
+
+  /* Thin teal rule above wordmark */
+  .rule-top {
+    width: 36px;
+    height: 1px;
+    background: rgba(56,180,200,0.55);
+    margin-bottom: 14px;
+  }
+
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 62px;
+    font-weight: 700;
+    color: #e8e4dd;
+    letter-spacing: -0.015em;
+    line-height: 1;
+    text-align: center;
+    margin-bottom: 11px;
+  }
+
+  .tagline {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: #38b4c8;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .tagline-sep {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    background: rgba(56,180,200,0.4);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 9px;
+    position: relative;
+    top: -1px;
+  }
+
+  /* Thin teal rule below tagline */
+  .rule-bottom {
+    width: 36px;
+    height: 1px;
+    background: rgba(56,180,200,0.3);
+    margin-bottom: 13px;
+  }
+
+  .site-url {
+    font-family: 'Manrope', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.5);
+    text-align: center;
+  }
+
+  /* ══════════════════════════════
+     LEFT LABEL — "complexity"
+     Faint category label, left side, desktop-only area
+  ══════════════════════════════ */
+  .left-label {
+    position: absolute;
+    left: 26px;
+    bottom: 18px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(232,228,221,0.12);
+    z-index: 5;
+  }
+
+  /* ══════════════════════════════
+     RIGHT LABEL — "craft"
+     Faint category label, right side, desktop-only area
+  ══════════════════════════════ */
+  .right-label {
+    position: absolute;
+    right: 26px;
+    bottom: 18px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.2);
+    z-index: 5;
+    text-align: right;
+  }
+
+  /* Episode status — top right, desktop bleed area */
+  .ep-status {
+    position: absolute;
+    top: 18px;
+    right: 26px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 7.5px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(56,200,80,0.35);
+    z-index: 5;
+  }
+  .ep-status::before {
+    content: '●';
+    margin-right: 5px;
+    font-size: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -0.5px;
+  }
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Left complexity field -->
+  <div class="complexity-field">
+    <div class="data-stack">
+      <div class="data-item">pH<span class="data-val">5.8</span></div>
+      <div class="data-item">EC<span class="data-val">0.4</span></div>
+      <div class="data-item">VPD<span class="data-val">0.8 kPa</span></div>
+      <div class="data-item">Temp<span class="data-val">76.4°F</span></div>
+      <div class="data-item">RH<span class="data-val">62%</span></div>
+      <div class="data-item">PPM<span class="data-val">280</span></div>
+      <div class="data-item">Day<span class="data-val">01</span></div>
+    </div>
+    <div class="data-stack-2">
+      <div class="data-item">CANOPY<span class="data-val">NOMINAL</span></div>
+      <div class="data-item">ROOTS<span class="data-val">CLEAN</span></div>
+      <div class="data-item">DO<span class="data-val">7.2 ppm</span></div>
+      <div class="data-item">STAGE<span class="data-val">EARLY VEG</span></div>
+    </div>
+    <div class="complexity-fade"></div>
+  </div>
+
+  <!-- Right craft glow -->
+  <div class="clean-glow"></div>
+  <div class="clean-plant"></div>
+
+  <!-- Split line -->
+  <div class="split-line"></div>
+
+  <!-- Desktop-only labels -->
+  <div class="left-label">The complicated era</div>
+  <div class="right-label">The craft era</div>
+  <div class="ep-status">Now Documenting · Season 01</div>
+
+  <!-- Vignette + grain -->
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+  <!-- Safe zone content -->
+  <div class="safe">
+    <div class="rule-top"></div>
+    <div class="wordmark">Cola-Xpress</div>
+    <div class="tagline">
+      compact<span class="tagline-sep"></span>craft<span class="tagline-sep"></span>documented
+    </div>
+    <div class="rule-bottom"></div>
+    <div class="site-url">cola-xpress.com</div>
+  </div>
+
+</div>
+</body>
+</html>

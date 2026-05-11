@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=Manrope:wght@600;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#020304;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0}
+.glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:800px;height:600px;background:radial-gradient(ellipse at 50% 50%,rgba(56,180,200,0.05) 0%,transparent 65%)}
+.ep-label{font-family:'Manrope',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.45em;text-transform:uppercase;color:rgba(159,48,40,0.6);margin-bottom:20px;position:relative;z-index:2}
+.rule{width:40px;height:1px;background:rgba(56,180,200,0.3);margin-bottom:24px;position:relative;z-index:2}
+.text{font-family:'Cormorant Garamond',Georgia,serif;font-size:110px;font-weight:700;color:rgba(232,228,221,0.88);letter-spacing:-0.01em;line-height:1.1;text-align:center;position:relative;z-index:2}
+.ep2-label{font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;letter-spacing:0.25em;text-transform:uppercase;color:rgba(56,180,200,0.45);margin-top:32px;position:relative;z-index:2}
+.site{font-family:'Manrope',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;color:rgba(255,255,255,0.15);margin-top:12px;position:relative;z-index:2}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 25%,rgba(0,0,0,0.9) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="glow"></div>
+<div class="ep-label">Episode 01 — End</div>
+<div class="rule"></div>
+<div class="text">See you there.</div>
+<div class="ep2-label">Episode 02 — Coming</div>
+<div class="site">cola-xpress.com</div>
+<div class="vignette"></div>
+</div></body></html>

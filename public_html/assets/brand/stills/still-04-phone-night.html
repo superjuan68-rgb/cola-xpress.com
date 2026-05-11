@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#020304;overflow:hidden;font-family:'Manrope',sans-serif}
+/* Room ambient — just barely lit by phone screen */
+.screen-ambient{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;height:700px;background:radial-gradient(ellipse at 50% 48%,rgba(220,228,240,0.07) 0%,rgba(180,200,230,0.03) 40%,transparent 68%)}
+/* Phone body */
+.phone{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:320px;height:640px;background:#0a0b0e;border-radius:40px;border:1px solid rgba(255,255,255,0.08);box-shadow:0 0 60px 20px rgba(200,215,240,0.06),0 0 120px 60px rgba(200,215,240,0.03)}
+/* Notch */
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#0a0b0e;border-radius:0 0 18px 18px;z-index:10}
+/* Screen */
+.screen{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(160deg,#0c1018,#0a0c12);border-radius:40px;overflow:hidden}
+/* Lock screen time */
+.time-wrap{position:absolute;top:120px;left:0;right:0;text-align:center}
+.time{font-size:100px;font-weight:300;color:rgba(255,255,255,0.92);letter-spacing:-0.02em;line-height:1}
+.date{font-size:22px;font-weight:400;color:rgba(255,255,255,0.5);margin-top:8px;letter-spacing:0.04em}
+/* Notification card */
+.notif{position:absolute;top:330px;left:18px;right:18px;background:rgba(20,22,28,0.92);border-radius:14px;padding:14px 16px;backdrop-filter:blur(10px)}
+.notif-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.notif-icon{width:20px;height:20px;border-radius:5px;background:#1a2e1a;border:1px solid rgba(56,180,60,0.4);display:flex;align-items:center;justify-content:center;font-size:11px}
+.notif-app{font-size:11px;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.4);text-transform:uppercase}
+.notif-time{font-size:10px;color:rgba(255,255,255,0.22);margin-left:auto}
+.notif-title{font-size:14px;font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:2px}
+.notif-body{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.45}
+/* Second notification */
+.notif2{position:absolute;top:440px;left:18px;right:18px;background:rgba(20,22,28,0.85);border-radius:14px;padding:14px 16px}
+/* Home indicator */
+.home-ind{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:100px;height:4px;background:rgba(255,255,255,0.25);border-radius:2px}
+/* Screen edge glow on dark room */
+.phone-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:340px;height:660px;border-radius:42px;box-shadow:0 0 40px 8px rgba(200,215,240,0.08);pointer-events:none}
+/* Dark room surfaces — faint outline of a table edge */
+.table-edge{position:absolute;top:680px;left:0;right:0;height:1px;background:linear-gradient(to right,transparent 20%,rgba(255,255,255,0.04) 40%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0.04) 60%,transparent 80%)}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse 70% 75% at 50% 50%,transparent 25%,rgba(0,0,0,0.85) 100%)}
+</style></head>
+<body><div class="canvas">
+<div class="screen-ambient"></div>
+<div class="table-edge"></div>
+<div class="phone">
+  <div class="screen">
+    <div class="notch"></div>
+    <div class="time-wrap">
+      <div class="time">2:47</div>
+      <div class="date">Tuesday, November 14</div>
+    </div>
+    <div class="notif">
+      <div class="notif-header">
+        <div class="notif-icon">🌱</div>
+        <div class="notif-app">vGrow</div>
+        <div class="notif-time">now</div>
+      </div>
+      <div class="notif-title">pH Alert — Reservoir</div>
+      <div class="notif-body">pH drifted to 6.3. Target range 5.8–6.0. Adjustment recommended.</div>
+    </div>
+    <div class="notif2">
+      <div class="notif-header">
+        <div class="notif-icon" style="background:#1a1a2e;border-color:rgba(100,100,200,0.4)">💧</div>
+        <div class="notif-app">Grow Journal</div>
+        <div class="notif-time">47m</div>
+      </div>
+      <div class="notif-title">Reservoir check due</div>
+      <div class="notif-body">Day 8 top-off reminder. EC reading 1.4 (was 1.8 yesterday)</div>
+    </div>
+    <div class="home-ind"></div>
+  </div>
+</div>
+<div class="phone-glow"></div>
+<div class="vignette"></div>
+</div></body></html>

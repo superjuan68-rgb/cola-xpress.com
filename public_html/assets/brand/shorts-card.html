@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shorts Card Templates — ColaXpress</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+
+  html, body {
+    background: #1a1a1a;
+    font-family: 'Manrope', sans-serif;
+    padding: 40px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .card-label {
+    width: 100%;
+    text-align: center;
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  /* ── SHORTS CARD: 1080 × 1920 scaled to 270 × 480 for preview ── */
+  /* Scale: 25% — multiply all values by 4 for production */
+
+  .shorts-card {
+    position: relative;
+    width: 270px;
+    height: 480px;
+    overflow: hidden;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── VARIANT A: Quote card — dark minimal ── */
+  .variant-a {
+    background: #060608;
+  }
+
+  .va-glow {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(ellipse at 50% 50%,
+      rgba(56, 180, 200, 0.15) 0%,
+      rgba(56, 180, 200, 0.06) 40%,
+      transparent 70%
+    );
+  }
+
+  .va-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 22px;
+  }
+
+  .va-category {
+    font-size: 7px;
+    font-weight: 800;
+    color: #9f3028;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .va-quote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  .va-quote em {
+    font-style: normal;
+    color: #9f3028;
+  }
+
+  .va-sub {
+    font-size: 8.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .va-divider {
+    width: 24px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin-bottom: 14px;
+  }
+
+  .va-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .va-brand-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    background: #9f3028;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 6px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .va-brand-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .va-scan {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* ── VARIANT B: Stat card — data visual ── */
+  .variant-b {
+    background: #06090b;
+  }
+
+  .vb-top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(56,180,200,0.9) 30%, rgba(56,180,200,1) 50%, rgba(56,180,200,0.9) 70%, transparent);
+  }
+
+  .vb-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px 20px;
+    gap: 16px;
+  }
+
+  .vb-eyebrow {
+    font-size: 7px;
+    font-weight: 800;
+    color: rgba(56,180,200,0.7);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .vb-headline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.02;
+  }
+
+  .vb-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .vb-stat {
+    padding: 10px 10px 9px;
+    border: 1px solid rgba(56,180,200,0.18);
+    border-radius: 4px;
+    background: rgba(56,180,200,0.04);
+  }
+
+  .vb-stat-label {
+    font-size: 6.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .vb-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(56,180,200,0.95);
+    line-height: 1;
+    display: block;
+  }
+
+  .vb-stat-unit {
+    font-size: 8px;
+    color: rgba(56,180,200,0.5);
+    margin-left: 1px;
+  }
+
+  .vb-caption {
+    font-size: 8px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 12px;
+  }
+
+  .vb-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .vb-brand-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background: #9f3028;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 5.5px;
+    font-weight: 800;
+  }
+
+  .vb-brand-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── VARIANT C: Hook card — curiosity/tension ── */
+  .variant-c {
+    background: #050507;
+  }
+
+  .vc-accent-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(180deg, transparent, rgba(159,48,40,0.12) 60%, rgba(159,48,40,0.2) 100%);
+  }
+
+  .vc-line-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #9f3028;
+  }
+
+  .vc-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 22px 20px 24px;
+  }
+
+  .vc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .vc-episode-badge {
+    padding: 4px 10px;
+    border: 1px solid rgba(159,48,40,0.5);
+    border-radius: 2px;
+    font-size: 7px;
+    font-weight: 800;
+    color: #9f3028;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .vc-tag {
+    font-size: 7px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  .vc-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  .vc-hook-sm {
+    font-size: 8px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .vc-hook-lg {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.0;
+    margin-bottom: 14px;
+  }
+
+  .vc-hook-lg span {
+    color: #9f3028;
+  }
+
+  .vc-body {
+    font-size: 9px;
+    color: rgba(255,255,255,0.42);
+    line-height: 1.65;
+    max-width: 95%;
+  }
+
+  .vc-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .vc-brand {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .vc-brand-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background: #9f3028;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 5.5px;
+    font-weight: 800;
+  }
+
+  .vc-brand-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .vc-cta {
+    font-size: 7px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Card labels -->
+
+<div style="width:100%;display:flex;gap:20px;justify-content:center;margin-bottom:0">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <span class="card-label">Variant A — Quote / Philosophy</span>
+    <!-- VARIANT A: Quote card -->
+    <div class="shorts-card variant-a">
+      <div class="va-glow"></div>
+      <div class="va-scan"></div>
+      <div class="va-content">
+        <div class="va-category">Craft Cannabis · ColaXpress</div>
+        <div class="va-quote">
+          Anyone can grow weed.<br />
+          Few people preserve<br />
+          <em>what the grow built.</em>
+        </div>
+        <div class="va-sub">
+          Quality is not created at harvest.<br />
+          It is preserved after it.
+        </div>
+        <div class="va-divider"></div>
+        <div class="va-brand">
+          <div class="va-brand-mark">CX</div>
+          <span class="va-brand-text">ColaXpress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <span class="card-label">Variant B — Environmental Data</span>
+    <!-- VARIANT B: Stat / HUD card -->
+    <div class="shorts-card variant-b">
+      <div class="vb-top-bar"></div>
+      <div class="vb-content">
+        <div class="vb-eyebrow">VIVOSUN vGrow · Day 01 · Seedling</div>
+        <div class="vb-headline">The numbers<br />the plant needs.</div>
+        <div class="vb-stat-grid">
+          <div class="vb-stat">
+            <span class="vb-stat-label">Temp</span>
+            <span class="vb-stat-value">76.4<span class="vb-stat-unit">°F</span></span>
+          </div>
+          <div class="vb-stat">
+            <span class="vb-stat-label">Humidity</span>
+            <span class="vb-stat-value">68<span class="vb-stat-unit">%</span></span>
+          </div>
+          <div class="vb-stat">
+            <span class="vb-stat-label">VPD</span>
+            <span class="vb-stat-value">0.52<span class="vb-stat-unit">kPa</span></span>
+          </div>
+          <div class="vb-stat">
+            <span class="vb-stat-label">pH</span>
+            <span class="vb-stat-value">6.10</span>
+          </div>
+        </div>
+        <div class="vb-caption">
+          Young plants absorb moisture through their leaf surface.<br />
+          Humidity is not atmosphere — it is nutrition delivery.
+        </div>
+        <div class="vb-brand">
+          <div class="vb-brand-mark">CX</div>
+          <span class="vb-brand-name">ColaXpress</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <span class="card-label">Variant C — Hook / Curiosity</span>
+    <!-- VARIANT C: Tension hook card -->
+    <div class="shorts-card variant-c">
+      <div class="vc-line-top"></div>
+      <div class="vc-accent-bg"></div>
+      <div class="vc-content">
+        <div class="vc-top">
+          <div class="vc-episode-badge">Ep 01</div>
+          <div class="vc-tag">
+            vGrow DWC<br />
+            Craft Grow
+          </div>
+        </div>
+        <div class="vc-main">
+          <div class="vc-hook-sm">The real question</div>
+          <div class="vc-hook-lg">
+            Can this<br />
+            cabinet<br />
+            grow <span>craft</span><br />
+            cannabis?
+          </div>
+          <div class="vc-body">
+            Not max weight. Not fastest harvest.<br />
+            Craft flower. The kind worth preserving.<br />
+            We built the system. Now we find out.
+          </div>
+        </div>
+        <div class="vc-bottom">
+          <div class="vc-brand">
+            <div class="vc-brand-mark">CX</div>
+            <span class="vc-brand-name">ColaXpress</span>
+          </div>
+          <div class="vc-cta">
+            Full series<br />
+            cola-xpress.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

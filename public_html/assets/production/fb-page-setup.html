@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Facebook Page Setup — Cola-Xpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 960px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  .doc-header { border-bottom: 1px solid #1e2428; padding-bottom: 32px; margin-bottom: 48px; }
+  .doc-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 14px; }
+  .doc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 700; color: #e8e4dd; line-height: 1.1; margin-bottom: 10px; }
+  .doc-sub { font-size: 13px; color: #5a6370; font-weight: 500; }
+
+  .section-header { margin: 52px 0 16px; border-bottom: 1px solid #1a1f24; padding-bottom: 10px; }
+  .section-label { font-size: 9px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 4px; }
+  .section-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 700; color: #e8e4dd; }
+
+  /* paste blocks */
+  .paste-wrap { margin-bottom: 20px; }
+  .paste-label {
+    font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #38b4c8; margin-bottom: 0; padding: 10px 18px;
+    background: #0b0e11; border: 1px solid #1a1f24; border-bottom: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .char-count { color: #5a6370; font-size: 9px; }
+  .paste-block {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #38b4c8;
+    padding: 22px 26px;
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: #d0cbc4;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+  }
+  .paste-note {
+    background: #0a0d0f;
+    border: 1px solid #1a1f24; border-top: none;
+    padding: 10px 18px;
+    font-size: 11px; color: #5a6370; line-height: 1.6;
+  }
+
+  /* field table */
+  .field-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .field-table th { background: #0b0e11; color: #5a6370; padding: 8px 14px; text-align: left; font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid #1a1f24; }
+  .field-table td { padding: 12px 14px; border-bottom: 1px solid #111518; font-size: 12.5px; color: #c0bbb4; vertical-align: top; line-height: 1.6; }
+  .field-table td:first-child { color: #8a9099; font-size: 11px; font-weight: 700; white-space: nowrap; width: 200px; }
+  .field-table td strong { color: #e8e4dd; }
+  .field-table tr:hover td { background: #0e1215; }
+
+  /* insight */
+  .insight {
+    background: #0e1215; border: 1px solid #1a1f24; border-left: 3px solid #c8a840;
+    padding: 18px 22px; margin-bottom: 28px;
+    font-size: 12.5px; color: #8a9099; line-height: 1.75;
+  }
+  .insight h3 { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #c8a840; margin-bottom: 8px; }
+  .insight strong { color: #e8e4dd; }
+
+  /* warning */
+  .warn {
+    background: #0e1215; border: 1px solid #1a1f24; border-left: 3px solid #9f3028;
+    padding: 16px 20px; margin-bottom: 24px;
+    font-size: 12px; color: #8a9099; line-height: 1.7;
+  }
+  .warn h3 { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #9f3028; margin-bottom: 6px; }
+  .warn strong { color: #e8e4dd; }
+
+  /* post blocks */
+  .post-block {
+    background: #0e1215; border: 1px solid #1a1f24;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .post-header {
+    padding: 12px 18px; background: #0b0e11;
+    border-bottom: 1px solid #1a1f24;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .post-num { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #9f3028; }
+  .post-type { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #5a6370; }
+  .post-timing { font-size: 9px; color: #38b4c8; font-weight: 700; }
+  .post-body { padding: 20px 22px; font-size: 13px; line-height: 1.95; color: #d0cbc4; white-space: pre-wrap; font-family: 'Manrope', sans-serif; }
+  .post-footer { padding: 10px 18px; border-top: 1px solid #111518; font-size: 11px; color: #5a6370; line-height: 1.6; }
+  .post-link { color: #38b4c8; font-weight: 700; }
+
+  /* media asset reference */
+  .asset-ref {
+    background: #0b0e11; border: 1px solid #1a1f24; border-left: 3px solid rgba(56,180,200,0.4);
+    padding: 14px 18px; margin-bottom: 10px;
+    display: flex; gap: 16px; align-items: flex-start;
+    font-size: 12px;
+  }
+  .asset-ref-label { font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #38b4c8; white-space: nowrap; margin-top: 2px; flex-shrink: 0; width: 100px; }
+  .asset-ref-body { color: #8a9099; line-height: 1.6; }
+  .asset-ref-body strong { color: #e8e4dd; }
+
+  /* checklist */
+  .checklist-wrap { margin-top: 48px; background: #0e1215; border: 1px solid #1a1f24; padding: 24px 28px; }
+  .checklist-title { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #c8a840; margin-bottom: 16px; }
+  .checklist { list-style: none; }
+  .checklist li { display: flex; gap: 14px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #111518; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .box { display: inline-block; width: 14px; height: 14px; border: 1px solid #2a3038; background: #111518; flex-shrink: 0; margin-top: 3px; }
+  .checklist .item-text { font-size: 12.5px; color: #c0bbb4; line-height: 1.5; }
+  .checklist .item-text strong { color: #e8e4dd; font-weight: 700; }
+  .checklist .item-text span { font-size: 11px; color: #5a6370; display: block; margin-top: 2px; }
+
+  /* content pillars */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 28px; }
+  .pillar-card { background: #0e1215; border: 1px solid #1a1f24; padding: 16px 18px; }
+  .pillar-num { font-size: 9px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #9f3028; margin-bottom: 6px; }
+  .pillar-name { font-size: 13px; font-weight: 700; color: #e8e4dd; margin-bottom: 5px; }
+  .pillar-desc { font-size: 11.5px; color: #5a6370; line-height: 1.65; }
+  .pillar-example { font-size: 10.5px; color: #38b4c8; margin-top: 8px; font-style: italic; }
+
+  .rule { height: 1px; background: #1a1f24; margin: 36px 0; }
+  .note { font-size: 12px; color: #5a6370; font-style: italic; margin-bottom: 16px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress · Facebook · Page Setup · v1.0 — May 2026</div>
+  <div class="doc-title">Facebook Page Setup<br>Cola-Xpress</div>
+  <div class="doc-sub">Page fields · Profile & cover assets · About copy · Content pillars · First 8 posts · Facebook content rules for cannabis · Setup checklist</div>
+</div>
+
+<div class="warn">
+  <h3>Facebook Cannabis Content Policy — Read First</h3>
+  <strong>Organic posts are permitted.</strong> Facebook allows cannabis cultivation education, grow documentation, legal information, and reference content as organic page posts. What is restricted: paid advertising for cannabis products or services (including cultivation equipment sold via affiliate), direct purchase CTAs, and any content that facilitates illegal activity in the viewer's jurisdiction.<br><br>
+  <strong>What this means for Cola-Xpress:</strong> All planned content — grow documentation, VPD charts, DWC guides, NY home grow law, cinematic episodes — is fully permissible as organic content. Do not run paid ads. Do not use "buy," "shop," or affiliate links in post copy. The page is categorised as "Website" not "Cannabis Dispensary" — this avoids triggering cannabis-specific content restrictions on the category level. Set the page age gate to 18+.
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 1 — Page Identity Fields</div>
+  <div class="section-name">What to Enter in Facebook Page Setup</div>
+</div>
+
+<table class="field-table">
+  <thead><tr><th>Field</th><th>Value</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Page name</td>
+      <td><strong>Cola-Xpress</strong><br><span style="font-size:11px;color:#5a6370;">Hyphenated. Matches the domain (cola-xpress.com) and YouTube handle (@cola-xpress). Consistency across all platforms is the rule.</span></td>
+    </tr>
+    <tr>
+      <td>Username / handle</td>
+      <td><strong>@cola-xpress</strong><br><span style="font-size:11px;color:#5a6370;">Facebook URL becomes: facebook.com/cola-xpress. Check availability during setup — if cola-xpress is taken, try @colaxpress or @colaxpress.nyc.</span></td>
+    </tr>
+    <tr>
+      <td>Category</td>
+      <td><strong>Website</strong> — primary<br><strong>Personal Blog</strong> — secondary (optional)<br><span style="font-size:11px;color:#5a6370;">Do not select "Cannabis Dispensary," "Cannabis Store," or any cannabis-specific category. "Website" is accurate (it's a content website) and avoids triggering elevated content restrictions at the category level.</span></td>
+    </tr>
+    <tr>
+      <td>Website</td>
+      <td><strong>https://cola-xpress.com</strong></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><strong>Your real contact email.</strong> Shown publicly — use a dedicated brand address if preferred. This is what VIVOSUN, publications, and collaborators will use.</td>
+    </tr>
+    <tr>
+      <td>Location / City</td>
+      <td><strong>New York, New York, United States</strong><br><span style="font-size:11px;color:#5a6370;">The NY home grow angle is a core content pillar. Location signals help Facebook surface the page to NY-area audiences searching for cannabis home grow content.</span></td>
+    </tr>
+    <tr>
+      <td>Age restriction</td>
+      <td><strong>18+</strong><br><span style="font-size:11px;color:#5a6370;">Settings → General → Age Restrictions → set to 18+. This is required for any cannabis-adjacent content. It also signals to Facebook's moderation system that the page is responsible-use-oriented.</span></td>
+    </tr>
+    <tr>
+      <td>Country restrictions</td>
+      <td><strong>None</strong> — available worldwide. The content is educational and legal to view everywhere.</td>
+    </tr>
+    <tr>
+      <td>Messaging</td>
+      <td>Enable Messenger. Respond to messages within 24 hours minimum — Facebook's "Very responsive" badge (under 1 hour average) builds page credibility and is shown to visitors.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 2 — Short Description</div>
+  <div class="section-name">Shown under the page name in search results</div>
+</div>
+
+<div class="paste-wrap">
+  <div class="paste-label">
+    <span>Short Description — Facebook "Bio" field · 255 character limit</span>
+    <span class="char-count">189 characters</span>
+  </div>
+  <div class="paste-block">Compact DWC cannabis grows. Craft methodology. Documented in full.
+
+VPD charts, nutrient schedules, trichome guides, and NY home grow resources at cola-xpress.com. The Grow Series — now filming.</div>
+  <div class="paste-note">The first sentence is what shows in search and in the page preview card. "Compact DWC cannabis grows" — three searchable terms in six words. The rest is content promise and CTA.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 3 — About / Long Description</div>
+  <div class="section-name">Full About section — the brand statement</div>
+</div>
+
+<div class="paste-wrap">
+  <div class="paste-label">
+    <span>About Section — paste into Page Info → About</span>
+    <span class="char-count">~740 characters</span>
+  </div>
+  <div class="paste-block">Cola-Xpress documents compact cannabis cultivation with the same discipline applied to craft coffee, audio engineering, and fine photography — environments dialed in, data visible, process recorded.
+
+The Grow Series follows a single plant from seed to jar inside a VIVOSUN vGrow enclosure. Deep water culture. Automated environment. 60 days documented. No on-camera host. No tutorial format. Closer to a short film than a how-to video.
+
+Between episodes: VPD charts, DWC nutrient schedules, trichome harvest guides, and New York home grow resources — all free at cola-xpress.com.
+
+Growing became complicated. It doesn't have to be.
+
+New York City. Compact spaces. Craft cultivation.</div>
+  <div class="paste-note">Ends on the brand thesis — not a CTA, not "like and follow." The mission statement is the close. Same register as the YouTube description: the last line is what people remember and repeat.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 4 — Media Assets</div>
+  <div class="section-name">Files to upload in Facebook Page → Edit Profile</div>
+</div>
+
+<div class="asset-ref">
+  <div class="asset-ref-label">Cover Photo</div>
+  <div class="asset-ref-body">
+    <strong>File:</strong> assets/production/exports/fb-cover.png<br>
+    <strong>Spec:</strong> 1640×624px — displayed at 820×312 on desktop, 640×360 on mobile (cropped center)<br>
+    <strong>Design:</strong> Left half — faint complexity data field (pH, EC, VPD, PPM). Right half — teal atmospheric glow. Center — Cola-Xpress wordmark + "compact · craft · documented" + cola-xpress.com.<br>
+    <strong>Mobile safe zone:</strong> All critical content (wordmark, tagline, URL) lives within the center 50% width, guaranteed visible on all devices.
+  </div>
+</div>
+
+<div class="asset-ref">
+  <div class="asset-ref-label">Profile Picture</div>
+  <div class="asset-ref-body">
+    <strong>File:</strong> assets/production/exports/yt-profile.png (same asset — use for both platforms)<br>
+    <strong>Spec:</strong> Upload the 800×800px CX monogram. Facebook displays at 170×170px on desktop, 128×128px on mobile. The monogram reads clearly at all sizes.<br>
+    <strong>Crop note:</strong> Facebook crops to a circle. The CX letters are centered with generous padding — the circular crop does not clip the letterforms.
+  </div>
+</div>
+
+<div class="asset-ref">
+  <div class="asset-ref-label">Cover Photo — Mobile Note</div>
+  <div class="asset-ref-body">
+    After uploading, Facebook will show a repositioning tool. <strong>Do not reposition</strong> — the design was built center-safe. Click Save without adjusting. If the preview looks off, check that you uploaded the 1640×624 (not the 820×312 render size).
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 5 — Content Pillars</div>
+  <div class="section-name">Four Content Types. Post on Rotation.</div>
+</div>
+
+<p class="note">All four pillars reinforce each other. Pillar 1 builds the audience. Pillar 2 drives traffic to the site. Pillar 3 earns shares (organic reach). Pillar 4 signals authority and draws in the NY-specific audience.</p>
+
+<div class="pillar-grid">
+  <div class="pillar-card">
+    <div class="pillar-num">Pillar 01</div>
+    <div class="pillar-name">Grow Journal Updates</div>
+    <div class="pillar-desc">Real photo + real data from the active grow. Day number, one environmental reading, one observation. No fluff. These are the posts that get saved and shared — growers compare their data against yours.</div>
+    <div class="pillar-example">"Day 14. VPD 1.1 kPa. Root mass visible through the reservoir wall for the first time. The plant has never been stressed."</div>
+  </div>
+  <div class="pillar-card">
+    <div class="pillar-num">Pillar 02</div>
+    <div class="pillar-name">Site Guide Links</div>
+    <div class="pillar-desc">Shares of the chart and guide pages at cola-xpress.com. Facebook link previews auto-generate a card with the page title, image, and URL. One sentence of context, then the link. These drive direct site traffic and earn the indexed links Google sees.</div>
+    <div class="pillar-example">"The VPD targets shift every two weeks. We charted the full range by stage — kPa, formula, and a temperature/RH grid in one place."</div>
+  </div>
+  <div class="pillar-card">
+    <div class="pillar-num">Pillar 03</div>
+    <div class="pillar-name">Short-Form Data Posts</div>
+    <div class="pillar-desc">Text-only or text + single photo. One specific number, one specific observation, one specific fact. No tutorial structure. These perform well on Facebook because they invite comments ("what's your target?") and get saved for reference.</div>
+    <div class="pillar-example">"The stem snap test for harvest readiness: bend a small branch. Clean snap, dry sound = ready. Flex without snapping = needs more time."</div>
+  </div>
+  <div class="pillar-card">
+    <div class="pillar-num">Pillar 04</div>
+    <div class="pillar-name">NY Home Grow Resources</div>
+    <div class="pillar-desc">NY-specific content: law updates, apartment constraints, what changed in MRTA, what home growers in NYC actually face. Highly shareable within the NY cannabis community and not produced by any other Facebook page with craft positioning.</div>
+    <div class="pillar-example">"New York home grow law in one paragraph: 3 plants per adult, 6 per household, any space you occupy. No permit required. Here's what the law actually says."</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 6 — First 8 Posts</div>
+  <div class="section-name">Copy-ready. Post in this exact order.</div>
+</div>
+
+<div class="insight">
+  <h3>Post Timing Logic</h3>
+  <strong>Post 1 is the brand introduction — it anchors everything that follows.</strong> Posts 2–4 establish the three content pillars in the first week. Posts 5–8 build rhythm and demonstrate that this page posts regularly. Facebook's algorithm rewards pages that post 3–5 times per week with consistent engagement — the first two weeks set the pattern. Best times for cannabis/gardening content on Facebook: Tuesday–Thursday, 7–9pm local time.
+</div>
+
+<!-- POST 1 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 01</div><div class="post-type">Brand Introduction · Photo</div></div>
+    <div class="post-timing">Day 1 — publish immediately after page setup</div>
+  </div>
+  <div class="post-body">Growing became complicated.
+
+Not all at once. Gradually — one device, one app, one forum thread at a time. Before you knew it, growing required a chemistry degree, a HVAC certification, and three hours of daily maintenance.
+
+Cola-Xpress is about what happens when you go the other way.
+
+We document compact cannabis grows — specifically inside a VIVOSUN vGrow DWC enclosure — with the same attention applied to craft coffee or fine photography. Environments dialed in. Data recorded. Process visible.
+
+The Grow Series starts now. 60 days. Seed to jar. Documented in full.
+
+Full grow guides and reference charts at cola-xpress.com.</div>
+  <div class="post-footer">Photo: the vGrow enclosure, door closed, clean setup. Same aesthetic as the episode 01 visual language — dark, teal glow. No phone visible. No messy desk in background. The image is part of the brand.</div>
+</div>
+
+<!-- POST 2 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 02</div><div class="post-type">Site Link Share · VPD Chart</div></div>
+    <div class="post-timing">Day 2 or 3</div>
+  </div>
+  <div class="post-body">VPD is the one number that tells you whether your plant's environment is actually working.
+
+Not temperature. Not humidity. VPD — the relationship between the two, and what it means for your plant's ability to transpire.
+
+We built a chart with kPa targets by stage, the formula, and a full temperature/RH reference grid. Free, no signup.
+
+<span class="post-link">cola-xpress.com/grow/vpd-chart-cannabis.html</span></div>
+  <div class="post-footer">Facebook will auto-generate a link preview card with the page title and OG image. The post copy doesn't need to describe the chart — the preview does that. The copy just answers "why should I click."</div>
+</div>
+
+<!-- POST 3 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 03</div><div class="post-type">Grow Journal · Photo + Data</div></div>
+    <div class="post-timing">Day 4 — first grow update</div>
+  </div>
+  <div class="post-body">Day 01 — vGrow DWC. Seed in net pot.
+
+pH: 5.8
+EC: 0.4
+VPD: 0.8 kPa
+Temp: 76.4°F
+RH: 62%
+
+The question this grow is trying to answer: does automating the environment change the quality of the result — or does the craft just move somewhere else?
+
+60 days to find out. Updates weekly.</div>
+  <div class="post-footer">Photo: Day 01 setup — close-up of the reservoir lid, net pot in place, roots just beginning. Or the enclosure display showing the first environmental readout. Real data, no stock imagery.</div>
+</div>
+
+<!-- POST 4 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 04</div><div class="post-type">NY Home Grow · Text + Link</div></div>
+    <div class="post-timing">Day 5–6</div>
+  </div>
+  <div class="post-body">New York home grow law — the short version:
+
+✓ 3 plants per adult, 6 per household
+✓ Must be in a space you occupy (apartment counts)
+✓ No permit, no registration required
+✓ Plants must not be visible from a public space
+✓ Harvest must stay in the home
+
+The law has been in effect since 2023. Most NYC apartment growers still don't know what they're legally allowed to do.
+
+We wrote the full breakdown — including what the law says about landlords, odor, and building rules.
+
+<span class="post-link">cola-xpress.com/guides/new-york-home-grow-law.html</span></div>
+  <div class="post-footer">The check-mark format performs well on Facebook — scannable, shareable, specific. This post will be shared by NY cannabis groups and law-curious new growers. It earns organic reach.</div>
+</div>
+
+<!-- POST 5 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 05</div><div class="post-type">Short-Form Data · Text Only</div></div>
+    <div class="post-timing">Day 8</div>
+  </div>
+  <div class="post-body">The stem snap test.
+
+Bend a small branch near the top of the canopy. Not the main stem — a secondary shoot.
+
+Clean snap with a dry sound: the plant is ready to harvest.
+Bends without snapping: needs more time.
+Snaps with visible moisture: cut immediately — humidity drop first.
+
+No microscope. No guessing. One test.</div>
+  <div class="post-footer">Text-only posts get boosted by Facebook's algorithm when they earn comments. This post invites: "what do you use?" — a real question growers have answers to. No link needed; the value is in the post itself.</div>
+</div>
+
+<!-- POST 6 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 06</div><div class="post-type">Grow Journal · Photo + Data</div></div>
+    <div class="post-timing">Day 11 — Week 2 update</div>
+  </div>
+  <div class="post-body">Day 07 — vGrow DWC.
+
+pH: 5.9 (drifted 0.1 — adjusted)
+EC: 0.6 (bumped slightly at Day 5)
+VPD: 1.0 kPa
+Root tips visible below the net pot.
+
+One top-off this week. One pH adjustment. That's it.
+
+Week 2 data will be posted when we get there.</div>
+  <div class="post-footer">Photo: roots beginning to extend below the net pot. Or the VPD readout on the enclosure display. The matter-of-fact tone ("that's it") is the brand voice — the restraint communicates the point without stating it.</div>
+</div>
+
+<!-- POST 7 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 07</div><div class="post-type">Site Link Share · DWC Nutrient Schedule</div></div>
+    <div class="post-timing">Day 13</div>
+  </div>
+  <div class="post-body">DWC nutrient targets by stage — because "follow the bottle" isn't a strategy.
+
+Seedling through late flower: PPM ranges, EC targets, pH window, and when to increase. The 500 vs 700 scale explained. EC drift vs. pH drift — they're different problems.
+
+<span class="post-link">cola-xpress.com/grow/dwc-nutrient-schedule.html</span></div>
+  <div class="post-footer">Short, specific, informative. The value is stated in the copy. Facebook's link preview will show the page title and chart image. No emoji needed — the brand doesn't use them.</div>
+</div>
+
+<!-- POST 8 -->
+<div class="post-block">
+  <div class="post-header">
+    <div><div class="post-num">Post 08</div><div class="post-type">Episode Announcement · Photo + Link</div></div>
+    <div class="post-timing">When Episode 01 publishes on YouTube</div>
+  </div>
+  <div class="post-body">Episode 01 is live.
+
+60 days of grow documentation condensed into 15 minutes. No tutorial format. No on-camera host. Pure voiceover over real footage — closer to a short film than a how-to video.
+
+"Growing became complicated. It doesn't have to be."
+
+Full episode companion page with data, timestamps, and grow guides:
+<span class="post-link">cola-xpress.com/watch/episode-01.html</span>
+
+YouTube link in comments.</div>
+  <div class="post-footer">Post the episode companion page URL in the post body — Facebook previews it with the OG image. Put the YouTube link in the first comment immediately after posting. Facebook's algorithm suppresses posts with YouTube links in the body (competitor platform); the comments workaround delivers the link without the suppression penalty.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Step 7 — Facebook Groups Strategy</div>
+  <div class="section-name">Where to Participate Beyond the Page</div>
+</div>
+
+<table class="field-table">
+  <thead><tr><th>Group</th><th>Approach</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>NY Cannabis Growers Groups<br><span style="font-size:9px;color:#5a6370;">(search Facebook for: "New York home grow" "NYC cannabis" "NY MRTA")</span></td>
+      <td>Join as the Cola-Xpress page. Participate genuinely in law questions and setup questions for 2 weeks before posting any links. When sharing a link is appropriate (someone asks about NY home grow law), share the cola-xpress.com guide page. Do not post promotional content in group feeds.</td>
+    </tr>
+    <tr>
+      <td>DWC / Hydroponic Cannabis Groups<br><span style="font-size:9px;color:#5a6370;">(search: "DWC cannabis" "deep water culture grow" "hydroponic cannabis growers")</span></td>
+      <td>Join and contribute to technical questions — pH management, EC targets, root health. Link to the DWC nutrient schedule or VPD chart only when someone specifically asks the question those pages answer. Group members who find the content useful share it themselves — that's the highest-value link.</td>
+    </tr>
+    <tr>
+      <td>Craft Cannabis / Connoisseur Groups<br><span style="font-size:9px;color:#5a6370;">(search: "craft cannabis" "cannabis connoisseur" "small batch cannabis")</span></td>
+      <td>The cinematic/craft positioning is rare in these groups — most content is yield-focused. Sharing the Episode 01 companion page or a grow journal update will stand out. Participate in terpene and quality discussions. The brand voice fits naturally here.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="insight" style="margin-top:0;">
+  <h3>Facebook Groups vs. Page — the difference</h3>
+  <strong>The page builds the brand identity.</strong> The groups build the audience. Most Facebook page growth for niche content happens through groups — someone sees a useful comment, clicks through to the page, and follows. The page has to be ready to receive that traffic with consistent content before you start group participation. That's why the 8 posts above run first.
+</div>
+
+
+<!-- ════════════════════════════════════════ -->
+<div class="rule"></div>
+
+<div class="checklist-wrap">
+  <div class="checklist-title">Facebook Page Setup Checklist</div>
+  <ul class="checklist">
+    <li><div class="box"></div><div class="item-text"><strong>Page created</strong> with name "Cola-Xpress" and handle @cola-xpress<span>Category: Website. Not any cannabis-specific category.</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Age restriction set to 18+</strong><span>Settings > General > Age Restrictions</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Profile picture uploaded</strong> — yt-profile.png (800×800 CX monogram)<span>Edit Profile > Profile Picture. No repositioning needed.</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Cover photo uploaded</strong> — fb-cover.png (1640×624)<span>Edit Profile > Cover Photo. Do not reposition — the design is pre-centered.</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Short description pasted</strong> (189 chars)<span>Edit Profile > Bio</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>About / long description pasted</strong><span>Edit Profile > About > Description</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Website added:</strong> https://cola-xpress.com<span>Edit Profile > Contact and basic info > Website</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Email added</strong> (real contact address)<span>Edit Profile > Contact and basic info > Email</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Location set:</strong> New York, New York<span>Edit Profile > Contact and basic info > Location</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Messenger enabled</strong> and response time target set<span>Settings > Messaging > Response Assistant</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Post 01 published</strong> — brand introduction with setup photo<span>Publish before doing anything else — page needs content before you share it anywhere</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Posts 02–04 published</strong> over the following 5 days</div></li>
+    <li><div class="box"></div><div class="item-text"><strong>Page linked from cola-xpress.com</strong> — add Facebook link to site footer and/or contact page<span>Reciprocal signals help Facebook verify the page</span></div></li>
+    <li><div class="box"></div><div class="item-text"><strong>YouTube cross-link</strong> — add Facebook page URL to YouTube channel About > Links section<span>Creates a verified cross-platform presence</span></div></li>
+  </ul>
+</div>
+
+<div style="margin-top:48px;font-size:11px;color:#5a6370;border-top:1px solid #1a1f24;padding-top:16px;">
+  ColaXpress by CannaHustle · Facebook Page Setup v1.0 · May 2026 · Internal production document<br>
+  Cross-reference: yt-banner.html / yt-profile.html for shared brand assets · backlink-plan.html for organic link strategy
+</div>
+
+</body>
+</html>

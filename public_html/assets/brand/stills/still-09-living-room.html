@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+.canvas{position:relative;width:1920px;height:1080px;background:#04050a;overflow:hidden}
+
+/* Room — NYC apartment night, considered space */
+.room-wall{position:absolute;inset:0;
+  background:linear-gradient(to bottom,#070810 0%,#060710 60%,#040609 100%)}
+
+/* ── Window — city ambient, upper right ── */
+.window-frame{
+  position:absolute;top:70px;right:160px;
+  width:290px;height:380px;
+  border:3px solid rgba(255,255,255,0.055);
+  background:#050709;
+}
+.window-pane-h{
+  position:absolute;top:50%;left:0;right:0;height:2px;
+  background:rgba(255,255,255,0.045);transform:translateY(-50%)}
+.window-pane-v{
+  position:absolute;left:50%;top:0;bottom:0;width:2px;
+  background:rgba(255,255,255,0.045);transform:translateX(-50%)}
+/* Warm city light through glass */
+.city-glow{
+  position:absolute;top:70px;right:160px;
+  width:290px;height:380px;
+  background:radial-gradient(ellipse at 45% 35%,
+    rgba(255,200,100,0.05) 0%,rgba(200,150,60,0.025) 45%,transparent 80%)}
+.city-ambient{
+  position:absolute;top:0;right:80px;
+  width:700px;height:600px;
+  background:radial-gradient(ellipse at 72% 18%,
+    rgba(210,168,80,0.04) 0%,transparent 55%)}
+
+/* Floor plane */
+.floor{position:absolute;bottom:0;left:0;right:0;height:340px;
+  background:linear-gradient(to bottom,transparent,rgba(0,0,0,0.28))}
+.floor-line{
+  position:absolute;bottom:336px;left:0;right:0;height:1px;
+  background:rgba(255,255,255,0.025)}
+.baseboard{position:absolute;bottom:0;left:0;right:0;height:14px;
+  background:rgba(255,255,255,0.025)}
+
+/* ── Bookshelf suggestion — left wall depth ── */
+.shelf-back{
+  position:absolute;top:180px;left:80px;
+  width:160px;height:300px;
+  background:linear-gradient(to right,#060709,#080b0e);
+  border:1px solid rgba(255,255,255,0.03);
+  border-radius:2px;
+}
+.shelf-h1{position:absolute;top:280px;left:80px;width:160px;height:2px;
+  background:rgba(255,255,255,0.04)}
+.shelf-h2{position:absolute;top:380px;left:80px;width:160px;height:2px;
+  background:rgba(255,255,255,0.03)}
+/* Book spines suggestion */
+.books{position:absolute;top:290px;left:88px;display:flex;gap:3px;align-items:flex-end;height:82px}
+.book{width:14px;border-radius:1px 1px 0 0}
+
+/* ── THE vGROW — LEFT STAGE, CORRECT PROPORTIONS ── */
+/* 18"×18"×48" → at this room scale: 185px wide × 494px tall */
+/* Positioned lower-left. Bottom at y=720 (floor is y=744). */
+/* Top = 720-494 = 226. Left edge = 320px */
+
+.vgrow{
+  position:absolute;
+  left:320px;top:226px;
+  width:185px;height:494px;
+  border-radius:3px;
+  /* Matte black faux-leather */
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.014) 0,rgba(255,255,255,0.014) 1px,
+      transparent 1px,transparent 5px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.014) 0,rgba(255,255,255,0.014) 1px,
+      transparent 1px,transparent 5px),
+    linear-gradient(170deg,#141618 0%,#0f1214 50%,#0c0e10 100%);
+  border:1px solid rgba(56,180,200,0.17);
+}
+
+/* Top cap */
+.vgrow-top{
+  position:absolute;top:0;left:0;right:0;height:30px;
+  background:rgba(0,0,0,0.42);
+  border-bottom:1px solid rgba(56,180,200,0.1);
+  border-radius:3px 3px 0 0;
+  overflow:hidden;
+}
+.vgrow-top::after{
+  content:'';position:absolute;
+  left:14px;right:14px;bottom:8px;height:9px;
+  background:repeating-linear-gradient(90deg,
+    rgba(0,0,0,0.88) 0,rgba(0,0,0,0.88) 3px,
+    rgba(255,255,255,0.08) 3px,rgba(255,255,255,0.08) 5px);
+}
+
+/* Status LED */
+.vgrow-led{
+  position:absolute;top:11px;right:12px;
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(50,210,80,0.9);
+  box-shadow:0 0 6px 3px rgba(50,210,80,0.45)}
+
+/* Door face */
+.vgrow-door{
+  position:absolute;left:2px;top:30px;right:2px;bottom:40px;
+  border-radius:2px;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.009) 0,rgba(255,255,255,0.009) 1px,
+      transparent 1px,transparent 5px),
+    repeating-linear-gradient(-45deg,
+      rgba(255,255,255,0.009) 0,rgba(255,255,255,0.009) 1px,
+      transparent 1px,transparent 5px),
+    linear-gradient(175deg,#111314 0%,#0d0f11 100%);
+}
+
+/* VIEWING WINDOW */
+.vgrow-window{
+  position:absolute;left:50%;top:44px;transform:translateX(-50%);
+  width:134px;height:108px;
+  background:linear-gradient(145deg,#030507 0%,#020408 100%);
+  border:1px solid rgba(56,180,200,0.4);
+  border-radius:2px;overflow:hidden;
+}
+.vgrow-window::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:26px;
+  background:linear-gradient(to bottom,
+    rgba(255,248,215,0.2) 0%,rgba(255,245,200,0.08) 50%,transparent 100%);
+}
+/* Plant visible inside */
+.vgrow-window::after{
+  content:'';position:absolute;
+  bottom:0;left:50%;transform:translateX(-50%);
+  width:48px;height:60px;
+  background:radial-gradient(ellipse at 50% 90%,
+    rgba(35,100,35,0.22) 0%,rgba(25,75,30,0.1) 50%,transparent 75%);
+  filter:blur(2px);
+}
+/* Window teal seam glow */
+.vgrow-win-glow{
+  position:absolute;left:50%;top:44px;transform:translateX(-50%);
+  width:134px;height:108px;
+  border-radius:2px;
+  box-shadow:
+    0 0 16px 5px rgba(56,180,200,0.2),
+    inset 0 0 12px rgba(56,180,200,0.06);
+  pointer-events:none
+}
+
+/* Handle */
+.vgrow-handle{
+  position:absolute;right:7px;top:50%;transform:translateY(-50%);
+  width:3px;height:46px;
+  background:rgba(255,255,255,0.07);border-radius:2px;
+}
+
+/* Label */
+.vgrow-label{
+  position:absolute;left:50%;bottom:18px;transform:translateX(-50%);
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  font-size:8px;font-weight:700;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(255,255,255,0.09);white-space:nowrap;
+}
+
+/* Base */
+.vgrow-base{
+  position:absolute;bottom:0;left:0;right:0;height:40px;
+  background:rgba(0,0,0,0.45);
+  border-top:1px solid rgba(56,180,200,0.08);
+  border-radius:0 0 3px 3px;overflow:hidden;
+}
+.vgrow-base::after{
+  content:'';position:absolute;
+  left:14px;right:14px;top:12px;height:9px;
+  background:repeating-linear-gradient(90deg,
+    rgba(0,0,0,0.88) 0,rgba(0,0,0,0.88) 3px,
+    rgba(255,255,255,0.08) 3px,rgba(255,255,255,0.08) 5px);
+}
+
+/* ── vGROW AMBIENT LIGHT in room ── */
+/* Teal glow emanating from the unit into the room */
+.enc-glow{
+  position:absolute;
+  left:320px;top:226px;
+  width:185px;height:494px;
+  border-radius:3px;
+  box-shadow:
+    0 0 80px 25px rgba(56,180,200,0.13),
+    0 0 180px 70px rgba(56,180,200,0.065);
+  pointer-events:none
+}
+/* Teal light cast on floor */
+.floor-cast{
+  position:absolute;bottom:0;left:160px;
+  width:700px;height:200px;
+  background:radial-gradient(ellipse 65% 100% at 24% 0%,
+    rgba(56,180,200,0.09) 0%,rgba(56,180,200,0.04) 40%,transparent 70%)}
+/* Wall cast — left wall lit by unit */
+.wall-cast{
+  position:absolute;bottom:0;left:0;
+  width:360px;height:700px;
+  background:radial-gradient(ellipse 100% 75% at 88% 58%,
+    rgba(56,180,200,0.055) 0%,transparent 65%)}
+
+/* ── Couch — far right ── */
+.couch{
+  position:absolute;bottom:336px;right:80px;
+  width:520px;height:220px;
+  background:linear-gradient(135deg,#0a0b0f,#07080b);
+  border-radius:10px 10px 0 0;
+  border:1px solid rgba(255,255,255,0.035)}
+.couch-back{
+  position:absolute;top:0;left:0;right:0;height:88px;
+  background:rgba(255,255,255,0.018);
+  border-radius:10px 10px 0 0;
+  border-bottom:1px solid rgba(255,255,255,0.025)}
+/* Couch subtle city-light highlight */
+.couch-light{
+  position:absolute;top:0;right:0;width:200px;height:88px;
+  background:linear-gradient(to left,rgba(210,160,70,0.025),transparent);
+  border-radius:0 10px 0 0;
+}
+
+/* ── Small plant on windowsill ── */
+.sill-plant{
+  position:absolute;top:450px;right:182px;
+  width:28px;height:48px;
+  background:radial-gradient(ellipse at 50% 80%,rgba(35,70,25,0.55),transparent);
+  opacity:0.65}
+
+/* Coffee table — low dark surface between couch and unit */
+.table{
+  position:absolute;bottom:336px;right:640px;
+  width:240px;height:40px;
+  background:linear-gradient(to bottom,#0d0f12,#0a0c0e);
+  border:1px solid rgba(255,255,255,0.03);
+  border-radius:3px;
+}
+
+/* Vignette — centered on unit (left-center of frame) */
+.vignette{position:absolute;inset:0;
+  background:radial-gradient(ellipse 85% 85% at 28% 60%,
+    transparent 14%,rgba(0,0,0,0.84) 100%)}
+</style></head>
+<body><div class="canvas">
+  <div class="room-wall"></div>
+  <div class="city-ambient"></div>
+  <div class="window-frame">
+    <div class="window-pane-h"></div>
+    <div class="window-pane-v"></div>
+  </div>
+  <div class="city-glow"></div>
+  <div class="shelf-back"></div>
+  <div class="shelf-h1"></div>
+  <div class="shelf-h2"></div>
+  <div class="books">
+    <div class="book" style="height:62px;background:#1a1c22"></div>
+    <div class="book" style="height:54px;background:#161820"></div>
+    <div class="book" style="height:70px;background:#1e2028"></div>
+    <div class="book" style="height:58px;background:#18191f"></div>
+    <div class="book" style="height:66px;background:#1c1e26"></div>
+    <div class="book" style="height:50px;background:#15171e"></div>
+    <div class="book" style="height:72px;background:#1a1c24"></div>
+  </div>
+  <div class="floor"></div>
+  <div class="floor-line"></div>
+  <div class="baseboard"></div>
+  <div class="couch"><div class="couch-back"></div><div class="couch-light"></div></div>
+  <div class="table"></div>
+  <div class="sill-plant"></div>
+  <div class="wall-cast"></div>
+  <div class="floor-cast"></div>
+  <!-- vGrow unit -->
+  <div class="vgrow">
+    <div class="vgrow-top"></div>
+    <div class="vgrow-led"></div>
+    <div class="vgrow-door">
+      <div class="vgrow-window"></div>
+      <div class="vgrow-win-glow"></div>
+      <div class="vgrow-handle"></div>
+      <div class="vgrow-label">vGrow</div>
+    </div>
+    <div class="vgrow-base"></div>
+  </div>
+  <div class="enc-glow"></div>
+  <div class="vignette"></div>
+</div></body></html>

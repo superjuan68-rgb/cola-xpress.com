@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Tier 1 Outreach — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .doc-header { border-bottom: 1px solid #1e2428; padding-bottom: 32px; margin-bottom: 48px; }
+  .doc-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 14px; }
+  .doc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-weight: 700; color: #e8e4dd; line-height: 1.1; margin-bottom: 10px; }
+  .doc-sub { font-size: 13px; color: #5a6370; font-weight: 500; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header { margin: 52px 0 6px; }
+  .section-label { font-size: 9px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 4px; }
+  .section-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; font-weight: 700; color: #e8e4dd; }
+
+  /* ── EMAIL BLOCK ── */
+  .email-wrapper { margin-top: 20px; }
+  .email-meta {
+    background: #0b0f12;
+    border: 1px solid #1a1f24;
+    border-bottom: none;
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+  .email-meta-key { color: #5a6370; font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 2px; }
+  .email-meta-val { color: #c0bbb4; }
+  .email-meta-val a { color: #38b4c8; text-decoration: none; }
+  .email-meta-val a:hover { text-decoration: underline; }
+  .email-meta-val .subj { color: #e8e4dd; font-weight: 600; }
+
+  .email-body {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 28px 32px;
+    font-size: 13.5px;
+    line-height: 2;
+    color: #d0cbc4;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+  }
+  .email-body .placeholder { color: #9f3028; font-weight: 700; font-style: italic; }
+  .email-body .url { color: #38b4c8; }
+  .email-body .sig { color: #8a9099; }
+
+  /* ── NOTES ── */
+  .send-note {
+    background: #0a0d0f;
+    border: 1px solid #1a1f24;
+    border-top: none;
+    padding: 12px 20px;
+    font-size: 11px;
+    color: #5a6370;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    line-height: 1.6;
+  }
+  .send-note .note-label { font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #9f3028; white-space: nowrap; margin-top: 2px; }
+
+  /* ── INSIGHT / STRATEGY BOX ── */
+  .insight {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #c8a840;
+    padding: 18px 22px;
+    margin-bottom: 36px;
+    font-size: 12.5px;
+    color: #8a9099;
+    line-height: 1.75;
+  }
+  .insight h3 { font-size: 8px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #c8a840; margin-bottom: 8px; }
+  .insight strong { color: #e8e4dd; }
+
+  /* ── REDDIT BLOCK ── */
+  .reddit-wrapper { margin-top: 20px; }
+  .reddit-meta {
+    background: #0b0f12;
+    border: 1px solid #1a1f24;
+    border-bottom: none;
+    padding: 14px 20px;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+  .reddit-meta .rkey { color: #5a6370; font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 2px; }
+  .reddit-meta .rval { color: #c0bbb4; }
+  .reddit-meta .rval .rsubj { color: #e8e4dd; font-weight: 600; }
+  .reddit-body {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 28px 32px;
+    font-size: 13.5px;
+    line-height: 1.95;
+    color: #d0cbc4;
+    white-space: pre-wrap;
+    font-family: 'Manrope', sans-serif;
+  }
+
+  /* ── ORDER BADGE ── */
+  .order-badge {
+    display: inline-block;
+    background: rgba(159,48,40,0.2);
+    border: 1px solid rgba(159,48,40,0.45);
+    color: #ff8070;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .rule { height: 1px; background: #1a1f24; margin: 40px 0; }
+
+  /* ── CHECKLIST ── */
+  .checklist-wrap { margin-top: 48px; background: #0e1215; border: 1px solid #1a1f24; padding: 24px 28px; }
+  .checklist-title { font-size: 9px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: #c8a840; margin-bottom: 16px; }
+  .checklist { list-style: none; font-size: 12.5px; color: #8a9099; line-height: 2.1; }
+  .checklist li { display: flex; gap: 14px; align-items: flex-start; }
+  .checklist .box { display: inline-block; width: 14px; height: 14px; border: 1px solid #2a3038; background: #111518; flex-shrink: 0; margin-top: 5px; }
+  .checklist .item-label { color: #c0bbb4; }
+  .checklist .item-label strong { color: #e8e4dd; font-weight: 700; }
+  .checklist .item-sub { font-size: 11px; color: #5a6370; display: block; line-height: 1.5; margin-top: 1px; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress · SEO · Tier 1 Outreach · v1.0 — May 2026</div>
+  <div class="doc-title">Tier 1 Outreach<br>Five Actions. Send Now.</div>
+  <div class="doc-sub">VIVOSUN · Reefertilizer · Eutrema · NYS Cannabis Connect · r/microgrowery — copy-ready, no placeholders to fill except your name</div>
+</div>
+
+<div class="insight">
+  <h3>Before You Send Anything</h3>
+  <strong>Sender identity matters.</strong> Each of these goes out as a real person, not a brand. Sign with your name, not "The ColaXpress Team." Cannabis and horticulture publishing is a small world — editors remember human pitches and delete brand pitches. Use a real email address (not info@ or admin@). Gmail with your name is fine.<br><br>
+  <strong>Send in this order:</strong> Eutrema first (lowest friction, non-cannabis site, 3-sentence ask, most likely to land within 48 hours) → Reefertilizer submission → VIVOSUN pitch → NYS Cannabis Connect → Reddit journal. The order is designed so the easiest wins happen first and build your sending confidence before the more complex pitches.
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Send First — Lowest Friction</div>
+  <div class="section-name">Email 1 — Eutrema VPD Chart Link <span class="order-badge">Send First</span></div>
+</div>
+
+<div class="email-wrapper">
+  <div class="email-meta">
+    <div class="email-meta-key">To</div>
+    <div class="email-meta-val">Contact form at <a href="https://eutrema.co.uk" target="_blank">eutrema.co.uk</a> — use their site contact, no personal email confirmed</div>
+    <div class="email-meta-key">Subject</div>
+    <div class="email-meta-val"><span class="subj">VPD chart for your readers</span></div>
+    <div class="email-meta-key">Why first</div>
+    <div class="email-meta-val">Non-cannabis site, no stigma. Their existing article already says "print and post a VPD chart" — you are handing them exactly what they told their readers to find. The easiest yes in the whole plan.</div>
+  </div>
+  <div class="email-body">Hi,
+
+Your VPD guide for hydroponics mentions readers should print and post a VPD chart. We built one for controlled environment growing — kPa targets by growth stage, the underlying formula, and a temperature/humidity reference grid.
+
+It's at <span class="url">https://cola-xpress.com/grow/vpd-chart-cannabis.html</span>
+
+Worth adding as a resource link from that paragraph? Happy to link back to your guide from ours in return.
+
+<span class="sig">[Your first name]
+cola-xpress.com</span></div>
+  <div class="send-note">
+    <div class="note-label">Send note</div>
+    <div>Keep it exactly this short. Do not explain more. Do not add a bio paragraph. Do not mention SEO. The page quality speaks — if it's good, the 3-sentence email will work. If it's not good enough, no length of email will compensate. After sending, wait 10 business days before any follow-up.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Send Second — Paid Submission</div>
+  <div class="section-name">Email 2 — Reefertilizer Guest Post <span class="order-badge">Send Second</span></div>
+</div>
+
+<div class="insight" style="margin-top:16px;margin-bottom:0;">
+  <h3>Context</h3>
+  <strong>Reefertilizer has an active Write For Us program</strong> at reefertilizer.com/write-for-us/ — confirmed live. They accept cultivation guest posts, minimum ~1,000 words, and charge a $35 fee for a permanent do-follow link within the article. This is disclosed and above board. Pay it. A permanent link from a cannabis cultivation domain is worth significantly more than $35 in DA impact over time.
+</div>
+
+<div class="email-wrapper" style="margin-top:0;">
+  <div class="email-meta" style="border-top:none;">
+    <div class="email-meta-key">To</div>
+    <div class="email-meta-val"><a href="mailto:info@reefertilizer.com">info@reefertilizer.com</a></div>
+    <div class="email-meta-key">Subject</div>
+    <div class="email-meta-val"><span class="subj">Guest post submission — VPD for DWC growers</span></div>
+    <div class="email-meta-key">Article title</div>
+    <div class="email-meta-val">The One Number Serious DWC Growers Check Every Day</div>
+  </div>
+  <div class="email-body">Hi,
+
+I'd like to submit a guest post for Reefertilizer — "The One Number Serious DWC Growers Check Every Day."
+
+The piece covers VPD from a practical DWC angle: what it actually is (beyond the formula), why it shifts across stages, what it looks like when it's wrong, and how to hit targets without running HVAC. Around 1,200 words. No product pitches — written at the same level as your existing cultivation guides.
+
+My site is cola-xpress.com — I document compact DWC cannabis grows with full environment data and post-harvest protocols.
+
+Happy to send the full draft before any commitment. Let me know if this is a fit.
+
+<span class="sig">[Your first name]
+cola-xpress.com</span></div>
+  <div class="send-note">
+    <div class="note-label">Send note</div>
+    <div>Wait for their go-ahead before writing the full piece. If they say yes, write a clean 1,100–1,200 word article, include a link to <strong>cola-xpress.com/grow/vpd-chart-cannabis.html</strong> within the body naturally (around the "here's what to target" section), and one link to the DWC nutrient schedule. Then pay the $35 submission fee as instructed on their page.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Send Third — Highest DA Opportunity</div>
+  <div class="section-name">Email 3 — VIVOSUN Content Partnership <span class="order-badge">Send Third</span></div>
+</div>
+
+<div class="insight" style="margin-top:16px;margin-bottom:0;">
+  <h3>Context</h3>
+  <strong>VIVOSUN's growing guide section</strong> at vivosun.com/growing_guide has an established pattern of featuring vGrow creator content — the MyDankDog vGrow grow diary is a confirmed live example. This is the highest DA link available to the site (VIVOSUN is DA 60–70+). The pitch must lead with the editorial distinction — cinematic documentary format vs. the typical YouTube grow log — not with a link request. The link is the result of the editorial fit, not the pitch.
+</div>
+
+<div class="email-wrapper" style="margin-top:0;">
+  <div class="email-meta" style="border-top:none;">
+    <div class="email-meta-key">To</div>
+    <div class="email-meta-val">Contact form at <a href="https://www.vivosun.com/en-US/affiliate" target="_blank">vivosun.com/en-US/affiliate</a> — if the affiliate form routes to a real person, follow up directly. Otherwise, try the general contact form and address "Content Team."</div>
+    <div class="email-meta-key">Subject</div>
+    <div class="email-meta-val"><span class="subj">vGrow grow series — cinematic format, craft positioning</span></div>
+  </div>
+  <div class="email-body">Hi,
+
+I'm documenting a 60-day vGrow DWC grow at cola-xpress.com — and the format is unusual. It's not a product review or a yield-focused tutorial. It's a craft cannabis documentary: pure voiceover, no on-camera presenter, designed to look closer to an Apple product film than a YouTube grow log.
+
+The episode 01 companion page is here: <span class="url">https://cola-xpress.com/watch/episode-01.html</span>
+Full equipment and grow guide: <span class="url">https://cola-xpress.com/equipment/vivosun-vgrow-dwc-guide.html</span>
+
+I noticed the growing guide section has featured creator vGrow content before. If this kind of craft-focused, long-form documentation is a fit for what you publish there, I'd welcome the conversation. The series runs for the full grow — 60 days of documentation at the same production level.
+
+<span class="sig">[Your first name]
+cola-xpress.com</span></div>
+  <div class="send-note">
+    <div class="note-label">Send note</div>
+    <div>This is the most valuable pitch so it requires the most patience. Do not follow up before 14 business days. If no response after that, follow up once with a one-line email: "Just checking whether this landed — happy to send any additional context if helpful." The pitch does not need to be longer. The two URLs do the selling. If they want to feature it, they'll ask for what they need.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div class="section-label">Send Fourth — Mission-First Approach</div>
+  <div class="section-name">Email 4 — NYS Cannabis Connect <span class="order-badge">Send Fourth</span></div>
+</div>
+
+<div class="insight" style="margin-top:16px;margin-bottom:0;">
+  <h3>Context</h3>
+  <strong>NYS Cannabis Connect</strong> is a Black- and woman-owned independent NY cannabis publication. They published a comprehensive "Growing Cannabis at Home in New York State" guide. Their editorial mission is cannabis equity and education for NY residents — the same audience ColaXpress's NY home grow content is built for. This email must be mission-first, not SEO-first. The word "backlink" never appears. The word "resource exchange" is fine. Lead with the shared purpose.
+</div>
+
+<div class="email-wrapper" style="margin-top:0;">
+  <div class="email-meta" style="border-top:none;">
+    <div class="email-meta-key">To</div>
+    <div class="email-meta-val">Contact form at <a href="https://nyscannabisconnect.com" target="_blank">nyscannabisconnect.com</a> — founders Tiffany Walters and Jumaane Hughes are also findable on LinkedIn if a personal outreach is preferred</div>
+    <div class="email-meta-key">Subject</div>
+    <div class="email-meta-val"><span class="subj">NY home grow companion — setup side of what your guide covers</span></div>
+  </div>
+  <div class="email-body">Hi,
+
+I run cola-xpress.com — a grow guide built specifically for NYC and NY home growers working with compact spaces. I read your "Growing Cannabis at Home in New York State" piece and it's the clearest legal overview I've seen written for NY residents.
+
+Your guide covers the law well. We cover what comes after: what to actually buy for a compact space, how to run DWC in an apartment, what the grow looks like week by week. Specifically this page: <span class="url">https://cola-xpress.com/guides/new-york-home-grow-law.html</span>
+
+If it makes sense as a companion link from your guide — "here's how to actually set it up" — I'd add a link to your piece from ours as well. Both pages get stronger, and NY home growers have a clearer path from legal understanding to actual growing.
+
+Let me know what you think.
+
+<span class="sig">[Your first name]
+cola-xpress.com</span></div>
+  <div class="send-note">
+    <div class="note-label">Send note</div>
+    <div>This publication values community fit over traffic numbers. If the ny-home-grow-law.html page isn't yet live or isn't fully built out, build it before sending this email — they will click through, and a thin page kills the pitch. The reciprocal link offer is genuine and expected in indie cannabis publishing. Offer to link to their specific guide page (not just their homepage) from yours.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+
+<div class="section-header">
+  <div class="section-label">Action 5 — Not an Email</div>
+  <div class="section-name">Reddit — r/microgrowery Day 01 Post <span class="order-badge">Start Now, Post Today</span></div>
+</div>
+
+<div class="insight" style="margin-top:16px;margin-bottom:20px;">
+  <h3>Context</h3>
+  <strong>r/microgrowery has 300,000+ members</strong> and a strong culture of real grow journals — actual photos, honest data, genuine questions, and week-by-week updates. The rules are strict: no spam, no self-promotion in the main post, and no drive-by link drops. The strategy here is a real grow journal. Links go in comments only, when specifically relevant to a question asked by the community. The journal earns the links — you don't ask for them.<br><br>
+  <strong>Account note:</strong> If you don't have a Reddit account already, create one now. Use a name that connects to ColaXpress or the grow identity. Do not create a throwaway — this account will be active for months.
+</div>
+
+<div class="reddit-wrapper">
+  <div class="reddit-meta">
+    <div class="rkey">Post to</div>
+    <div class="rval"><a href="https://reddit.com/r/microgrowery" target="_blank" style="color:#38b4c8;">r/microgrowery</a></div>
+    <div class="rkey">Post title</div>
+    <div class="rval"><span class="rsubj">Day 01 — vGrow compact DWC, 12/12 from seed. Documenting the full grow. First time letting automation handle environment.</span></div>
+    <div class="rkey">Flair</div>
+    <div class="rval">Grow Journal (or the closest available flair on the subreddit)</div>
+    <div class="rkey">Photos</div>
+    <div class="rval">Include a real Day 01 setup photo — the enclosure, the reservoir, whatever is actually set up. No renders, no stock. Authenticity is the entire value proposition here.</div>
+  </div>
+  <div class="reddit-body">Day 01. vGrow compact DWC. 12/12 from seed. Trying to document this one properly.
+
+Setup:
+— VIVOSUN vGrow enclosure
+— DWC, single plant
+— 12/12 from seed (autoflower-adjacent approach in a fixed-light enclosure)
+— pH dialed at 5.8, EC at 0.4 to start
+— VPD sitting around 0.8 kPa
+
+The thing I want to test: whether an automated environment actually produces different results at harvest than a manually managed tent grow — or whether the craft just moves somewhere else. Not trying to prove the machine is better. Genuinely don't know what the answer is yet.
+
+Will post updates weekly. Environment data each update. Honest about anything that goes wrong.
+
+Questions welcome — especially from anyone else who's run DWC in a compact sealed enclosure. The thermal management in a small sealed box is the part I'm most uncertain about.</div>
+  <div class="send-note">
+    <div class="note-label">Post note</div>
+    <div>Do <strong>not</strong> include any links in this post. Not to cola-xpress.com, not to the VPD chart, not to YouTube. The first post is only about the grow. If someone in the comments asks about VPD targets or DWC nutrient schedules, that's when a link to the relevant guide goes in a reply — as genuinely useful context, not as promotion. The journal runs for the full grow. Post every 7–10 days minimum.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule"></div>
+
+<div class="checklist-wrap">
+  <div class="checklist-title">Tier 1 Execution Checklist</div>
+  <ul class="checklist">
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>Eutrema — sent</strong>
+        <span class="item-sub">Via contact form at eutrema.co.uk — 3 sentences, URL, sign name. Follow up in 10 business days if no reply.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>Reefertilizer — pitch sent, draft ready</strong>
+        <span class="item-sub">Email to info@reefertilizer.com. Wait for go-ahead. Write 1,100–1,200 word VPD/DWC article. Pay $35. Submit article with link to vpd-chart-cannabis.html embedded naturally.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>VIVOSUN — pitch sent</strong>
+        <span class="item-sub">Via vivosun.com/en-US/affiliate form or general contact. Follow up once after 14 business days if no reply.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>NYS Cannabis Connect — pitch sent</strong>
+        <span class="item-sub">Verify new-york-home-grow-law.html is fully built before sending. Contact form or LinkedIn to Tiffany Walters / Jumaane Hughes.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>Reddit account created</strong>
+        <span class="item-sub">Username connected to ColaXpress identity. Not a throwaway.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>r/microgrowery Day 01 post published</strong>
+        <span class="item-sub">Real setup photo included. No links in the main post. Commit to posting updates every 7–10 days for the full grow.</span>
+      </div>
+    </li>
+    <li>
+      <div class="box"></div>
+      <div class="item-label">
+        <strong>THCFarmer vGrow thread — joined and contributed</strong>
+        <span class="item-sub">thcfarmer.com/threads/my-vgrow-smart-grow-box-growing-diaries.155568/ — read the existing thread first, then post a genuine Day 01 update. This runs parallel to the Reddit journal.</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+<div style="margin-top:48px;font-size:11px;color:#5a6370;border-top:1px solid #1a1f24;padding-top:16px;">
+  ColaXpress by CannaHustle · Tier 1 Outreach v1.0 · May 2026 · Internal production document<br>
+  Reference backlink-plan.html for full Tier 2–4 pipeline
+</div>
+
+</body>
+</html>

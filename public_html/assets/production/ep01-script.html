@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Episode 01 — Full Cinematic Script — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 920px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    border-bottom: 1px solid #1e2428;
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .doc-eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 14px;
+  }
+  .doc-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #e8e4dd;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .doc-sub {
+    font-size: 13px;
+    color: #5a6370;
+    font-weight: 500;
+  }
+
+  /* ── RUNTIME BAR ── */
+  .runtime-bar {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .runtime-pill {
+    padding: 8px 16px;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5a6370;
+  }
+  .runtime-pill strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #e8e4dd;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  /* ── LOOP LEGEND ── */
+  .loop-legend {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #c8a840;
+    padding: 18px 22px;
+    margin-bottom: 48px;
+  }
+  .loop-legend h3 {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c8a840;
+    margin-bottom: 12px;
+  }
+  .loop-item {
+    font-size: 12px;
+    color: #8a9099;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+  .loop-item strong { color: #e8e4dd; }
+
+  /* ── ACT HEADER ── */
+  .act-header {
+    margin: 56px 0 28px;
+    padding: 14px 20px;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .act-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+  }
+  .act-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e8e4dd;
+    margin-top: 4px;
+  }
+  .act-tc {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5a6370;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SCENE BLOCKS ── */
+  .scene {
+    margin-bottom: 36px;
+  }
+  .scene-slug {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #1a1f24;
+    padding-bottom: 8px;
+  }
+
+  /* ── ELEMENT TYPES ── */
+  .elem {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .tag {
+    flex-shrink: 0;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 3px;
+    min-width: 54px;
+    text-align: center;
+  }
+  .tag-vo   { background: #9f3028; color: #fff; }
+  .tag-vis  { background: #1e3a2a; color: #4caf65; border: 1px solid #2d5a3c; }
+  .tag-snd  { background: #2a2010; color: #c8a840; border: 1px solid #5a4820; }
+  .tag-dir  { background: #2a0e0a; color: #c86050; border: 1px solid #5a2018; }
+  .tag-beat { background: #151515; color: #5a6370; border: 1px solid #1e2428; }
+  .tag-title { background: #1a0e2a; color: #9070d0; border: 1px solid #3a2060; }
+  .tag-ret  { background: #0a1a2a; color: #38b4c8; border: 1px solid #1e3a50; }
+
+  .elem-body {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .elem-body.vo-text {
+    color: #e8e4dd;
+    font-weight: 500;
+  }
+  .elem-body.vis-text {
+    color: #7ab88a;
+    font-style: italic;
+    font-size: 13px;
+  }
+  .elem-body.snd-text {
+    color: #b89840;
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .elem-body.dir-text {
+    color: #c86050;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .elem-body.beat-text {
+    color: #5a6370;
+    font-style: italic;
+    font-size: 13px;
+  }
+  .elem-body.title-text {
+    color: #9070d0;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .elem-body.ret-text {
+    color: #38b4c8;
+    font-size: 11px;
+    line-height: 1.6;
+    background: #091520;
+    padding: 8px 12px;
+    border-radius: 3px;
+  }
+
+  /* ── DIVIDER ── */
+  .rule { height: 1px; background: #1a1f24; margin: 28px 0; }
+
+  /* ── LOOP MARKER ── */
+  .loop-open {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    background: rgba(200, 168, 64, 0.12);
+    border: 1px solid rgba(200, 168, 64, 0.3);
+    color: #c8a840;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .loop-close {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    background: rgba(200, 168, 64, 0.06);
+    border: 1px solid rgba(200, 168, 64, 0.2);
+    color: rgba(200, 168, 64, 0.6);
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* ── POST-PROD NOTES ── */
+  .post-prod {
+    margin-top: 56px;
+    padding: 28px 28px;
+    border: 1px solid #1a1f24;
+    border-top: 3px solid #9f3028;
+    background: #0e1215;
+  }
+  .post-prod h3 {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 20px;
+  }
+  .post-prod-item {
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #8a9099;
+  }
+  .post-prod-item strong {
+    display: block;
+    color: #e8e4dd;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress Grow Series · Episode 01 · Cinematic Script · v2.0</div>
+  <div class="doc-title">The End of Complicated<br>Cannabis Growing</div>
+  <div class="doc-sub">Full luxury documentary script · 5-act arc · 12–17 min target · Apple × A24 aesthetic</div>
+</div>
+
+<div class="runtime-bar">
+  <div class="runtime-pill"><strong>12–17 min</strong>Target Runtime</div>
+  <div class="runtime-pill"><strong>5</strong>Acts</div>
+  <div class="runtime-pill"><strong>3</strong>Open Loops</div>
+  <div class="runtime-pill"><strong>Day 01</strong>Grow Stage</div>
+  <div class="runtime-pill"><strong>Pure VO</strong>No On-Cam Host</div>
+  <div class="runtime-pill"><strong>Hook 05</strong>Manifesto Open</div>
+</div>
+
+<div class="loop-legend">
+  <h3>Open Loop Architecture — All Three Loops Must Resolve</h3>
+  <div class="loop-item"><strong>Loop 01 — Complexity vs. Simplicity</strong> — Opens Act I, resolves Act V. "Growing became complicated." → "The complicated era is not over. It's optional."</div>
+  <div class="loop-item"><strong>Loop 02 — The Craft Question</strong> — Opens Act II, resolves Act V. "Does automation remove the art?" → "Yes. And no." → "The craft didn't disappear. It got quieter."</div>
+  <div class="loop-item"><strong>Loop 03 — The Day Counter</strong> — Opens Act I (DAY 01), sustains through Act IV (Day 3/7/14/28), resolves Act V (DAY 08 →). Builds series architecture into the story.</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Cold Open / Act I</div>
+    <div class="act-name">The Weight</div>
+  </div>
+  <div class="act-tc">0:00 – 3:30</div>
+</div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 01 — Sound Design Open / No Visuals Yet</div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">
+      Black screen. No visual.<br>
+      Layer in slowly over 8 seconds:<br>
+      — Low fan hum. Not a grow tent fan — something architectural, infrastructural.<br>
+      — Timer relay click. Mechanical. Once.<br>
+      — A second click. A third.<br>
+      — Water dripping into a reservoir. Steady.<br>
+      Hold 4 more seconds. Let the room feel expensive and quiet.
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">First 12 seconds — no visual, pure sound. Counterintuitive. Creates immediate intrigue. Viewer stays because they don't know what they're watching yet. Do NOT cut early.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 02 — Complexity Montage / Loop 01 Opens</div>
+  <div class="loop-open">↑ LOOP 01 OPENS HERE</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: extreme close-up of a pH pen. Water drop clinging to the tip. Out of focus background — nutrient bottles, crowded shelving.</div>
+  </div>
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Growing became complicated.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: a row of nutrient bottles. Labels half-legible. Seven bottles. Eight. Grow, bloom, cal-mag, silica, root stimulator, PK booster, flush solution.</div>
+  </div>
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Not all at once. Gradually.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: phone screen at 2:47 AM. An alert. VPD out of range. Then another. pH drift. The screen is the only light in a dark room.</div>
+  </div>
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">A hobby that started as an interest became a second job.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: a tent corner. Ducting tape peeling. A clip fan at an angle. Something rigged, not designed.</div>
+  </div>
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The equipment multiplied. The solutions multiplied. The problems multiplied.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2-second silence. Let the weight settle.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Some people find that engaging. The constant attention. The daily management. The variables.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">Hold.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">I did too, for a while.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">Complexity montage triggers recognition in experienced growers ("that's my setup") and curiosity in newcomers ("is it really that hard?"). Both stay. The pause before "I did too" is the emotional turn — signals the story is about to pivot.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 03 — Hard Cut to the Enclosure</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Hard cut. Black. Then: the vGrow enclosure. Closed. Centered in frame. Clean wall behind it. No context yet — just the object. Ambient light from above. Faint teal LED glow visible at the seams.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">All complexity-era sound drops. Replace with single quiet tone — sine wave, low, barely perceptible. The enclosure hum. Quiet and architectural.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">Hold on the enclosure, closed, for 4 full seconds. Do not rush this.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">This is a different story.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">3 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Phone notification appears on screen as a floating graphic. Clean, minimal. "Canopy nominal." Timestamp: 2:47 AM.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">I didn't check the reservoir at 2 AM.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">I slept.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">Hold. Let the word land.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      FADE IN OVER BLACK:<br><br>
+      DAY 01<br><br>
+      [Hold 3 seconds. White text on black. No subtitle. No context. Let it breathe.]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">"I slept." is the hook payoff. The contrast between the complexity montage and this single quiet statement creates the film's central tension in two words. The DAY 01 title card signals documentary architecture — viewer understands we're following something over time.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act II</div>
+    <div class="act-name">The Idea</div>
+  </div>
+  <div class="act-tc">3:30 – 6:30</div>
+</div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 04 — The Domain Analogy / Loop 02 Opens</div>
+  <div class="loop-open">↑ LOOP 02 OPENS HERE</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Slow pull back from the enclosure. Reveal: it's in a living room. Clean, considered. A bookshelf. A plant (not cannabis). Natural light. The enclosure is domestic — not utilitarian.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">There's a pattern to how technology changes craft industries.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: a coffee grinder. Precise, matte black. A hand pours beans. Close on the mechanism.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Espresso machines replaced commercial brewing equipment too complex for home use. The craft didn't disappear — it became accessible. The hobbyist could now make what the professional made.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Cut to: a camera — mirrorless, modern. Someone's hand holds it at rest. Then a darkroom photograph, aged, leaned against a wall.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Digital cameras didn't end photography. They changed who could practice it seriously. The art moved — it didn't disappear.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Home cannabis cultivation is going through this now.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds. Let the statement sit.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 05 — The Craft Question Stated</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Return to: the enclosure. Still closed. The teal seam-glow is the only color in frame.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The question growers ask about automation is always the same.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Does it remove the art?</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">I had the same concern. Sixty days later, I think the opposite is true.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">Hold. This is the loop-sustaining beat — viewer needs this promise to stay for 14 more minutes.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">But that answer requires sixty days of evidence. So let's start at the beginning.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">Loop 02 is now open but unresolved. "Sixty days later, I think the opposite is true" — but viewer doesn't get the answer yet. This is the primary retention mechanism for the middle acts. Do NOT answer early.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 06 — Root Mass Macro / The Quiet Grows</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Macro shot: a root mass. Dense, white, clean. No context yet — just the structure. The branching pattern. The texture. Almost architectural.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">Low ambient hum. Water movement underneath. No music yet.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">This is day thirty-two. This is what grows in silence, in sealed air, without a grower checking it twice a day.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds on the root mass.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The craft didn't disappear.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">It got quieter.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">This moment should land like the pull quote on a magazine cover. The phrase "got quieter" is the film's thesis in two words. Pause after it. Hold the root mass visual. The image and the words should feel like a single statement.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act III</div>
+    <div class="act-name">The Reveal</div>
+  </div>
+  <div class="act-tc">6:30 – 10:30</div>
+</div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 07 — Material Texture Sequence / No Context</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Series of macro texture shots. The enclosure exterior — matte surface, brushed panel joints. No wide shot yet. The viewer doesn't fully know what they're looking at.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">Music enters for the first time. Minimal, ambient. A single sustained note — low and wide. Not dramatic. Purposeful. Something that sounds like infrastructure.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Most grow setups look like improvisation. Something rigged, not designed. The equipment chosen for function, not consideration.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">This was engineered differently.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 08 — The Door Opens</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">The enclosure door opens slowly. Deliberately. The interior LED light expands outward into the frame — first a sliver, then half the frame, then full. The plant is visible inside. Hold on the opening for 3 full seconds before cutting to interior.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">The ambient tone swells slightly as the door opens — then settles back to quiet.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">This is the film's central image. The door opening is a reveal, an invitation, a product moment, and an emotional beat simultaneously. Shoot it clean. No handheld. Locked-off or very slow fluid move. The door opening is not casual — it's deliberate.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">It's not a tent. It's a sealed environment.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds on the open enclosure, interior visible.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Integrated LED. Sealed air column. A closed system where every variable has a corresponding control.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">The door-open moment is the visual anchor for shares and thumbnails. Shot quality here determines whether this film gets shared. Allocate extra time and setup to this single shot.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 09 — VPD Moment / Technology as Quiet Guide</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Phone screen — the vGrow app. VPD reading: 1.1 kPa. A graph showing the last 24 hours. A smooth arc — no spikes, no drops. The line stabilizing and holding.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">VPD at 1.1 kilopascals. Mid-veg target. The system has been holding this number for thirty-six hours.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">That would have taken me an hour of manual adjustment. A hygrometer check. A humidifier setting change. Another check forty minutes later. A fan speed tweak.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The system doesn't replace the knowledge. It replaces the labor.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">Pause here. Let the distinction land. Knowledge vs labor. This is the ideological center of the film's argument — say it quiet, not emphatic.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 10 — The Living Room Shot / Design Philosophy</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Wide shot: the enclosure in the living room. Full context. A clean, considered domestic space. The enclosure belongs here — it doesn't look out of place. Hold for 4 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">It doesn't look like a grow setup. That was intentional.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The odor elimination isn't a feature. It's a design philosophy. Someone decided this should exist somewhere other than a basement. That the people who grow should not have to choose between quality and living space.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds on the wide living room shot.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Luxury whispers. It doesn't announce itself.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">"Luxury whispers" should be delivered at the same quiet register as everything else — do NOT emphasize it. The line works precisely because it's understated. If it sounds like a pitch, cut it.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act IV</div>
+    <div class="act-name">The Evidence</div>
+  </div>
+  <div class="act-tc">10:30 – 14:30</div>
+</div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 11 — The Witness Record / Day Counter Builds</div>
+  <div class="loop-open">↑ LOOP 03 SUSTAINS HERE</div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      DAY 03<br>
+      [White text, black frame, 2 seconds]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">App data screen — Day 3. Seedling. Temperature steady. VPD 0.52. A cotyledon just visible through the net cup.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Day three. Cotyledons. The system has held temperature and VPD within target range for seventy-two hours. I have not touched the reservoir. I have not adjusted the light.</div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      DAY 07<br>
+      [White text, black frame, 2 seconds]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">First true leaves emerging. Close on the plant. The LED light falls across it evenly.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Day seven. First true leaves. EC holding at 0.6. Roots are beginning to reach the water line. The transition from cotyledon nutrition to nutrient solution uptake is happening on schedule.</div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      DAY 14<br>
+      [White text, black frame, 2 seconds]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">The plant is visibly established. Multiple true leaf sets. The root mass in the reservoir — white, healthy, branching. Close on the reservoir water through the access port.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Day fourteen. The plant entered vegetative growth four days ago. Root mass is dense and white — no discoloration, no odor.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">In the first two weeks, I had performed one reservoir top-off.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">3 full seconds of silence. Hold on the root mass visual.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">One.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds. Do not fill this silence.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">The "One." beat is the emotional center of Act IV. It should feel like a confession, not a boast. The silence before and after is where the point lives — not in the word itself. Three-second silence before, two after. Non-negotiable.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">For viewers who have managed DWC before, "one top-off in two weeks" is the moment that either converts skeptics or makes believers out of the curious. Let the number speak. Don't explain it.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 12 — Day 28 / The Plant That Was Never Stressed</div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      DAY 28<br>
+      [White text, black frame, 2 seconds]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">The plant in mid-veg. Full, even canopy. Deep green. No yellowing, no tip burn, no clawing. Close on a leaf — extreme macro. The leaf surface texture. Then pull back slowly to show the whole plant.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Day twenty-eight. Four weeks from seed. I was looking at a plant that had never been stressed.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds on the healthy leaf close.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">No tip burn from EC too high. No yellowing from pH drift locking out nutrients. No stretching from inconsistent light cycles. No heat stress. No wilting.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Just a plant that had been allowed to grow without interruption.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The craft got quieter, not gone.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">This callback to Act II — "The craft didn't disappear. It got quieter." — closes the emotional middle arc. But Loop 02 is not yet resolved; the direct question ("Does it remove the art?") needs a direct answer, which comes in Act V.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act V</div>
+    <div class="act-name">The Manifesto</div>
+  </div>
+  <div class="act-tc">14:30 – 17:00</div>
+</div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 13 — The Direct Answer / Loop 02 Resolves</div>
+  <div class="loop-close">↓ LOOP 02 RESOLVES HERE</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Return to the enclosure, closed. The same opening image from Act I. The teal seam-glow. Quiet. Still.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The question was: does automation remove the art?</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 full seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Yes.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds. Hold. Do not continue immediately.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">Some of it.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">It removes the art of fighting the environment. The art of reading a pH pen at midnight. The art of interpreting a humidity spike at 3 AM. The art of keeping a plant alive despite the variables.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">What it doesn't remove: the strain selection. The training decisions. The harvest timing. The cure. The standard you hold yourself to when you open the jar six weeks after harvest.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">Loop 02 resolves here but opens into the next level of the argument. The "Yes / Some of it" structure is the most memorable phrasing in the film — it validates skeptics before expanding the answer. Critical for sharing.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 14 — The Analogy Payoff</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Return briefly to the coffee grinder shot from Act II. Then the camera. Then back to the enclosure. Quick cuts — 2 seconds each.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">A chef with a precision oven doesn't stop being a chef. A photographer with autofocus doesn't stop being a photographer.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">1 second.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The tool removes friction. What you do with the clarity is still yours.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">Deliver "What you do with the clarity is still yours" slowly. One thought per beat. This is the film's manifesto line — it should feel earned, not declared.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 15 — Loop 01 Resolves / The Manifesto Statement</div>
+  <div class="loop-close">↓ LOOP 01 RESOLVES HERE</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Slow push toward the enclosure door. Closer than before. The LED teal glow fills more of the frame. The hum of the system is all that's audible.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">Music settles to a single low note. Nearly silence. The enclosure hum is the dominant sound.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">The complicated era of home growing is not over.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">2 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">It's optional.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-beat">BEAT</span>
+    <div class="elem-body beat-text">Hold on the enclosure. 4 full seconds. No voiceover. Just the hum and the glow.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">"It's optional." is the thesis of the entire film in two words. After it lands, do not speak. Let the visual and the hum carry the weight. This silence is not dead air — it's the point.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">Loop 01 closes. The complexity montage from Act I is now recontextualized — not as the norm, but as a choice. The emotional arc completes: Weight → Relief. This is the moment viewers screenshot and share.</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="scene">
+  <div class="scene-slug">Scene 16 — The Fade / Series Architecture / Loop 03 Closes</div>
+  <div class="loop-close">↓ LOOP 03 CLOSES HERE — SERIES ARCHITECTURE ACTIVATED</div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">The enclosure. The teal glow pulses once, slowly — not literally, but the light quality shifts as if breathing. Then begins a slow fade to black over 4 seconds.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-snd">SOUND</span>
+    <div class="elem-body snd-text">The fan hum fades out with the visual. Complete silence at black.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-title">TITLE</span>
+    <div class="elem-body title-text">
+      [Full black. 2 seconds silence.]<br><br>
+      DAY 08 →<br><br>
+      [Hold 3 seconds. White text. The arrow matters — it signals continuation, not conclusion.]
+    </div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vo">VO</span>
+    <div class="elem-body vo-text">See you there.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-vis">VISUAL</span>
+    <div class="elem-body vis-text">Hold black 2 seconds. YouTube end card appears.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-dir">DIR</span>
+    <div class="elem-body dir-text">End card: Subscribe centered. Episode 02 thumbnail left. ColaXpress site link right. Background: black with the faintest teal — the enclosure glow, referenced but not shown. Brand lockup: Cormorant Garamond, lower right. No music stinger. The silence carries through the end card.</div>
+  </div>
+
+  <div class="elem">
+    <span class="tag tag-ret">RETAIN</span>
+    <div class="elem-body ret-text">Loop 03 closes by pointing forward — "DAY 08 →" tells the viewer there's a next chapter, and gives them a specific destination. "See you there." is not a generic CTA. It's a quiet invitation. Match the register of the whole film.</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="post-prod">
+  <h3>Post-Production Notes for Editor</h3>
+
+  <div class="post-prod-item">
+    <strong>Color Grade Target</strong>
+    Dark, cool-neutral base. Skin tones: irrelevant (no on-cam presenter). Shadows: lifted — not crushed. The enclosure teal (#38b4c8) should be the only saturated color in the frame; everything else is desaturated. Reference: Succession S4 interiors × Apple product films. The visual hierarchy is: teal glow → warm text → everything else neutral.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>Music Direction</strong>
+    Three phases. Act I (complexity montage): no music — ambient tension, the clutter's own sound. Act II–III (analogy + reveal): a single sustained low tone, barely music — more like the sound of a system running correctly. Acts IV–V (evidence + manifesto): the tone develops very slowly, minimal melody, resolves to near-silence by Act V close. Reference: Ólafur Arnalds, Max Richter low-register works, Johann Johannsson. Not film score — architecture music. Budget option: Epidemic Sound "Dark Minimal" or "Nordic" category, 90+ BPM avoided entirely.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>Typography System</strong>
+    Cormorant Garamond 700 for title cards and the DAY XX counter — white, centered, sized to fill roughly 20% of frame height. Manrope 700 for data overlays (VPD readings, app notifications) — smaller, positioned lower-third. Letter-spaced caps for labels. All text: white on black or white on very dark field. No outlines, no drop shadows. If legibility requires a shadow, the background shot needs to be darker.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>Pacing Rules</strong>
+    The silences are not errors. Do not fill them. Every beat marked as "2 seconds" should be 2 seconds minimum — err long. The film's pacing is the argument: the quiet is what the enclosure enables, and the edit should embody it. Fast-cut rhythm is explicitly wrong for this project. If the cut feels too slow to a YouTube-trained eye, it is probably exactly right.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>Voiceover Performance Notes</strong>
+    Quiet. Measured. Not hushed — confident and quiet. No vocal fry. No performative pauses. No smile in the voice. The register is someone who has thought about this for sixty days and is telling you what they found, not pitching you something. Reference cadence: Werner Herzog, not Casey Neistat. Record in a dead room. No reverb in post.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>Chapter Markers — Align to Upload Package</strong>
+    0:00 The Weight / 3:30 The Idea / 6:30 The Reveal / 10:30 The Evidence / 14:30 The Manifesto. Chapter titles in the YouTube description should match these exactly. See ep01-upload-package.html for full description copy.
+  </div>
+
+  <div class="post-prod-item">
+    <strong>B-Roll Priority List (Shoot Order)</strong>
+    1. The door-open shot (Act III, Scene 08) — most important visual in the film, allocate maximum time.<br>
+    2. Root mass macro (Act II, Scene 06 + Act IV, Scene 11) — white, healthy, dense — requires good light and macro lens.<br>
+    3. The living room wide (Act III, Scene 10) — room must be set-dressed cleanly, no extraneous items in frame.<br>
+    4. Complexity montage items (Act I) — pH pen, nutrient bottles, phone at 2:47 AM — all close, all controlled light.<br>
+    5. Day counter plant progression (Act IV) — capture each milestone same angle, same light, same composition.
+  </div>
+</div>
+
+</body>
+</html>

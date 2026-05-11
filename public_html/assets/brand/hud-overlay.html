@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Environmental HUD Overlay — ColaXpress</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+  /*
+    USAGE: Export this at your video resolution.
+    Place in bottom-left corner of video frame.
+    Use "multiply" or alpha blend in your editor.
+    Background is transparent (rgba 0).
+    Width: ~440px at 1080p, scale proportionally.
+  */
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    font-family: 'Manrope', 'Courier New', monospace;
+  }
+
+  /* ── PREVIEW CANVAS ──
+     Shows how overlay sits on dark video footage.
+     Remove .preview-bg in production — use only .hud
+  */
+  .preview-bg {
+    position: fixed;
+    inset: 0;
+    background: #0a0c0e;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 36px;
+  }
+
+  /* ── SIMULATED VIDEO BACKGROUND ── */
+  .video-sim {
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 35% 50%, rgba(56, 180, 200, 0.14) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 30%, rgba(30, 80, 40, 0.08) 0%, transparent 45%),
+      #060809;
+  }
+
+  /* ── HUD CONTAINER ── */
+  .hud {
+    position: relative;
+    width: 440px;
+    background: rgba(8, 12, 16, 0.88);
+    border: 1px solid rgba(56, 180, 200, 0.22);
+    border-radius: 4px;
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+
+  /* Top glow accent */
+  .hud::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 180, 200, 0.8) 30%, rgba(56, 180, 200, 1) 50%, rgba(56, 180, 200, 0.8) 70%, transparent);
+  }
+
+  /* ── HEADER ROW ── */
+  .hud-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 14px 8px;
+    border-bottom: 1px solid rgba(56, 180, 200, 0.14);
+    background: rgba(56, 180, 200, 0.04);
+  }
+
+  .hud-system {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .hud-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(56, 200, 80, 0.9);
+    box-shadow: 0 0 6px rgba(56, 200, 80, 0.7);
+    flex-shrink: 0;
+  }
+
+  .hud-dot.yellow { background: rgba(240, 200, 40, 0.9); box-shadow: 0 0 6px rgba(240, 200, 40, 0.7); }
+  .hud-dot.red    { background: rgba(200, 60, 40, 0.9); box-shadow: 0 0 6px rgba(200, 60, 40, 0.7); }
+
+  .hud-system-name {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .hud-day {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: rgba(56, 180, 200, 0.8);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hud-stage {
+    font-size: 8px;
+    font-weight: 700;
+    color: rgba(56, 200, 80, 0.85);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid rgba(56, 200, 80, 0.3);
+    border-radius: 2px;
+  }
+
+  /* ── DATA GRID ── */
+  .hud-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .hud-cell {
+    padding: 10px 14px 9px;
+    border-right: 1px solid rgba(56, 180, 200, 0.1);
+    border-bottom: 1px solid rgba(56, 180, 200, 0.1);
+    position: relative;
+  }
+
+  .hud-cell:nth-child(3),
+  .hud-cell:nth-child(6) {
+    border-right: none;
+  }
+
+  .hud-cell:nth-child(4),
+  .hud-cell:nth-child(5),
+  .hud-cell:nth-child(6) {
+    border-bottom: none;
+  }
+
+  .hud-cell-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .hud-cell-value {
+    font-size: 19px;
+    font-weight: 700;
+    color: rgba(56, 180, 200, 0.95);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    display: block;
+  }
+
+  .hud-cell-unit {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(56, 180, 200, 0.5);
+    margin-left: 2px;
+  }
+
+  .hud-cell-value.warn { color: rgba(240, 180, 40, 0.95); }
+  .hud-cell-value.good { color: rgba(56, 210, 100, 0.95); }
+  .hud-cell-value.normal { color: rgba(56, 180, 200, 0.95); }
+
+  /* Status bar with sparkline hint */
+  .hud-cell-bar {
+    margin-top: 5px;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(56, 180, 200, 0.12);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hud-cell-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: rgba(56, 180, 200, 0.5);
+  }
+
+  .hud-cell-bar-fill.warn { background: rgba(240, 180, 40, 0.5); }
+  .hud-cell-bar-fill.good { background: rgba(56, 210, 100, 0.5); }
+
+  /* ── RESERVOIR STRIP ── */
+  .hud-reservoir {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-top: 1px solid rgba(56, 180, 200, 0.14);
+    background: rgba(56, 180, 200, 0.03);
+  }
+
+  .hud-reservoir-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .hud-reservoir-data {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .hud-reservoir-item {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .hud-reservoir-key {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hud-reservoir-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(56, 180, 200, 0.85);
+  }
+
+  .hud-reservoir-divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(56, 180, 200, 0.15);
+  }
+
+  /* Active indicator */
+  .hud-active {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .hud-active-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(56, 200, 80, 0.9);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hud-active-text {
+    font-size: 7.5px;
+    font-weight: 700;
+    color: rgba(56, 200, 80, 0.7);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ── PREVIEW LABEL ── */
+  .preview-label {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    font-family: 'Manrope', monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .preview-note {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    font-family: 'Manrope', monospace;
+    letter-spacing: 0.1em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="video-sim"></div>
+
+<div class="preview-label">HUD Overlay — ColaXpress Grow Series</div>
+<div class="preview-note">
+  Production use: screenshot / export HUD only<br />
+  Composite over footage in Premiere / DaVinci<br />
+  Blend mode: Screen or Normal @ 90% opacity
+</div>
+
+<div class="preview-bg">
+  <div class="hud">
+
+    <!-- Header -->
+    <div class="hud-header">
+      <div class="hud-system">
+        <div class="hud-dot"></div>
+        <span class="hud-system-name">VIVOSUN vGrow · DWC</span>
+      </div>
+      <span class="hud-day">Day 01</span>
+      <span class="hud-stage">Seedling</span>
+    </div>
+
+    <!-- Main data grid: 3 cols × 2 rows -->
+    <div class="hud-grid">
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">Temperature</span>
+        <span class="hud-cell-value good">76.4<span class="hud-cell-unit">°F</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill good" style="width:68%"></div></div>
+      </div>
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">Humidity</span>
+        <span class="hud-cell-value good">68.2<span class="hud-cell-unit">%</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill good" style="width:68%"></div></div>
+      </div>
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">VPD</span>
+        <span class="hud-cell-value good">0.52<span class="hud-cell-unit">kPa</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill good" style="width:52%"></div></div>
+      </div>
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">Water Temp</span>
+        <span class="hud-cell-value normal">68.4<span class="hud-cell-unit">°F</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill" style="width:55%"></div></div>
+      </div>
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">CO₂</span>
+        <span class="hud-cell-value normal">812<span class="hud-cell-unit">ppm</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill" style="width:62%"></div></div>
+      </div>
+
+      <div class="hud-cell">
+        <span class="hud-cell-label">Light</span>
+        <span class="hud-cell-value good">18<span class="hud-cell-unit">hr on</span></span>
+        <div class="hud-cell-bar"><div class="hud-cell-bar-fill good" style="width:75%"></div></div>
+      </div>
+
+    </div>
+
+    <!-- Reservoir strip -->
+    <div class="hud-reservoir">
+      <span class="hud-reservoir-label">Reservoir</span>
+      <div class="hud-reservoir-data">
+        <div class="hud-reservoir-item">
+          <span class="hud-reservoir-key">pH</span>
+          <span class="hud-reservoir-val">6.10</span>
+        </div>
+        <div class="hud-reservoir-divider"></div>
+        <div class="hud-reservoir-item">
+          <span class="hud-reservoir-key">EC</span>
+          <span class="hud-reservoir-val">0.45 mS</span>
+        </div>
+        <div class="hud-reservoir-divider"></div>
+        <div class="hud-reservoir-item">
+          <span class="hud-reservoir-key">PPM</span>
+          <span class="hud-reservoir-val">450</span>
+        </div>
+        <div class="hud-reservoir-divider"></div>
+        <div class="hud-active">
+          <div class="hud-active-dot"></div>
+          <span class="hud-active-text">Air On</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

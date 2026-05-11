@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Profile Picture — Cola-Xpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 800px;
+    height: 800px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  .canvas {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    overflow: hidden;
+    background: #060608;
+  }
+
+  /* ── BACKGROUND ATMOSPHERE ── */
+
+  /* Subtle deep teal center glow — warmth behind the letters */
+  .glow-center {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%,
+      rgba(56, 180, 200, 0.09) 0%,
+      rgba(56, 180, 200, 0.04) 45%,
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  /* Very subtle warm tint at bottom — suggests plant life */
+  .glow-bottom {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse 80% 60% at 50% 80%,
+      rgba(56, 200, 80, 0.04) 0%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  /* Vignette — darkens outer ring, important for circular crop */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 78% 78% at 50% 50%,
+      transparent 45%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Fine grain */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* ── MONOGRAM ── */
+  .monogram-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+  }
+
+  /* The two letters are positioned so they touch — "C" curves toward "X" */
+  .mono-inner {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    /* Shift the whole unit up fractionally — optical centering */
+    margin-top: -12px;
+  }
+
+  .letter-c {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 300px;
+    font-weight: 700;
+    color: #e8e4dd;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    /* C leans slightly right — the open end faces the X */
+    position: relative;
+    z-index: 2;
+  }
+
+  .letter-x {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 300px;
+    font-weight: 700;
+    /* The X is teal — this is the only saturated color per brand rules */
+    color: #38b4c8;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    /* Pull X toward C — creates the overlap/junction feel */
+    margin-left: -24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Teal glow behind the junction point */
+  .junction-glow {
+    position: absolute;
+    /* Positioned at the visual junction between C and X */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 200px;
+    background: radial-gradient(ellipse 100% 100% at 50% 50%,
+      rgba(56, 180, 200, 0.18) 0%,
+      transparent 70%
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── BYLINE — shown at full resolution, invisible at 32px icon size ── */
+  .byline {
+    position: absolute;
+    bottom: 108px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(56,180,200,0.45);
+    white-space: nowrap;
+    z-index: 5;
+  }
+
+  /* Teal rule under the monogram */
+  .mono-rule {
+    position: absolute;
+    bottom: 136px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 1px;
+    background: rgba(56,180,200,0.3);
+    z-index: 5;
+  }
+
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <div class="glow-center"></div>
+  <div class="glow-bottom"></div>
+
+  <div class="monogram-wrap">
+    <div class="mono-inner">
+      <div class="junction-glow"></div>
+      <span class="letter-c">C</span>
+      <span class="letter-x">X</span>
+    </div>
+  </div>
+
+  <div class="mono-rule"></div>
+  <div class="byline">Cola-Xpress</div>
+
+  <div class="vignette"></div>
+  <div class="grain"></div>
+
+</div>
+</body>
+</html>

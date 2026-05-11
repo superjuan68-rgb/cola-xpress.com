@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Episode 01 — ElevenLabs VO Script — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 960px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    border-bottom: 1px solid #1e2428;
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .doc-eyebrow {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 14px;
+  }
+  .doc-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #e8e4dd;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .doc-sub {
+    font-size: 13px;
+    color: #5a6370;
+    font-weight: 500;
+  }
+
+  /* ── SETUP CARD ── */
+  .setup-card {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-top: 3px solid #38b4c8;
+    padding: 28px 28px;
+    margin-bottom: 48px;
+  }
+  .setup-card h2 {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #38b4c8;
+    margin-bottom: 20px;
+  }
+  .setup-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #141a1e;
+    padding-bottom: 12px;
+  }
+  .setup-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .setup-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5a6370;
+    width: 160px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .setup-val {
+    font-size: 13px;
+    color: #e8e4dd;
+    font-weight: 500;
+    flex: 1;
+  }
+  .setup-val .note {
+    font-size: 12px;
+    color: #5a6370;
+    display: block;
+    margin-top: 3px;
+    font-weight: 400;
+  }
+  .setup-val code {
+    font-family: monospace;
+    font-size: 12px;
+    background: #141a1e;
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: #38b4c8;
+  }
+
+  /* ── SETTINGS GRID ── */
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+  .setting-cell {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 16px 18px;
+    text-align: center;
+  }
+  .setting-name {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin-bottom: 8px;
+  }
+  .setting-value {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #38b4c8;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .setting-note {
+    font-size: 10px;
+    color: #3a4550;
+    font-weight: 600;
+  }
+  .setting-cell.highlight .setting-value { color: #e8e4dd; }
+
+  /* ── WORKFLOW STEPS ── */
+  .workflow {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .workflow h2 {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin-bottom: 18px;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    background: #141a1e;
+    border: 1px solid #1e2a34;
+    color: #38b4c8;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-text {
+    font-size: 13px;
+    color: #8a9099;
+    flex: 1;
+    line-height: 1.65;
+  }
+  .step-text strong { color: #e8e4dd; }
+
+  /* ── SYNTAX LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    padding: 10px 14px;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-text { color: #8a9099; }
+
+  /* ── ACT HEADERS ── */
+  .act-header {
+    margin: 56px 0 28px;
+    padding: 14px 20px;
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .act-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+  }
+  .act-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #e8e4dd;
+    margin-top: 4px;
+  }
+  .act-tc {
+    font-size: 11px;
+    font-weight: 700;
+    color: #5a6370;
+    font-family: monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SCENE SLUG ── */
+  .scene-slug {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin: 28px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #141a1e;
+  }
+
+  /* ── VO BLOCK ── */
+  .vo-block {
+    background: #060a0c;
+    border-left: 3px solid #9f3028;
+    padding: 16px 20px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #e8e4dd;
+    font-weight: 500;
+    line-height: 1.75;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  /* ── BREAK BLOCK ── */
+  .break-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 6px 0;
+    padding: 8px 0;
+  }
+  .break-tag {
+    font-family: monospace;
+    font-size: 12px;
+    color: #38b4c8;
+    background: #091520;
+    border: 1px solid #1e3a50;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .break-bar {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #1e3a50, transparent);
+  }
+  .break-note {
+    font-size: 10px;
+    color: #3a4550;
+    font-style: italic;
+    text-align: right;
+    min-width: 160px;
+  }
+
+  /* ── TITLE CARD ── */
+  .title-card {
+    background: #060a0c;
+    border-left: 3px solid #6050a0;
+    padding: 10px 20px;
+    margin-bottom: 6px;
+    font-family: monospace;
+    font-size: 11px;
+    color: #7060b0;
+    font-style: italic;
+  }
+
+  /* ── RAW COPY BLOCK ── */
+  .raw-section {
+    margin-top: 72px;
+    border-top: 1px solid #1e2428;
+    padding-top: 48px;
+  }
+  .raw-section h2 {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 8px;
+  }
+  .raw-section .raw-note {
+    font-size: 12px;
+    color: #5a6370;
+    margin-bottom: 24px;
+  }
+  .raw-act-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5a6370;
+    margin: 28px 0 8px;
+  }
+  .raw-block {
+    background: #060a0c;
+    border: 1px solid #1a1f24;
+    padding: 20px 22px;
+    font-family: monospace;
+    font-size: 12.5px;
+    line-height: 2;
+    color: #c8c4bd;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 16px;
+    user-select: all;
+  }
+  .raw-block .br { color: #38b4c8; }
+
+  /* ── EXPORT NOTES ── */
+  .export-notes {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-top: 3px solid #c8a840;
+    padding: 24px 28px;
+    margin-top: 56px;
+  }
+  .export-notes h2 {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c8a840;
+    margin-bottom: 20px;
+  }
+  .export-item {
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #8a9099;
+    line-height: 1.65;
+  }
+  .export-item strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8e4dd;
+    margin-bottom: 3px;
+  }
+
+  .rule { height: 1px; background: #141a1e; margin: 24px 0; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress · Episode 01 · Voiceover · ElevenLabs Production Script</div>
+  <div class="doc-title">VO Script — ElevenLabs Ready</div>
+  <div class="doc-sub">Full script with SSML break tags · 5 acts · Paste directly into ElevenLabs Projects · v1.0</div>
+</div>
+
+
+<!-- ── VOICE SETUP ────────────────────────────────────────────────── -->
+<div class="setup-card">
+  <h2>Voice Configuration</h2>
+
+  <div class="setup-row">
+    <div class="setup-label">Platform</div>
+    <div class="setup-val">
+      ElevenLabs Projects — <strong>not</strong> the basic Text to Speech generator
+      <span class="note">elevenlabs.io → Projects → New Project → "Ep01 VO" → Import text act by act</span>
+    </div>
+  </div>
+
+  <div class="setup-row">
+    <div class="setup-label">Primary Voice</div>
+    <div class="setup-val">
+      <strong>Daniel</strong> — deep British, measured, documentary register
+      <span class="note">Second choice: George (deep British, slightly warmer). Both are pre-made ElevenLabs voices. Avoid Adam for this script — he reads too neutral for the pacing.</span>
+    </div>
+  </div>
+
+  <div class="setup-row">
+    <div class="setup-label">Model</div>
+    <div class="setup-val">
+      Eleven Multilingual v2
+      <span class="note">Best quality for long-form. Do not use Turbo — quality degradation is noticeable in long silences.</span>
+    </div>
+  </div>
+
+  <div class="setup-row">
+    <div class="setup-label">Output Format</div>
+    <div class="setup-val">
+      WAV · 44.1 kHz · Mono
+      <span class="note">Or 48 kHz if your editor project is 48k. Download via Project export, not the in-browser player.</span>
+    </div>
+  </div>
+
+  <div class="setup-row">
+    <div class="setup-label">SSML Breaks</div>
+    <div class="setup-val">
+      <code>&lt;break time="Xs"/&gt;</code> — paste exactly as written into each Projects text block
+      <span class="note">ElevenLabs Projects processes SSML break tags natively. They create true silence, not a vocal pause.</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SETTINGS GRID ─────────────────────────────────────────────── -->
+<div class="settings-grid">
+  <div class="setting-cell">
+    <div class="setting-name">Stability</div>
+    <div class="setting-value">0.40</div>
+    <div class="setting-note">Natural variation — not robotic</div>
+  </div>
+  <div class="setting-cell">
+    <div class="setting-name">Similarity Boost</div>
+    <div class="setting-value">0.75</div>
+    <div class="setting-note">Strong voice character</div>
+  </div>
+  <div class="setting-cell">
+    <div class="setting-name">Style</div>
+    <div class="setting-value">0.10</div>
+    <div class="setting-note">Almost no exaggeration</div>
+  </div>
+  <div class="setting-cell highlight">
+    <div class="setting-name">Speaker Boost</div>
+    <div class="setting-value">ON</div>
+    <div class="setting-note">Enables for all generations</div>
+  </div>
+</div>
+
+
+<!-- ── WORKFLOW ──────────────────────────────────────────────────── -->
+<div class="workflow">
+  <h2>Projects Workflow</h2>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text">Go to <strong>elevenlabs.io → Projects → New Project</strong>. Name it "ColaXpress — Ep01 VO". Set voice to Daniel, model to Eleven Multilingual v2.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text">Add <strong>5 chapters</strong> (one per act). Label them: "Act I — The Weight", "Act II — The Idea", "Act III — The Reveal", "Act IV — The Evidence", "Act V — The Manifesto".</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text">Copy the raw text block for each act from the <strong>Raw Pasteable Blocks</strong> section at the bottom of this document. Paste into the corresponding chapter. The <code>&lt;break&gt;</code> tags paste in plain text and will be processed as SSML.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text">Set voice settings: Stability 0.40 / Similarity 0.75 / Style 0.10 / Speaker Boost ON. Apply to <strong>all chapters</strong> before generating.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-text"><strong>Generate one act at a time.</strong> Listen before generating the next. If a line doesn't land (wrong pacing, emphasis off), select just that paragraph block in the Projects editor and regenerate it — you don't need to re-run the whole act.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-text">Key lines to listen to critically: <strong>"I slept."</strong> (must sound like relief, not exhaustion), <strong>"Yes."</strong> (honest, not dramatic), <strong>"It's optional."</strong> (quiet conviction, not a tagline). Regenerate if they feel performed.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-text"><strong>Export project as WAV.</strong> Five files, one per act. Import all five into your editor on a single VO track in sequence. Stitch acts at the act boundaries — the silences in the script handle the editorial joins.</div>
+  </div>
+</div>
+
+
+<!-- ── LEGEND ────────────────────────────────────────────────────── -->
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#9f3028"></div>
+    <span class="legend-text">VO line — spoken text</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#38b4c8"></div>
+    <span class="legend-text"><code style="font-size:11px;color:#38b4c8">&lt;break time="Xs"/&gt;</code> — SSML timed silence</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background:#6050a0"></div>
+    <span class="legend-text">Title card — not spoken, editor reference only</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act I</div>
+    <div class="act-name">The Weight</div>
+  </div>
+  <div class="act-tc">0:00 – 3:30</div>
+</div>
+
+<div class="scene-slug">Scene 02 — Complexity Montage</div>
+
+<div class="vo-block">Growing became complicated.</div>
+<div class="vo-block">Not all at once. Gradually.</div>
+<div class="vo-block">A hobby that started as an interest became a second job.</div>
+<div class="vo-block">The equipment multiplied. The solutions multiplied. The problems multiplied.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — let the weight settle</div>
+</div>
+
+<div class="vo-block">Some people find that engaging. The constant attention. The daily management. The variables.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">hold</div>
+</div>
+
+<div class="vo-block">I did too, for a while.</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 03 — Hard Cut to the Enclosure</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="4.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">4 sec — enclosure visual, silent</div>
+</div>
+
+<div class="vo-block">This is a different story.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="3.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">3 sec</div>
+</div>
+
+<div class="vo-block">I didn't check the reservoir at 2 AM.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec</div>
+</div>
+
+<div class="vo-block">I slept.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="3.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">3 sec — let the word land</div>
+</div>
+
+<div class="title-card">// TITLE CARD: DAY 01 — not spoken — editor inserts over black, hold 3 sec</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act II</div>
+    <div class="act-name">The Idea</div>
+  </div>
+  <div class="act-tc">3:30 – 6:30</div>
+</div>
+
+<div class="scene-slug">Scene 04 — The Domain Analogy</div>
+
+<div class="vo-block">There's a pattern to how technology changes craft industries.</div>
+
+<div class="vo-block">Espresso machines replaced commercial brewing equipment too complex for home use. The craft didn't disappear — it became accessible. The hobbyist could now make what the professional made.</div>
+
+<div class="vo-block">Digital cameras didn't end photography. They changed who could practice it seriously. The art moved — it didn't disappear.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">Home cannabis cultivation is going through this now.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — let the statement sit</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 05 — The Craft Question Stated</div>
+
+<div class="vo-block">The question growers ask about automation is always the same.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">Does it remove the art?</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec</div>
+</div>
+
+<div class="vo-block">I had the same concern. Sixty days later, I think the opposite is true.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2.5 sec — loop-sustaining beat, hold</div>
+</div>
+
+<div class="vo-block">But that answer requires sixty days of evidence. So let's start at the beginning.</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 06 — Root Mass Macro / The Quiet Grows</div>
+
+<div class="vo-block">This is day thirty-two. This is what grows in silence, in sealed air, without a grower checking it twice a day.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — hold on root mass visual</div>
+</div>
+
+<div class="vo-block">The craft didn't disappear.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">It got quieter.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — image and words, single statement</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act III</div>
+    <div class="act-name">The Reveal</div>
+  </div>
+  <div class="act-tc">6:30 – 10:30</div>
+</div>
+
+<div class="scene-slug">Scene 07 — Material Texture / No Context</div>
+
+<div class="vo-block">Most grow setups look like improvisation. Something rigged, not designed. The equipment chosen for function, not consideration.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">This was engineered differently.</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 08 — The Door Opens</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="3.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">3 sec — door opening visual, no VO</div>
+</div>
+
+<div class="vo-block">It's not a tent. It's a sealed environment.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — interior visible</div>
+</div>
+
+<div class="vo-block">Integrated LED. Sealed air column. A closed system where every variable has a corresponding control.</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 09 — VPD / Technology as Quiet Guide</div>
+
+<div class="vo-block">VPD at 1.1 kilopascals. Mid-veg target. The system has been holding this number for thirty-six hours.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">That would have taken me an hour of manual adjustment. A hygrometer check. A humidifier setting change. Another check forty minutes later. A fan speed tweak.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">The system doesn't replace the knowledge. It replaces the labor.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1.5 sec — knowledge vs labor distinction</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 10 — The Living Room Shot / Design Philosophy</div>
+
+<div class="vo-block">It doesn't look like a grow setup. That was intentional.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec</div>
+</div>
+
+<div class="vo-block">The odor elimination isn't a feature. It's a design philosophy. Someone decided this should exist somewhere other than a basement. That the people who grow should not have to choose between quality and living space.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — wide living room shot</div>
+</div>
+
+<div class="vo-block">Luxury whispers. It doesn't announce itself.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2.5 sec — understated, do not emphasize</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act IV</div>
+    <div class="act-name">The Evidence</div>
+  </div>
+  <div class="act-tc">10:30 – 14:30</div>
+</div>
+
+<div class="scene-slug">Scene 11 — The Witness Record / Day Counter</div>
+
+<div class="title-card">// TITLE CARD: DAY 03 — not spoken — editor inserts over black, 2 sec</div>
+
+<div class="vo-block">Day three. Cotyledons. The system has held temperature and VPD within target range for seventy-two hours. I have not touched the reservoir. I have not adjusted the light.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1.5 sec — visual cut to Day 07</div>
+</div>
+
+<div class="title-card">// TITLE CARD: DAY 07 — not spoken — editor inserts over black, 2 sec</div>
+
+<div class="vo-block">Day seven. First true leaves. EC holding at 0.6. Roots are beginning to reach the water line. The transition from cotyledon nutrition to nutrient solution uptake is happening on schedule.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1.5 sec — visual cut to Day 14</div>
+</div>
+
+<div class="title-card">// TITLE CARD: DAY 14 — not spoken — editor inserts over black, 2 sec</div>
+
+<div class="vo-block">Day fourteen. The plant entered vegetative growth four days ago. Root mass is dense and white — no discoloration, no odor.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">In the first two weeks, I had performed one reservoir top-off.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="3.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">3 sec — full silence, hold on root mass</div>
+</div>
+
+<div class="vo-block">One.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — do not fill this silence</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 12 — Day 28 / The Plant That Was Never Stressed</div>
+
+<div class="title-card">// TITLE CARD: DAY 28 — not spoken — editor inserts over black, 2 sec</div>
+
+<div class="vo-block">Day twenty-eight. Four weeks from seed. I was looking at a plant that had never been stressed.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — healthy leaf close</div>
+</div>
+
+<div class="vo-block">No tip burn from EC too high. No yellowing from pH drift locking out nutrients. No stretching from inconsistent light cycles. No heat stress. No wilting.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">Just a plant that had been allowed to grow without interruption.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec</div>
+</div>
+
+<div class="vo-block">The craft got quieter, not gone.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2.5 sec — callback to Act II closes emotional middle arc</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="act-header">
+  <div>
+    <div class="act-label">Act V</div>
+    <div class="act-name">The Manifesto</div>
+  </div>
+  <div class="act-tc">14:30 – 17:00</div>
+</div>
+
+<div class="scene-slug">Scene 13 — The Direct Answer / Loop 02 Resolves</div>
+
+<div class="vo-block">The question was: does automation remove the art?</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — full silence, do not rush</div>
+</div>
+
+<div class="vo-block">Yes.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — hold, do not continue immediately</div>
+</div>
+
+<div class="vo-block">Some of it.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">It removes the art of fighting the environment. The art of reading a pH pen at midnight. The art of interpreting a humidity spike at 3 AM. The art of keeping a plant alive despite the variables.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">What it doesn't remove: the strain selection. The training decisions. The harvest timing. The cure. The standard you hold yourself to when you open the jar six weeks after harvest.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.5s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1.5 sec</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 14 — The Analogy Payoff</div>
+
+<div class="vo-block">A chef with a precision oven doesn't stop being a chef. A photographer with autofocus doesn't stop being a photographer.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="1.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">1 sec</div>
+</div>
+
+<div class="vo-block">The tool removes friction. What you do with the clarity is still yours.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — deliver slow, one thought per beat</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 15 — Loop 01 Resolves / The Manifesto Statement</div>
+
+<div class="vo-block">The complicated era of home growing is not over.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec</div>
+</div>
+
+<div class="vo-block">It's optional.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="4.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">4 sec — hold on enclosure, just the hum and the glow</div>
+</div>
+
+<div class="rule"></div>
+<div class="scene-slug">Scene 16 — The Fade / See You There</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="2.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">2 sec — full black, fade complete</div>
+</div>
+
+<div class="title-card">// TITLE CARD: DAY 08 → — not spoken — editor inserts over black, hold 3 sec</div>
+
+<div class="vo-block">See you there.</div>
+
+<div class="break-block">
+  <div class="break-tag">&lt;break time="3.0s"/&gt;</div>
+  <div class="break-bar"></div>
+  <div class="break-note">3 sec — silence carries through end card</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- RAW PASTEABLE BLOCKS                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="raw-section">
+  <h2>Raw Pasteable Blocks — Copy Directly Into ElevenLabs Projects</h2>
+  <div class="raw-note">Select all text in each block (click inside, Ctrl+A or Cmd+A) and paste into the corresponding Projects chapter. Title card comments are included as plain-text reminders — delete them before generating if ElevenLabs flags them.</div>
+
+  <div class="raw-act-label">Act I — The Weight · 0:00 – 3:30</div>
+  <div class="raw-block">Growing became complicated. Not all at once. Gradually. A hobby that started as an interest became a second job. The equipment multiplied. The solutions multiplied. The problems multiplied.
+
+<break time="2.0s"/>
+
+Some people find that engaging. The constant attention. The daily management. The variables.
+
+<break time="1.5s"/>
+
+I did too, for a while.
+
+<break time="4.0s"/>
+
+This is a different story.
+
+<break time="3.0s"/>
+
+I didn't check the reservoir at 2 AM.
+
+<break time="2.0s"/>
+
+I slept.
+
+<break time="3.0s"/>
+</div>
+
+  <div class="raw-act-label">Act II — The Idea · 3:30 – 6:30</div>
+  <div class="raw-block">There's a pattern to how technology changes craft industries.
+
+Espresso machines replaced commercial brewing equipment too complex for home use. The craft didn't disappear — it became accessible. The hobbyist could now make what the professional made.
+
+Digital cameras didn't end photography. They changed who could practice it seriously. The art moved — it didn't disappear.
+
+<break time="1.0s"/>
+
+Home cannabis cultivation is going through this now.
+
+<break time="2.0s"/>
+
+The question growers ask about automation is always the same.
+
+<break time="1.0s"/>
+
+Does it remove the art?
+
+<break time="2.0s"/>
+
+I had the same concern. Sixty days later, I think the opposite is true.
+
+<break time="2.5s"/>
+
+But that answer requires sixty days of evidence. So let's start at the beginning.
+
+This is day thirty-two. This is what grows in silence, in sealed air, without a grower checking it twice a day.
+
+<break time="2.0s"/>
+
+The craft didn't disappear.
+
+<break time="1.0s"/>
+
+It got quieter.
+
+<break time="2.0s"/>
+</div>
+
+  <div class="raw-act-label">Act III — The Reveal · 6:30 – 10:30</div>
+  <div class="raw-block">Most grow setups look like improvisation. Something rigged, not designed. The equipment chosen for function, not consideration.
+
+<break time="1.0s"/>
+
+This was engineered differently.
+
+<break time="3.0s"/>
+
+It's not a tent. It's a sealed environment.
+
+<break time="2.0s"/>
+
+Integrated LED. Sealed air column. A closed system where every variable has a corresponding control.
+
+VPD at 1.1 kilopascals. Mid-veg target. The system has been holding this number for thirty-six hours.
+
+<break time="1.0s"/>
+
+That would have taken me an hour of manual adjustment. A hygrometer check. A humidifier setting change. Another check forty minutes later. A fan speed tweak.
+
+<break time="1.0s"/>
+
+The system doesn't replace the knowledge. It replaces the labor.
+
+<break time="1.5s"/>
+
+It doesn't look like a grow setup. That was intentional.
+
+<break time="2.0s"/>
+
+The odor elimination isn't a feature. It's a design philosophy. Someone decided this should exist somewhere other than a basement. That the people who grow should not have to choose between quality and living space.
+
+<break time="2.0s"/>
+
+Luxury whispers. It doesn't announce itself.
+
+<break time="2.5s"/>
+</div>
+
+  <div class="raw-act-label">Act IV — The Evidence · 10:30 – 14:30</div>
+  <div class="raw-block">Day three. Cotyledons. The system has held temperature and VPD within target range for seventy-two hours. I have not touched the reservoir. I have not adjusted the light.
+
+<break time="1.5s"/>
+
+Day seven. First true leaves. EC holding at 0.6. Roots are beginning to reach the water line. The transition from cotyledon nutrition to nutrient solution uptake is happening on schedule.
+
+<break time="1.5s"/>
+
+Day fourteen. The plant entered vegetative growth four days ago. Root mass is dense and white — no discoloration, no odor.
+
+<break time="1.0s"/>
+
+In the first two weeks, I had performed one reservoir top-off.
+
+<break time="3.0s"/>
+
+One.
+
+<break time="2.0s"/>
+
+Day twenty-eight. Four weeks from seed. I was looking at a plant that had never been stressed.
+
+<break time="2.0s"/>
+
+No tip burn from EC too high. No yellowing from pH drift locking out nutrients. No stretching from inconsistent light cycles. No heat stress. No wilting.
+
+<break time="1.0s"/>
+
+Just a plant that had been allowed to grow without interruption.
+
+<break time="2.0s"/>
+
+The craft got quieter, not gone.
+
+<break time="2.5s"/>
+</div>
+
+  <div class="raw-act-label">Act V — The Manifesto · 14:30 – 17:00</div>
+  <div class="raw-block">The question was: does automation remove the art?
+
+<break time="2.0s"/>
+
+Yes.
+
+<break time="2.0s"/>
+
+Some of it.
+
+<break time="1.0s"/>
+
+It removes the art of fighting the environment. The art of reading a pH pen at midnight. The art of interpreting a humidity spike at 3 AM. The art of keeping a plant alive despite the variables.
+
+<break time="1.0s"/>
+
+What it doesn't remove: the strain selection. The training decisions. The harvest timing. The cure. The standard you hold yourself to when you open the jar six weeks after harvest.
+
+<break time="1.5s"/>
+
+A chef with a precision oven doesn't stop being a chef. A photographer with autofocus doesn't stop being a photographer.
+
+<break time="1.0s"/>
+
+The tool removes friction. What you do with the clarity is still yours.
+
+<break time="2.0s"/>
+
+The complicated era of home growing is not over.
+
+<break time="2.0s"/>
+
+It's optional.
+
+<break time="4.0s"/>
+
+<break time="2.0s"/>
+
+See you there.
+
+<break time="3.0s"/>
+</div>
+
+</div><!-- /raw-section -->
+
+
+<!-- ── EXPORT NOTES ───────────────────────────────────────────────── -->
+<div class="export-notes">
+  <h2>Post-Generation Notes</h2>
+
+  <div class="export-item">
+    <strong>Lines to Regenerate if They Sound Wrong</strong>
+    "I slept." — must sound like quiet relief, not tiredness. "Yes." — honest and direct, not dramatic or emphatic. "It's optional." — should feel like the final word in a long conversation, not a tagline. "The craft got quieter, not gone." — callback line, steady pace, no uplift at the end.
+  </div>
+
+  <div class="export-item">
+    <strong>Paragraph Spacing in Projects</strong>
+    In ElevenLabs Projects, a blank line between paragraphs adds a natural short pause on top of any break tags. If specific gaps feel too long, shorten the break time value. If the voice rushes between lines with no break tag, add a blank line between them.
+  </div>
+
+  <div class="export-item">
+    <strong>Editing the VO into the Timeline</strong>
+    Import all five act WAVs onto a single VO track in sequence. The SSML silences are baked in — do not add additional gaps at act joins. The raw silence after "I slept." (3.0s) and after "It's optional." (4.0s) are load-bearing — do not cut them short in the edit.
+  </div>
+
+  <div class="export-item">
+    <strong>Sound Design Layering</strong>
+    The VO silence blocks are where enclosure hum, ambient sound, and music breathe. Mix those layers so they're audible under the silence but don't compete with speech. Reference: the VO should sit 6–8 dB above the music during lines; the music and hum should be 3–4 dB below VO level during silences.
+  </div>
+
+  <div class="export-item">
+    <strong>File Naming Convention</strong>
+    Save exports as: <code>ep01-vo-act1.wav</code>, <code>ep01-vo-act2.wav</code>, <code>ep01-vo-act3.wav</code>, <code>ep01-vo-act4.wav</code>, <code>ep01-vo-act5.wav</code>. Store in <code>assets/production/audio/</code>.
+  </div>
+</div>
+
+</body>
+</html>

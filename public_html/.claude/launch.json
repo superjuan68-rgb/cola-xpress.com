@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "colaxpress-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "7720", "--directory", "C:\\Users\\j-pre\\OneDrive\\Documents\\public_html"],
+      "port": 7720
+    }
+  ]
+}

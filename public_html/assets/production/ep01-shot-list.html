@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Episode 01 — Cinematic Shot List — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0d0f;
+    color: #e8e4dd;
+    padding: 60px 48px;
+    max-width: 1040px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .doc-header { border-bottom: 1px solid #1e2428; padding-bottom: 32px; margin-bottom: 48px; }
+  .doc-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; margin-bottom: 14px; }
+  .doc-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 38px; font-weight: 700; color: #e8e4dd; line-height: 1.1; margin-bottom: 10px; }
+  .doc-sub { font-size: 13px; color: #5a6370; font-weight: 500; }
+
+  /* ── PRIORITY BOX ── */
+  .priority-box {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    border-left: 3px solid #9f3028;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+  }
+  .priority-box h3 {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 14px;
+  }
+  .priority-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    align-items: baseline;
+  }
+  .priority-num {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 800;
+    color: #9f3028;
+    width: 18px;
+  }
+  .priority-text { color: #8a9099; line-height: 1.55; }
+  .priority-text strong { color: #e8e4dd; }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    margin: 48px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #1a1f24;
+    padding-bottom: 10px;
+  }
+  .section-act { font-size: 9px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: #9f3028; }
+  .section-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #e8e4dd;
+    margin-top: 3px;
+  }
+  .section-tc { font-size: 11px; color: #5a6370; font-family: monospace; font-weight: 700; }
+
+  /* ── SHOT TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+  }
+  th {
+    background: #0e1215;
+    color: #5a6370;
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1a1f24;
+  }
+  td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #111518;
+    vertical-align: top;
+    line-height: 1.55;
+    color: #c0bbb4;
+  }
+  tr:hover td { background: #0e1215; }
+  .shot-num {
+    font-weight: 800;
+    color: #9f3028;
+    white-space: nowrap;
+    font-family: monospace;
+    font-size: 13px;
+  }
+
+  /* ── SHOT TYPE BADGES ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .badge-macro  { background: #1e2a18; color: #5a9050; border: 1px solid #2d4226; }
+  .badge-wide   { background: #0e1a2a; color: #38b4c8; border: 1px solid #1a3050; }
+  .badge-cu     { background: #2a1814; color: #c86050; border: 1px solid #5a2818; }
+  .badge-broll  { background: #1a1f24; color: #8a9099; border: 1px solid #2a3038; }
+  .badge-sound  { background: #2a2010; color: #c8a840; border: 1px solid #5a4820; }
+  .badge-title  { background: #1a0e2a; color: #9070d0; border: 1px solid #3a2060; }
+  .badge-pri    { background: #2a0e0a; color: #ff6050; border: 1px solid #5a2018; }
+
+  .flag-critical {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    background: rgba(159,48,40,0.2);
+    border: 1px solid rgba(159,48,40,0.5);
+    color: #ff6050;
+    border-radius: 2px;
+    margin-left: 6px;
+  }
+
+  td strong { color: #e8e4dd; font-weight: 700; }
+
+  /* ── CAMERA SETTINGS ── */
+  .camera-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 40px;
+  }
+  .camera-card {
+    background: #0e1215;
+    border: 1px solid #1a1f24;
+    padding: 18px;
+  }
+  .camera-card h4 {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9f3028;
+    margin-bottom: 12px;
+  }
+  .camera-card ul { list-style: none; }
+  .camera-card li {
+    font-size: 12px;
+    color: #8a9099;
+    line-height: 1.8;
+    display: flex;
+    gap: 8px;
+  }
+  .camera-card li::before { content: '→'; color: #9f3028; font-weight: 800; flex-shrink: 0; }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; margin-bottom: 32px; }
+  .checklist li {
+    padding: 9px 12px;
+    border-bottom: 1px solid #111518;
+    font-size: 13px;
+    color: #8a9099;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .checklist li::before { content: '☐'; font-size: 15px; color: #9f3028; flex-shrink: 0; margin-top: -1px; }
+
+  /* ── RULE ── */
+  .rule { height: 1px; background: #1a1f24; margin: 20px 0; }
+
+  /* ── NOTE ── */
+  .note {
+    font-size: 12px;
+    color: #5a6370;
+    font-style: italic;
+    padding: 8px 0;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-eyebrow">ColaXpress Grow Series · Episode 01 · Shot List · v2.0 — Cinematic Reframe</div>
+  <div class="doc-title">Shot List &amp; Camera Direction<br>Cinematic Edition</div>
+  <div class="doc-sub">Pure voiceover format · No on-cam host · Apple × A24 aesthetic · 5-act structure · 12–17 min target</div>
+</div>
+
+<!-- ── PRIORITY CALLOUTS ── -->
+<div class="priority-box">
+  <h3>B-Roll Priority Order — Allocate Time Accordingly</h3>
+  <div class="priority-item"><span class="priority-num">01</span><div class="priority-text"><strong>The door-open shot (Act III, Shot 12)</strong> — Most important visual in the film. The door opening reveals the interior LED light expanding into frame. Set it up clean. Locked-off or very slow fluid move only. Multiple takes. This is the thumbnail and the social image.</div></div>
+  <div class="priority-item"><span class="priority-num">02</span><div class="priority-text"><strong>Root mass macro (Acts II + IV, Shot 06 + 20)</strong> — White, dense, healthy. Requires macro lens and controlled light. Shoot from multiple angles. The root mass must be visually striking — this carries two critical script moments.</div></div>
+  <div class="priority-item"><span class="priority-num">03</span><div class="priority-text"><strong>Living room wide (Act III, Shot 15)</strong> — The enclosure in a domestic space. Room must be set-dressed: clean, considered, no extraneous objects in frame. This shot carries the film's key design argument.</div></div>
+  <div class="priority-item"><span class="priority-num">04</span><div class="priority-text"><strong>Complexity montage (Act I, Shots 02–04)</strong> — pH pen close, nutrient bottle row, phone at 2:47 AM. All macros, controlled light. Shoot with intent — these images define the "before" of the film's emotional arc.</div></div>
+  <div class="priority-item"><span class="priority-num">05</span><div class="priority-text"><strong>Day counter plant progression (Act IV, Shots 18–21)</strong> — Capture each milestone (Day 3/7/14/28) at the same angle, same framing, same light. The visual consistency builds the witness record credibility.</div></div>
+</div>
+
+<!-- ── PRE-SHOOT CHECKLIST ── -->
+<div class="section-header">
+  <div><div class="section-act">Pre-Shoot</div><div class="section-name">Set Conditions Before Rolling</div></div>
+</div>
+<ul class="checklist">
+  <li>Enclosure running: LED on 18/6, fan audible, teal seam-glow visible — confirm before any exterior shots</li>
+  <li>Living room set-dressed: clean surface behind enclosure, no cables visible, no peripheral clutter in any wide angle</li>
+  <li>Reservoir dialed: pH 6.10, EC 0.45, water temp 68°F — confirm before any reservoir close-up shots</li>
+  <li>Phone configured: set up the app notification visual ("Canopy nominal." — 2:47 AM) for Act I graphic</li>
+  <li>Complexity props staged: pH pen, 7–8 nutrient bottles (crowded), cluttered shelf — for Act I montage only</li>
+  <li>Root mass ready: white, healthy, dense — this is the central visual of Acts II and IV</li>
+  <li>Ambient sound recording: record 2 min of clean enclosure hum and reservoir bubble separately for sound design</li>
+  <li>Macro lens attached for all root, leaf texture, and pH pen shots</li>
+  <li>Camera color profile: Log or Flat — all grading in post</li>
+</ul>
+
+<!-- ── CAMERA SETTINGS ── -->
+<div class="section-header">
+  <div><div class="section-act">Camera Setup</div><div class="section-name">Technical Reference</div></div>
+</div>
+<div class="camera-grid">
+  <div class="camera-card">
+    <h4>Camera Settings</h4>
+    <ul>
+      <li>4K / 24fps — cinematic pacing</li>
+      <li>ISO 400–800 for enclosure shots</li>
+      <li>Shutter 1/50 (180° rule)</li>
+      <li>Aperture f/1.8–f/2.8 for B-roll</li>
+      <li>WB: 4000–4500K (teal LED bias)</li>
+      <li>Color: Log / Flat profile — grade post</li>
+    </ul>
+  </div>
+  <div class="camera-card">
+    <h4>Lighting Direction</h4>
+    <ul>
+      <li>Teal LED as primary practical source</li>
+      <li>All other lights: desaturated, cool-neutral</li>
+      <li>Enclosure interior: cabinet LED only</li>
+      <li>Reservoir: add low panel below frame if water is flat</li>
+      <li>No warm orange sources — teal is the only accent color</li>
+      <li>Shadows: lifted, not crushed</li>
+    </ul>
+  </div>
+  <div class="camera-card">
+    <h4>Audio</h4>
+    <ul>
+      <li>No on-cam presenter — VO recorded separately in dead room</li>
+      <li>Record ambient hum 2+ min clean</li>
+      <li>Record reservoir bubble 2+ min clean</li>
+      <li>Record timer relay click if possible</li>
+      <li>No music during production — all post</li>
+      <li>Capture full silence in each setup</li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div><div class="section-act">Cold Open / Act I</div><div class="section-name">The Weight</div></div>
+  <div class="section-tc">0:00 – 3:30</div>
+</div>
+<div class="note">All Act I shots are for VO-over only. No presenter in frame. The complexity shots deliberately look cluttered and difficult — contrast with Act III clean reveal.</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th><th>Type</th><th>Description</th><th>Script Moment</th><th>Duration</th><th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="shot-num">01</td>
+      <td><span class="badge badge-sound">SOUND</span></td>
+      <td><strong>Black screen / Sound design open.</strong> No visual. Fan hum, timer relay click, water drip into reservoir. Build over 8–12 seconds.</td>
+      <td>Film open (0:00–0:12)</td>
+      <td>12–15s record</td>
+      <td>Record each sound element separately in post. Do not mix in field. This shot is the editor's domain.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">02</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 4</span></td>
+      <td><strong>pH pen extreme close-up.</strong> Probe tip, water drop clinging. Out-of-focus background of nutrient bottles and cluttered shelving. Single drip if possible.</td>
+      <td>"Growing became complicated." (0:13)</td>
+      <td>20–30s</td>
+      <td>Stage the clutter intentionally. The background tells the story — messy, overwhelming. This is the "before."</td>
+    </tr>
+    <tr>
+      <td class="shot-num">03</td>
+      <td><span class="badge badge-broll">B-ROLL</span> <span class="flag-critical">Priority 4</span></td>
+      <td><strong>Nutrient bottle row.</strong> 7–8 bottles standing in a row. Labels partially visible. Cluttered. More bottles than anyone needs.</td>
+      <td>"Not all at once. Gradually." (0:20)</td>
+      <td>15–20s</td>
+      <td>Stage this. Pull bottles from different brands if possible — the chaos of incompatible choices. Overhead angle OR straight-on tight.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">04</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 4</span></td>
+      <td><strong>Phone screen at 2:47 AM.</strong> Two alerts visible: "VPD out of range" and "pH drift." The screen is the only light source in a dark frame. Shot from above at slight angle.</td>
+      <td>"A second job." / complexity beats (0:28)</td>
+      <td>15–20s</td>
+      <td>Set phone clock to 2:47 AM. Use Do Not Disturb except for the two staged notifications. Dark room, phone screen only. This is a recreation — make it feel real.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">05</td>
+      <td><span class="badge badge-broll">B-ROLL</span></td>
+      <td><strong>Tent corner detail.</strong> Ducting tape peeling, a clip fan at an awkward angle. Something visibly rigged and improvised.</td>
+      <td>"Equipment multiplied." (0:38)</td>
+      <td>10–15s</td>
+      <td>If you don't have a tent, stage this on a flat surface. The point is visual: improvised, not designed.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">06</td>
+      <td><span class="badge badge-wide">WIDE</span></td>
+      <td><strong>Hard cut: vGrow enclosure, closed, centered.</strong> Clean wall behind it. Ambient light from above. Teal seam-glow only. Hold for 4+ seconds — no movement.</td>
+      <td>"This is a different story." (1:10)</td>
+      <td>Shoot 10s minimum, edit to 4s</td>
+      <td>Locked-off only. The contrast with the tent/clutter shots is the entire argument. This shot must feel expensive and quiet compared to everything before it.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">07</td>
+      <td><span class="badge badge-broll">MOTION GFX</span></td>
+      <td><strong>App notification graphic.</strong> "Canopy nominal." — timestamped 2:47 AM. Floating on dark background. Clean, minimal. White text. Created in post.</td>
+      <td>"I didn't check the reservoir at 2 AM." (1:22)</td>
+      <td>Motion graphic</td>
+      <td>Editor creates this as a floating lower-third style element. Not a screen recording — a designed graphic element. Matches brand type system: Manrope.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">08</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 01 title card.</strong> White text on black. Center frame. Cormorant Garamond 700. Hold 3 seconds.</td>
+      <td>Act I close (1:45)</td>
+      <td>Motion graphic</td>
+      <td>This card recurs through Act IV: DAY 03, DAY 07, DAY 14, DAY 28. Build as a template. Consistent font, size, placement.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div><div class="section-act">Act II</div><div class="section-name">The Idea</div></div>
+  <div class="section-tc">3:30 – 6:30</div>
+</div>
+<div class="note">Act II establishes the domain analogy and opens the craft question loop. Shots here are symbolic — coffee, photography — then returns to the enclosure. Elegant, considered.</div>
+
+<table>
+  <thead><tr><th>#</th><th>Type</th><th>Description</th><th>Script Moment</th><th>Duration</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="shot-num">09</td>
+      <td><span class="badge badge-wide">WIDE</span></td>
+      <td><strong>Enclosure in living room — slow pull back.</strong> Open with a tight shot on the enclosure, then slowly reveal the room: bookshelf, plant, natural light. The enclosure is domestic and deliberate.</td>
+      <td>"A pattern to how technology changes craft." (3:30)</td>
+      <td>20–25s</td>
+      <td>This is the context reveal for the enclosure's living space placement. Set dress the room to feel considered. Slow fluid pull back on slider or smooth handheld.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">10</td>
+      <td><span class="badge badge-macro">MACRO</span></td>
+      <td><strong>Coffee grinder.</strong> Precision, matte black. A hand pours beans. Close on the mechanism. Abstract enough to be visual — specific enough to communicate craft.</td>
+      <td>"Espresso machines replaced..." (3:50)</td>
+      <td>15–20s</td>
+      <td>Stock footage or own shoot. Slow motion at 60fps if available — play back at 24fps for gentle slow-mo in edit. No logo visible if possible.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">11</td>
+      <td><span class="badge badge-broll">B-ROLL</span></td>
+      <td><strong>Mirrorless camera and darkroom print.</strong> Camera at rest in someone's hand, then a darkroom photograph leaned against a wall. Two separate shots.</td>
+      <td>"Digital cameras didn't end photography..." (4:20)</td>
+      <td>15–20s each</td>
+      <td>Stock footage acceptable. The darkroom print adds patina — find something with visible grain and history.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">12</td>
+      <td><span class="badge badge-cu">CU</span></td>
+      <td><strong>Enclosure — teal seam-glow close.</strong> Tight on the enclosure seam where the LED light escapes. The glow is the only color in frame. Hold while VO delivers the craft question.</td>
+      <td>"Does it remove the art?" (5:05)</td>
+      <td>Shoot 15s, hold in edit</td>
+      <td>This shot pairs with Shot 06 (the wide closed enclosure) — same subject, tighter. The repetition is intentional — the enclosure is the film's visual anchor.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">13</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 2</span></td>
+      <td><strong>Root mass — Act II version.</strong> Dense, white, branching. The abstract visual — viewer may not know what they're seeing yet. Almost architectural. No reservoir context in frame.</td>
+      <td>"The craft didn't disappear. It got quieter." (6:15)</td>
+      <td>Shoot 20s</td>
+      <td>Macro lens. Light from below or side to reveal texture and branching. The root mass must be beautiful — this is the film's thesis image.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div><div class="section-act">Act III</div><div class="section-name">The Reveal</div></div>
+  <div class="section-tc">6:30 – 10:30</div>
+</div>
+<div class="note">The product reveal act. Shoots here are the visual centrepiece of the film. Allocate the most setup time to this act. Shot 15 (door open) is the most important single shot in the entire production.</div>
+
+<table>
+  <thead><tr><th>#</th><th>Type</th><th>Description</th><th>Script Moment</th><th>Duration</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="shot-num">14</td>
+      <td><span class="badge badge-macro">MACRO</span></td>
+      <td><strong>Enclosure exterior texture sequence.</strong> Series of macro shots: brushed panel surface, cabinet joint lines, hinge detail, logo (if applicable). 3–4 shots total, 8–10 seconds each. No wide context yet.</td>
+      <td>Act III open — texture reveal (6:30)</td>
+      <td>30–40s total</td>
+      <td>This sequence is the visual equivalent of turning a watch over to show the case back. Material quality and manufacturing precision. Flat light or slight sidelight to reveal texture.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">15</td>
+      <td><span class="badge badge-wide">WIDE</span> <span class="flag-critical">Priority 1 — Critical</span></td>
+      <td><strong>THE DOOR OPENS.</strong> Locked-off wide shot. Cabinet centered. The door opens deliberately — slowly. Interior LED light expands outward from a sliver to half-frame to full frame. The plant is visible inside. Hold the opening for 3 full seconds before any cut.</td>
+      <td>"It's not a tent. It's a sealed environment." (7:10)</td>
+      <td>Shoot 20+ seconds</td>
+      <td>THE most important shot in this film. Set up completely before rolling. Door must open at a controlled, deliberate pace — not casual. Use a secondary person to open the door on cue if needed. Shoot 5+ takes. Locked-off only — absolutely no handheld. Sound design: ambient tone swells here.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">16</td>
+      <td><span class="badge badge-cu">CU</span></td>
+      <td><strong>Interior LED bar from below.</strong> Teal light source, full spread across the interior ceiling. Shot from below the canopy looking up. Abstract.</td>
+      <td>Interior reveal sequence (7:20)</td>
+      <td>15–20s</td>
+      <td>Do not overexpose. The teal should glow — not blow. Expose for the LED, let the surroundings fall dark.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">17</td>
+      <td><span class="badge badge-broll">B-ROLL</span></td>
+      <td><strong>App — VPD graph stable at 1.1 kPa.</strong> Phone screen showing the vGrow app. A smooth 24-hour arc — no spikes. The graph communicates stability without words.</td>
+      <td>"VPD at 1.1. Holding for 36 hours." (8:00)</td>
+      <td>15s</td>
+      <td>Stage if needed — set the reading to match the 1.1 target. The graph arc shape matters more than the exact number. Steady and smooth.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">18</td>
+      <td><span class="badge badge-wide">WIDE</span> <span class="flag-critical">Priority 3</span></td>
+      <td><strong>Living room wide — full context.</strong> The enclosure in the domestic space. Clean, considered room. The enclosure belongs here. This is the design argument shot. Hold for 4 seconds.</td>
+      <td>"It doesn't look like a grow setup. That was intentional." (9:10)</td>
+      <td>Shoot 15s, hold 4s in edit</td>
+      <td>Set dress carefully. Nothing in frame that doesn't belong. The enclosure should look like it was placed by an interior designer, not installed by a grower. Natural light through windows if available — daylight adds legitimacy.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">19</td>
+      <td><span class="badge badge-cu">CU</span></td>
+      <td><strong>Enclosure seam / vent detail — closed.</strong> The odor seal. Close on the compression seal around the door or the vent filter. Abstract enough to be beautiful, specific enough to communicate the design intention.</td>
+      <td>"The odor elimination isn't a feature. It's a design philosophy." (9:40)</td>
+      <td>10–15s</td>
+      <td>Side or raking light to reveal seal texture. This shot carries the film's cleanest design argument — let the object speak.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div><div class="section-act">Act IV</div><div class="section-name">The Evidence</div></div>
+  <div class="section-tc">10:30 – 14:30</div>
+</div>
+<div class="note">The witness record. Each day marker requires a distinct plant shot at a consistent angle and light setup. Shoot all day-marker shots in the same session setup so the comparison reads as a document, not an accident.</div>
+
+<table>
+  <thead><tr><th>#</th><th>Type</th><th>Description</th><th>Script Moment</th><th>Duration</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="shot-num">20</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 03 title card.</strong> White text on black. Same template as DAY 01.</td>
+      <td>Day 03 marker (10:30)</td>
+      <td>Motion graphic, 2s</td>
+      <td>Template built from Shot 08. Consistent size, font, placement for all day cards.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">21</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 5</span></td>
+      <td><strong>Day 3 plant — cotyledons.</strong> The seedling just emerged. Cotyledon leaves visible. App data visible nearby or composited in post: VPD 0.52, temp steady.</td>
+      <td>"Day three. Cotyledons." (10:32)</td>
+      <td>15s</td>
+      <td>Same angle and height as all other day-marker plant shots. Document style — this is a witness record, not an aesthetic shot.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">22</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 07 title card.</strong></td>
+      <td>Day 07 marker (11:15)</td>
+      <td>Motion graphic, 2s</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shot-num">23</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 5</span></td>
+      <td><strong>Day 7 plant — first true leaves.</strong> One or two true leaf sets emerging. LED light falls evenly across the plant.</td>
+      <td>"First true leaves." (11:17)</td>
+      <td>15s</td>
+      <td>Same angle, same height as Shot 21. Consistency is the argument here.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">24</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 14 title card.</strong></td>
+      <td>Day 14 marker (12:00)</td>
+      <td>Motion graphic, 2s</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shot-num">25</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 5</span></td>
+      <td><strong>Day 14 plant — established veg.</strong> Multiple true leaf sets. Visible growth. The same angle as Day 3 and 7 — the progression reads as a document.</td>
+      <td>"Day fourteen. Entered vegetative growth." (12:02)</td>
+      <td>15s</td>
+      <td>Shoot plant, then separately shoot root mass through the reservoir access port — two shots that go together in this sequence.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">26</td>
+      <td><span class="badge badge-macro">MACRO</span> <span class="flag-critical">Priority 2</span></td>
+      <td><strong>Root mass — Act IV version.</strong> Dense, white, branching into the reservoir. Through the access port. More context than Act II root shot — viewer now knows what they're seeing.</td>
+      <td>"Root mass: white, no discoloration, no odor." (12:15)</td>
+      <td>Shoot 20s</td>
+      <td>This is the key beat: "I had done one top-off. One." The root mass visual carries the 3-second silence that follows. It must be beautiful and clean. No green tint, no slime. Plan this shot — if roots aren't white, delay until they are.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">27</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 28 title card.</strong></td>
+      <td>Day 28 marker (13:30)</td>
+      <td>Motion graphic, 2s</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="shot-num">28</td>
+      <td><span class="badge badge-wide">WIDE</span> <span class="flag-critical">Priority 5</span></td>
+      <td><strong>Day 28 plant — full mid-veg canopy.</strong> Same angle as all previous day shots. The growth arc is visible across the four frames. Even, full canopy. Deep green.</td>
+      <td>"I was looking at a plant that had never been stressed." (13:32)</td>
+      <td>20s</td>
+      <td>If possible, edit Shots 21/23/25/28 as a 4-frame sequence before this VO — the comparison does more than words can. Shoot all four at the same angle specifically for this use.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">29</td>
+      <td><span class="badge badge-macro">MACRO</span></td>
+      <td><strong>Healthy leaf extreme close.</strong> Single cannabis leaf, deep green, no tip burn, no yellowing, no clawing. LED light through the leaf backlights it slightly.</td>
+      <td>"Just a plant allowed to grow without interruption." (14:05)</td>
+      <td>15–20s</td>
+      <td>Backlight the leaf slightly with the cabinet LED — reveals the vein structure, makes the health visible. This is a beauty shot. Take time with it.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section-header">
+  <div><div class="section-act">Act V</div><div class="section-name">The Manifesto</div></div>
+  <div class="section-tc">14:30 – 17:00</div>
+</div>
+<div class="note">Act V resolves all three loops. Visual direction: return to earlier images (enclosure closed, coffee, camera). The film ends where it began — same enclosure, same glow — but the meaning has changed.</div>
+
+<table>
+  <thead><tr><th>#</th><th>Type</th><th>Description</th><th>Script Moment</th><th>Duration</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="shot-num">30</td>
+      <td><span class="badge badge-wide">WIDE</span></td>
+      <td><strong>Enclosure closed — Act V return.</strong> Same framing as Shot 06 (Act I). The enclosure, closed, teal glow. The callback is intentional — same image, completely different weight.</td>
+      <td>"The question was: does automation remove the art?" (14:30)</td>
+      <td>Shoot 15s for this hold</td>
+      <td>This IS Shot 06 — re-use the same angle and lens. The similarity to Act I is the visual argument: we're back where we started, but everything has changed. Do not reframe.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">31</td>
+      <td><span class="badge badge-broll">B-ROLL</span></td>
+      <td><strong>Analogy callbacks — quick cuts.</strong> Re-use Shot 10 (coffee grinder) and Shot 11 (camera/darkroom print). Two-second cuts each. Returns to Act II visual language to close the loop.</td>
+      <td>Chef/photographer analogies (15:45)</td>
+      <td>Reuse from Act II</td>
+      <td>Editor re-uses existing footage. No new shots needed. The callbacks are intentional — they signal the argument is completing.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">32</td>
+      <td><span class="badge badge-wide">WIDE</span></td>
+      <td><strong>Slow push toward enclosure door — Act V.</strong> Closer than Shot 06. The teal glow fills more of the frame. The approach is deliberate. The hum is all that's audible.</td>
+      <td>"The complicated era is not over. It's optional." (16:10)</td>
+      <td>Shoot 20s slow push</td>
+      <td>Slow motorized slide or extremely controlled fluid move toward the enclosure. The push communicates resolve — moving toward the thing, not away from it. Hold after "It's optional." — 4 seconds of silence on this visual.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">33</td>
+      <td><span class="badge badge-cu">CU</span></td>
+      <td><strong>Teal LED seam-glow — final close.</strong> The teal light at the edge of the door. The enclosure's only external signal. This is the final image before fade to black.</td>
+      <td>Act V close / fade (16:30)</td>
+      <td>Shoot 10s</td>
+      <td>Fade to black over 4 seconds from this shot. The glow dims with the fade. Complete silence at black. This is the film's last image.</td>
+    </tr>
+    <tr>
+      <td class="shot-num">34</td>
+      <td><span class="badge badge-title">TITLE</span></td>
+      <td><strong>DAY 08 → title card.</strong> White text on black. Cormorant Garamond 700. The arrow (→) is essential — it signals continuation. Hold 3 seconds. Then VO: "See you there."</td>
+      <td>Film close (16:45)</td>
+      <td>Motion graphic, 3s</td>
+      <td>The → differentiates this card from all DAY XX cards — it looks forward. Don't use a period. The arrow is the point.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="rule"></div>
+
+<!-- ── END CARD ── -->
+<div class="section-header">
+  <div><div class="section-act">Post-Roll</div><div class="section-name">End Card (20 seconds)</div></div>
+</div>
+<div class="note">End card starts immediately after the 2-second silence post-"See you there." Background: near-black with the faintest teal — the enclosure glow, referenced but not shown.</div>
+
+<table>
+  <thead><tr><th>Element</th><th>Position</th><th>Target</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Subscribe button</strong></td><td>Center</td><td>Channel subscribe</td><td>Centered and prominent. The only "loud" element in the entire film's visual language.</td></tr>
+    <tr><td><strong>Episode 02 thumbnail</strong></td><td>Left</td><td>Ep 02 video when published; Best For Viewer until then</td><td>Teaser text: "Day 08 →"</td></tr>
+    <tr><td><strong>Site link</strong></td><td>Right</td><td>cola-xpress.com</td><td>No music stinger. The silence carries through end card.</td></tr>
+    <tr><td><strong>Brand lockup</strong></td><td>Lower right</td><td>—</td><td>Cormorant Garamond, small. ColaXpress. Nothing else.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

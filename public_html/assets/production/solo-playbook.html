@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Solo Creator Playbook — ColaXpress</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Manrope', sans-serif; background: #f5f5f2; color: #151515; padding: 60px 40px; max-width: 960px; margin: 0 auto; line-height: 1.6; }
+  .doc-header { border-bottom: 3px solid #9f3028; padding-bottom: 24px; margin-bottom: 40px; }
+  .doc-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; margin-bottom: 6px; }
+  .doc-meta { font-size: 11px; font-weight: 700; color: #9f3028; letter-spacing: 0.18em; text-transform: uppercase; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 700; margin: 44px 0 16px; padding-bottom: 10px; border-bottom: 2px solid rgba(21,21,21,0.1); }
+  h3 { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #9f3028; margin: 28px 0 10px; }
+  p { font-size: 13px; line-height: 1.75; color: rgba(21,21,21,0.75); margin-bottom: 14px; }
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .pipeline-step {
+    display: grid;
+    grid-template-columns: 48px 1fr 220px;
+    gap: 0;
+    align-items: stretch;
+    border: 1px solid rgba(21,21,21,0.1);
+    border-bottom: none;
+    background: #fff;
+  }
+  .pipeline-step:first-child { border-radius: 4px 4px 0 0; }
+  .pipeline-step:last-child { border-bottom: 1px solid rgba(21,21,21,0.1); border-radius: 0 0 4px 4px; }
+  .pipeline-step:hover { background: rgba(159,48,40,0.03); }
+  .step-num {
+    background: #151515;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    font-weight: 800;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .pipeline-step:first-child .step-num { border-radius: 4px 0 0 0; }
+  .pipeline-step:last-child .step-num { border-radius: 0 0 0 4px; }
+  .step-body {
+    padding: 16px 20px;
+    border-right: 1px solid rgba(21,21,21,0.08);
+    border-left: 1px solid rgba(21,21,21,0.08);
+  }
+  .step-body h4 { font-size: 14px; font-weight: 700; color: #151515; margin-bottom: 4px; }
+  .step-body p { font-size: 12px; color: rgba(21,21,21,0.55); line-height: 1.6; margin: 0; }
+  .step-who {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .who-label { font-size: 8px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(21,21,21,0.35); }
+  .who-val { font-size: 12px; font-weight: 700; }
+  .who-val.you { color: #151515; }
+  .who-val.claude { color: #9f3028; }
+  .who-val.both { color: #38b4c8; }
+  .skill-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    background: rgba(159,48,40,0.1);
+    color: #9f3028;
+    margin-top: 4px;
+    font-family: monospace;
+  }
+  .role-map {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .role-card {
+    padding: 16px 18px;
+    border: 1px solid rgba(21,21,21,0.1);
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .role-card .old {
+    font-size: 11px;
+    color: rgba(21,21,21,0.35);
+    text-decoration: line-through;
+  }
+  .role-card .new {
+    font-size: 13px;
+    font-weight: 700;
+    color: #151515;
+  }
+  .role-card .cmd {
+    font-family: monospace;
+    font-size: 11px;
+    color: #9f3028;
+    background: rgba(159,48,40,0.07);
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .rule-list { list-style: none; padding: 0; margin-bottom: 28px; }
+  .rule-list li {
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(21,21,21,0.07);
+    font-size: 13px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+  .rule-list li::before { content: '—'; color: #9f3028; font-weight: 800; flex-shrink: 0; }
+  .session-block {
+    background: #151515;
+    color: #f5f5f2;
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 2;
+  }
+  .session-block .comment { color: rgba(255,255,255,0.3); }
+  .session-block .cmd { color: #9f3028; }
+  .session-block .arg { color: rgba(56,180,200,0.9); }
+  .session-block .note { color: rgba(255,255,255,0.55); font-style: italic; font-family: 'Manrope', sans-serif; font-size: 11px; }
+  .alert { background: rgba(159,48,40,0.07); border-left: 3px solid #9f3028; padding: 14px 16px; font-size: 13px; color: rgba(21,21,21,0.7); margin: 16px 0 28px; line-height: 1.7; }
+  .section-divider { height: 2px; background: rgba(21,21,21,0.08); margin: 48px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px; }
+  th { background: #151515; color: #f5f5f2; padding: 8px 12px; text-align: left; font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  td { padding: 10px 12px; border-bottom: 1px solid rgba(21,21,21,0.08); vertical-align: top; line-height: 1.6; }
+  td code { font-family: monospace; font-size: 11px; background: rgba(21,21,21,0.06); padding: 2px 6px; border-radius: 2px; color: #9f3028; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-meta">ColaXpress · Solo Creator System · v2.0</div>
+  <h1>Solo Creator Playbook</h1>
+  <div class="doc-meta" style="margin-top:6px;color:rgba(21,21,21,0.4);">You film. Claude handles everything else. No contractors. No handoffs.</div>
+</div>
+
+<div class="alert">
+  <strong>System shift:</strong> Every production role previously assigned to a contractor is now handled by a Claude skill in this project. The only thing you do is appear on camera and operate the camera. Every other creative task runs through a slash command.
+</div>
+
+<!-- ── Role replacement map ── -->
+<h2>What Replaced What</h2>
+<div class="role-map">
+  <div class="role-card">
+    <span class="old">Researcher / Analyst</span>
+    <span class="new">Research Synthesizer</span>
+    <span class="cmd">/research-synthesizer</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Story Consultant</span>
+    <span class="new">Narrative Architect</span>
+    <span class="cmd">/narrative-architect</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Hook Copywriter</span>
+    <span class="new">Hook Writer</span>
+    <span class="cmd">/hook-writer</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Scriptwriter</span>
+    <span class="new">Long-Form Script Writer</span>
+    <span class="cmd">/script-writer</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Retention Editor</span>
+    <span class="new">Retention Auditor</span>
+    <span class="cmd">/retention-auditor</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Copy Polish Pass</span>
+    <span class="new">Script Humanizer</span>
+    <span class="cmd">/script-humanizer</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Video Editor (planning)</span>
+    <span class="new">Visual Director</span>
+    <span class="cmd">/visual-director</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Title / Thumbnail Designer</span>
+    <span class="new">Title + Thumbnail Strategist</span>
+    <span class="cmd">/title-thumbnail-strategist</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Channel Analyst</span>
+    <span class="new">Competitor Analyst</span>
+    <span class="cmd">/competitor-analyst</span>
+  </div>
+  <div class="role-card">
+    <span class="old">Shorts Clipper</span>
+    <span class="new">Claude + ep01-shorts-plan</span>
+    <span class="cmd">You cut. Plan is written.</span>
+  </div>
+</div>
+
+<!-- ── Full production pipeline ── -->
+<h2>Episode Production Pipeline</h2>
+<p style="margin-bottom:20px;">Every step in order. Who does what. Which command to use.</p>
+
+<div class="pipeline">
+
+  <div class="pipeline-step">
+    <div class="step-num">01</div>
+    <div class="step-body">
+      <h4>Competitor Research</h4>
+      <p>Pull 2–3 transcripts from competing channels covering similar topics. Paste them in.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Find transcripts</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Analyze patterns</span>
+      <span class="skill-tag">/competitor-analyst</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">02</div>
+    <div class="step-body">
+      <h4>Research Synthesis</h4>
+      <p>Paste your notes, articles, grow journal data, and any reference material. Get a clean brief back.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Provide raw material</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Build research brief</span>
+      <span class="skill-tag">/research-synthesizer</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">03</div>
+    <div class="step-body">
+      <h4>Video Outline</h4>
+      <p>Feed the research brief in. Get a full narrative outline: hook, open loops, tension arc, payoffs, ending.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Review + approve</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Build outline</span>
+      <span class="skill-tag">/narrative-architect</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">04</div>
+    <div class="step-body">
+      <h4>Hook Options</h4>
+      <p>Feed the outline in. Get 10 hook options. Pick one or ask for a hybrid of two.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Choose the hook</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Write 10 options</span>
+      <span class="skill-tag">/hook-writer</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">05</div>
+    <div class="step-body">
+      <h4>Script — Section by Section</h4>
+      <p>Run 5 times: Hook → Section 1 → Section 2 → Section 3 → Ending. One chunk per session.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Feed the section brief</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Write each chunk</span>
+      <span class="skill-tag">/script-writer</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">06</div>
+    <div class="step-body">
+      <h4>Retention Audit</h4>
+      <p>Paste each completed section. Get flagged drop-off points and direct rewrites.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Paste draft sections</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Flag + rewrite weak parts</span>
+      <span class="skill-tag">/retention-auditor</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">07</div>
+    <div class="step-body">
+      <h4>Script Humanizer Pass</h4>
+      <p>Final polish. Feed in the audited section. Get back something that sounds like you, not like AI.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Paste final draft</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Humanize for voiceover</span>
+      <span class="skill-tag">/script-humanizer</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">08</div>
+    <div class="step-body">
+      <h4>Film</h4>
+      <p>Use the shot list. You're on camera. Run the locked script. Get all 20 shots.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Film everything</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Shot list is written</span>
+      <span class="skill-tag">ep01-shot-list.html</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">09</div>
+    <div class="step-body">
+      <h4>Visual Direction Plan</h4>
+      <p>Feed the locked script in. Get a paragraph-by-paragraph edit plan: B-roll, text overlays, sound, pattern interrupts.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Edit to the plan</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Write the edit plan</span>
+      <span class="skill-tag">/visual-director</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">10</div>
+    <div class="step-body">
+      <h4>Shorts Cuts</h4>
+      <p>Follow ep01-shorts-plan.html. 7 clips, each with timestamps and exact edit notes already written.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Cut each clip</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Plan already exists</span>
+      <span class="skill-tag">ep01-shorts-plan.html</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">11</div>
+    <div class="step-body">
+      <h4>Title + Thumbnail</h4>
+      <p>Feed the locked script or outline. Get 20 titles, 10 thumbnail concepts, emotional trigger for each.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Choose + execute</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Generate all options</span>
+      <span class="skill-tag">/title-thumbnail-strategist</span>
+    </div>
+  </div>
+
+  <div class="pipeline-step">
+    <div class="step-num">12</div>
+    <div class="step-body">
+      <h4>Upload</h4>
+      <p>Everything is pre-written: title, description, chapters, tags, cards, settings. Paste and publish.</p>
+    </div>
+    <div class="step-who">
+      <span class="who-label">You</span><span class="who-val you">Paste + publish</span>
+      <span class="who-label">Claude</span><span class="who-val claude">Package is written</span>
+      <span class="skill-tag">ep01-upload-package.html</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Solo session example ── -->
+<h2>What a Script Session Looks Like</h2>
+<p>Open Claude Code in this project directory. Run the skills in sequence, feeding output from one into the next.</p>
+
+<div class="session-block">
+  <span class="comment"># Step 1 — Competitor research</span><br/>
+  <span class="cmd">/competitor-analyst</span> <span class="arg">[paste 2-3 competitor transcripts]</span><br/><br/>
+  <span class="comment"># Step 2 — Build research brief from grow journal + data</span><br/>
+  <span class="cmd">/research-synthesizer</span> <span class="arg">[paste Day 08 notes, VPD readings, root observations]</span><br/><br/>
+  <span class="comment"># Step 3 — Turn brief into episode outline</span><br/>
+  <span class="cmd">/narrative-architect</span> <span class="arg">[paste research brief output]</span><br/><br/>
+  <span class="comment"># Step 4 — Generate hook options</span><br/>
+  <span class="cmd">/hook-writer</span> <span class="arg">[paste outline + episode premise]</span><br/><br/>
+  <span class="comment"># Step 5 — Write each section</span><br/>
+  <span class="cmd">/script-writer</span> <span class="arg">Write the Hook section. Outline: [paste outline]. Hook chosen: [paste selected hook]</span><br/>
+  <span class="cmd">/script-writer</span> <span class="arg">Write Section 1. Outline: [paste section 1 brief]</span><br/>
+  <span class="note">... repeat for each section ...</span><br/><br/>
+  <span class="comment"># Step 6 — Audit each section</span><br/>
+  <span class="cmd">/retention-auditor</span> <span class="arg">[paste drafted section]</span><br/><br/>
+  <span class="comment"># Step 7 — Humanize</span><br/>
+  <span class="cmd">/script-humanizer</span> <span class="arg">[paste audited section]</span><br/><br/>
+  <span class="comment"># After filming — visual edit plan</span><br/>
+  <span class="cmd">/visual-director</span> <span class="arg">[paste locked final script]</span>
+</div>
+
+<!-- ── Solo creator rules ── -->
+<h2>The Rules for Going Solo</h2>
+<ul class="rule-list">
+  <li>Never start filming without a locked script. The script comes from the skills pipeline. No shortcuts.</li>
+  <li>Run the retention audit before humanizing. Audit first, polish second — not the other way around.</li>
+  <li>The visual direction plan is your editing bible. Run it once before you touch the timeline.</li>
+  <li>Shorts come from the master cut — do not shoot separate Shorts. Extract from what already exists.</li>
+  <li>The upload package is pre-written for each episode. Paste it. Don't rewrite from scratch each time.</li>
+  <li>After publishing, immediately update the YouTube ID in both watch page files. Takes 2 minutes. Do it before anything else.</li>
+  <li>Episode 2 starts the competitor analyst pass within 48 hours of Episode 1 going live. Track what performs.</li>
+</ul>
+
+<!-- ── Time estimate per episode ── -->
+<h2>Estimated Time Per Episode (Solo)</h2>
+<table>
+  <thead><tr><th>Phase</th><th>Task</th><th>Time</th><th>Who</th></tr></thead>
+  <tbody>
+    <tr><td>Pre-production</td><td>Competitor analysis + research synthesis</td><td>30 min</td><td>Claude</td></tr>
+    <tr><td>Pre-production</td><td>Outline + hook selection</td><td>20 min</td><td>Claude + You (review)</td></tr>
+    <tr><td>Pre-production</td><td>Full script (5 sections × audit + humanize)</td><td>60–90 min</td><td>Claude + You (review)</td></tr>
+    <tr><td>Production</td><td>Filming (20 shots)</td><td>3–5 hrs</td><td>You</td></tr>
+    <tr><td>Post-production</td><td>Visual direction plan</td><td>15 min</td><td>Claude</td></tr>
+    <tr><td>Post-production</td><td>Edit master cut</td><td>4–8 hrs</td><td>You</td></tr>
+    <tr><td>Post-production</td><td>Cut 7 Shorts from master</td><td>1–2 hrs</td><td>You</td></tr>
+    <tr><td>Publish</td><td>Upload + paste metadata</td><td>20 min</td><td>You + Claude (pre-written)</td></tr>
+    <tr><td>Publish</td><td>Update website YouTube ID</td><td>5 min</td><td>You</td></tr>
+    <tr><td colspan="2"><strong>Total per episode</strong></td><td><strong>~12–16 hrs</strong></td><td><strong>Solo</strong></td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>
