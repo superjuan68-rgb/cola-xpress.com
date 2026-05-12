@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Image sitemap stub for https://www.cola-xpress.com
+  Deploy at: /public_html/sitemap-images.xml
+  Reference from /public_html/robots.txt and from Google Search Console.
+
+  One <url> block per PAGE; up to 1,000 <image:image> entries per page.
+  Caption + title are optional but boost relevance for Google Images.
+-->
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://www.cola-xpress.com/</loc>
+    <image:image>
+      <image:loc>https://www.cola-xpress.com/img/hero-cola-xpress-cannabis-delivery.jpg</image:loc>
+      <image:title>Cola Xpress same-day cannabis delivery</image:title>
+      <image:caption>Premium flower, edibles, and concentrates delivered across the service area.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Add one <url> block per indexed page, with all its on-page images. -->
+
+</urlset>

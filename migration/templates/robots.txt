@@ -1,0 +1,25 @@
+# robots.txt for https://www.cola-xpress.com
+# Deploy at: /public_html/robots.txt
+
+User-agent: *
+Allow: /
+
+# Block crawl of admin / system paths (adjust per CMS)
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /?s=
+Disallow: /search/
+
+# Allow CSS/JS/images so Google can render pages correctly
+Allow: /wp-content/uploads/
+Allow: /wp-content/themes/
+Allow: /wp-content/plugins/
+Allow: /*.css$
+Allow: /*.js$
+
+# Sitemaps
+Sitemap: https://www.cola-xpress.com/sitemap.xml
+Sitemap: https://www.cola-xpress.com/sitemap-images.xml

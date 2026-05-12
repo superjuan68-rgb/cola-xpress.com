@@ -1,0 +1,37 @@
+# =============================================================================
+# 301 MIGRATION - OLD DOMAIN
+# Deploy at: colaxpress.cannahustle.nyc:/public_html/.htaccess
+#
+# Behavior:
+#   - Path-preserving 301 to https://www.cola-xpress.com
+#   - Query strings preserved
+#   - Per-URL overrides (for renamed/merged slugs) declared BEFORE the catch-all
+#   - HSTS + canonical host header survive the redirect chain
+#
+# Notes:
+#   - This file is for the OLD server. Keep the old hosting active long enough
+#     for Google to recrawl and consolidate signals (minimum 6 months; 12 ideal).
+#   - Do NOT delete the old site files until canonical equity has transferred.
+# =============================================================================
+
+RewriteEngine On
+
+# -----------------------------------------------------------------------------
+# 1. PER-URL OVERRIDES
+#    Add lines here ONLY for paths whose slug changed during the migration.
+#    Order matters: most specific first. The catch-all below handles 1:1 paths.
+#
+#    Syntax:  RewriteRule ^old/path/?$ https://www.cola-xpress.com/new/path [R=301,L]
+# -----------------------------------------------------------------------------
+
+# RewriteRule ^old-product-name/?$            https://www.cola-xpress.com/new-product-name            [R=301,L]
+# RewriteRule ^blog/old-post-slug/?$          https://www.cola-xpress.com/blog/new-post-slug          [R=301,L]
+# RewriteRule ^category/legacy-cat/?$         https://www.cola-xpress.com/shop/category-cat           [R=301,L]
+
+# -----------------------------------------------------------------------------
+# 2. CATCH-ALL: every remaining path 1:1 to new canonical
+#    Matches both colaxpress.cannahustle.nyc and www.colaxpress.cannahustle.nyc.
+# -----------------------------------------------------------------------------
+
+RewriteCond %{HTTP_HOST} ^(www\.)?colaxpress\.cannahustle\.nyc$ [NC]
+RewriteRule ^(.*)$ https://www.cola-xpress.com/$1 [R=301,L,QSA]

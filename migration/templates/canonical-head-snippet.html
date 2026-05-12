@@ -1,0 +1,41 @@
+<!--
+  Drop inside <head> on EVERY page of www.cola-xpress.com.
+  Replace {{PATH}} server-side with the current request path (no trailing slash mismatch).
+  Replace {{TITLE}}, {{DESCRIPTION}}, {{IMAGE}} per page.
+-->
+
+<!-- Canonical: always the new domain, https, www, no query string -->
+<link rel="canonical" href="https://www.cola-xpress.com{{PATH}}" />
+
+<!-- OpenGraph (Facebook, LinkedIn, iMessage) -->
+<meta property="og:type"        content="website" />
+<meta property="og:site_name"   content="Cola Xpress" />
+<meta property="og:url"         content="https://www.cola-xpress.com{{PATH}}" />
+<meta property="og:title"       content="{{TITLE}}" />
+<meta property="og:description" content="{{DESCRIPTION}}" />
+<meta property="og:image"       content="https://www.cola-xpress.com{{IMAGE}}" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:url"         content="https://www.cola-xpress.com{{PATH}}" />
+<meta name="twitter:title"       content="{{TITLE}}" />
+<meta name="twitter:description" content="{{DESCRIPTION}}" />
+<meta name="twitter:image"       content="https://www.cola-xpress.com{{IMAGE}}" />
+
+<!--
+  Organization schema. Drop ONCE on the homepage. Verify with
+  https://search.google.com/test/rich-results before deploy.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Cola Xpress",
+  "url": "https://www.cola-xpress.com",
+  "logo": "https://www.cola-xpress.com/img/logo.png",
+  "sameAs": [
+    "https://www.instagram.com/colaxpress",
+    "https://twitter.com/colaxpress"
+  ]
+}
+</script>

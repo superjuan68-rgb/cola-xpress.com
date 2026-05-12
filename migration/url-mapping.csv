@@ -1,0 +1,32 @@
+old_path,new_path,status_code,notes
+# ---------------------------------------------------------------------------
+# URL MAPPING — colaxpress.cannahustle.nyc  ->  www.cola-xpress.com
+#
+# Fill this out with EVERY indexed URL from the old domain.
+#
+# How to source the list:
+#   1. Google Search Console (old property)  ->  Pages -> Export indexed pages
+#   2. Screaming Frog crawl of https://colaxpress.cannahustle.nyc/  (free <500 URLs)
+#   3. server access logs: awk '{print $7}' access.log | sort -u
+#   4. XML sitemap of the old site, if it exists
+#
+# Rules:
+#   - old_path and new_path start with "/" (e.g. "/blog/foo")
+#   - status_code is 301 for permanent moves, 410 for intentionally killed URLs
+#   - Leave new_path blank only if status_code = 410
+#   - Lines starting with # are ignored
+#
+# Once filled, this file is the source of truth for:
+#   - Apache .htaccess overrides
+#   - Nginx map block overrides
+#   - QA spreadsheet to verify each redirect after deploy
+# ---------------------------------------------------------------------------
+/,/,301,homepage
+/about,/about,301,
+/contact,/contact,301,
+/shop,/shop,301,
+/blog,/blog,301,
+# example slug rename:
+# /old-product-name,/new-product-name,301,slug changed
+# example killed page:
+# /promo-2023,,410,seasonal page intentionally removed

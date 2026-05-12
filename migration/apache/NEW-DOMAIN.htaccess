@@ -1,0 +1,55 @@
+# =============================================================================
+# CANONICAL ENFORCEMENT - NEW DOMAIN
+# Deploy at: www.cola-xpress.com:/public_html/.htaccess
+#
+# Behavior:
+#   - Force HTTPS
+#   - Force www. (matches the new canonical https://www.cola-xpress.com/)
+#   - Strip trailing index.php / index.html
+#   - Send strong canonical headers
+#
+# Place this BEFORE any CMS-generated rewrite block (WordPress, etc.).
+# If WordPress is installed, keep the "# BEGIN WordPress" block intact and
+# put these rules ABOVE it.
+# =============================================================================
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# --- 1. Force HTTPS ----------------------------------------------------------
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- 2. Force www ------------------------------------------------------------
+RewriteCond %{HTTP_HOST} ^cola-xpress\.com$ [NC]
+RewriteRule ^(.*)$ https://www.cola-xpress.com/$1 [R=301,L]
+
+# --- 3. Strip index.html / index.php from URLs --------------------------------
+RewriteCond %{THE_REQUEST} \s/+(.*?)index\.(html?|php)[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# --- 4. Strip trailing /amp/ (only if you do NOT serve AMP). Comment out if
+#       you serve AMP pages.
+# RewriteRule ^(.*)/amp/?$ /$1 [R=301,L]
+</IfModule>
+
+# --- 5. Security + canonical headers ----------------------------------------
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# --- 6. Long cache for static assets (helps image SEO + Core Web Vitals) ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg          "access plus 1 year"
+  ExpiresByType image/png           "access plus 1 year"
+  ExpiresByType image/webp          "access plus 1 year"
+  ExpiresByType image/avif          "access plus 1 year"
+  ExpiresByType image/svg+xml       "access plus 1 year"
+  ExpiresByType text/css            "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType font/woff2          "access plus 1 year"
+</IfModule>
