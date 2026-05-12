@@ -137,6 +137,8 @@ for d in SCAN_DIRS:
             page_url = DOMAIN + '/'
         else:
             page_url = DOMAIN + '/' + rel
+            # Normalize section index pages to directory form
+            page_url = re.sub(r'/(grow|learn|guides|equipment|watch)/index\.html$', r'/\1/', page_url)
 
         schema_block = build_imageobject_block(page_url, images)
 

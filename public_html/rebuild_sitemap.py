@@ -68,6 +68,8 @@ lines = [
 for rel in ordered_urls:
     url  = domain + '/' + rel if rel else domain + '/'
     url  = url.replace('//', '/').replace('https:/', 'https://')
+    # Normalize section index pages to directory form
+    url  = re.sub(r'/(grow|learn|guides|equipment|watch)/index\.html$', r'/\1/', url)
     date = lastmods.get(rel) or extra_lastmod.get(rel, '2026-05-10')
     imgs = page_images.get(rel, [])
 
