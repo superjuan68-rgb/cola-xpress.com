@@ -18,6 +18,13 @@ for d in scan_dirs:
             html = f.read()
         imgs = sorted(set(re.findall(r'assets/images/([a-zA-Z0-9_./-]+\.(?:webp|png))', html)))
         rel = (d + '/' + fname).lstrip('/')
+        # Root index.html is canonicalised to "/" and 301-redirects, so it
+        # must not appear as its own sitemap entry.
+        if rel == 'index.html':
+            rel = ''
+        # Internal search page is noindex; keep it out of the sitemap.
+        if rel == 'guides/search.html':
+            continue
         page_images[rel] = imgs
 
 # ── 2. Lastmod map from old sitemap ──────────────────────────────
