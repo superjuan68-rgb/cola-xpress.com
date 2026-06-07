@@ -24,7 +24,7 @@ Concrete proof, measured 2026-06-07:
 | Build system / templating | None. 51 standalone documents. | **Root cause** |
 | Primary navigation | Was **5 orderings** → unified → reduced to the **lean 6-item nav** on 2026-06-07. | Fixed, but still duplicated in 51 files |
 | Footer | Was **29 distinct variants**; unified to 1 canonical footer on 2026-06-07 (Phase 1). | Fixed |
-| `script.js` cache version | 47 pages on `?v=10`, 4 on `?v=11` | Drift → stale-cache risk |
+| `script.js` cache version | Was 47×`?v=10` / 4×`?v=11`; unified to `?v=11` on 2026-06-07 (Phase 2). | Fixed |
 | `style.css` cache version | Uniform `?v=14` | Healthy |
 | Taxonomy (Learn vs Guides) | 10 of 14 `/learn/` articles mark **Guides** active; 4 mark **Learn** | IA confusion |
 | SEO meta (canonical/OG/Twitter/JSON-LD) | 51/51 complete | **Strength — do not disturb** |
@@ -165,8 +165,10 @@ partial each**, and adding a page never edits another page again.
   pages), resolving most of the Phase 3 taxonomy drift. Pages whose section left
   the nav (Watch, FAQ, Search, Guides index/legal/Contact) carry no active
   highlight. Crawl: 1482 refs, 0 broken.
-- **Phase 2 — Asset-version single source.** Fix `script.js ?v=10` vs `?v=11`;
-  define versions in one place.
+- **Phase 2 — Asset-version single source.** ✅ Done 2026-06-07. Standardized
+  all 51 pages to `script.js?v=11` (newest existing version; no JS changed).
+  `style.css?v=14` was already uniform. Crawl: 1482 refs, 0 broken. (A *single
+  source* for the version string still awaits the Phase 4 build layer.)
 - **Phase 3 — Taxonomy cleanup.** Resolve Learn-vs-Guides ownership; fix
   active-state to match URL section.
 - **Phase 4 — Introduce the build/partial layer** (§6). Migrate the 51 pages to
