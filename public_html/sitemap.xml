@@ -559,4 +559,11 @@
       <image:loc>https://cola-xpress.com/assets/images/trichome-stages-cannabis-chart.png</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://cola-xpress.com/blog/index.html</loc>
+    <lastmod>2026-06-07</lastmod>
+    <image:image>
+      <image:loc>https://cola-xpress.com/hero.webp</image:loc>
+    </image:image>
+  </url>
 </urlset>
