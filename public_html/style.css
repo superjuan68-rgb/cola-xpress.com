@@ -1535,3 +1535,21 @@ footer {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* --- Third-party Soro blog embed --------------------------------------- *
+ * The embed is intentionally NOT wrapped in <section>, so the global
+ * `section h1/h2/h3 { margin:0; font-family; max-width; line-height }`
+ * rules never reach Soro's injected headings (those rules caused the post
+ * title/date/headings to overlap and forced the serif display font onto
+ * Soro content). The block below preserves section vertical rhythm and is a
+ * low-specificity safety net against any other global element-style bleed,
+ * while leaving Soro free to control its own typography.
+ * ----------------------------------------------------------------------- */
+.blog-embed {
+  padding-block: var(--space-6) var(--space-section);
+}
+
+#soro-blog :where(h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote) {
+  margin: revert;
+  max-width: none;
+}
