@@ -22,7 +22,7 @@ Concrete proof, measured 2026-06-07:
 | Layer | Measured state | Verdict |
 |---|---|---|
 | Build system / templating | None. 51 standalone documents. | **Root cause** |
-| Primary navigation | Was **5 different orderings**; normalized to 1 on 2026-06-07. | Fixed, but still duplicated in 51 files |
+| Primary navigation | Was **5 orderings** → unified → reduced to the **lean 6-item nav** on 2026-06-07. | Fixed, but still duplicated in 51 files |
 | Footer | Was **29 distinct variants**; unified to 1 canonical footer on 2026-06-07 (Phase 1). | Fixed |
 | `script.js` cache version | 47 pages on `?v=10`, 4 on `?v=11` | Drift → stale-cache risk |
 | `style.css` cache version | Uniform `?v=14` | Healthy |
@@ -39,24 +39,16 @@ eliminate.
 
 ## 2. Frozen Primary Navigation
 
-> ⚠️ **DECISION REQUIRED — see §8.** The order below is the *current shipped*
-> nav (unified 2026-06-07). It differs from the lean 6-item nav under
-> discussion. Ratify one before any further work.
-
-**Currently shipped (10 items):**
-
-```
-Home · Grow System · Guides · Watch · Equipment · Learn · Blog · About · FAQ · Search
-```
-
-**Proposed lean nav (under discussion — moves utility links to footer):**
+**Shipped & frozen (6 items, ratified + applied 2026-06-07):**
 
 ```
 Home · Grow System · Equipment · Learn · Blog · About
 ```
 
-Rule once ratified: this list is **frozen**. New sections do not get bolted into
-the nav ad hoc — they require a deliberate edit to this document first.
+Guides, Watch, FAQ, Search, and Contact were demoted out of the primary nav and
+now live only in the canonical footer. This list is **frozen**. New sections do
+not get bolted into the nav ad hoc — they require a deliberate edit to this
+document first.
 
 ---
 
@@ -167,9 +159,12 @@ partial each**, and adding a page never edits another page again.
 - **Phase 1 — Canonical footer.** ✅ Done 2026-06-07. 29 variants → 1 footer that
   carries every destination (incl. the items demoted from the lean nav, so the
   pending nav reduction orphans nothing). Crawl: 1482 refs, 0 broken.
-- **Phase 1b — Apply lean nav (pending).** Reduce primary nav from the shipped
-  10 items to the ratified 6 (`Home · Grow System · Equipment · Learn · Blog ·
-  About`); demoted links already live in the canonical footer.
+- **Phase 1b — Apply lean nav.** ✅ Done 2026-06-07. Primary nav reduced to the
+  6 ratified items on all 51 pages; demoted links live in the canonical footer.
+  Educational `/learn/*` articles remapped active-state Guides → **Learn** (11
+  pages), resolving most of the Phase 3 taxonomy drift. Pages whose section left
+  the nav (Watch, FAQ, Search, Guides index/legal/Contact) carry no active
+  highlight. Crawl: 1482 refs, 0 broken.
 - **Phase 2 — Asset-version single source.** Fix `script.js ?v=10` vs `?v=11`;
   define versions in one place.
 - **Phase 3 — Taxonomy cleanup.** Resolve Learn-vs-Guides ownership; fix
