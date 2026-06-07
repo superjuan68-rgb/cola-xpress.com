@@ -23,7 +23,7 @@ Concrete proof, measured 2026-06-07:
 |---|---|---|
 | Build system / templating | None. 51 standalone documents. | **Root cause** |
 | Primary navigation | Was **5 different orderings**; normalized to 1 on 2026-06-07. | Fixed, but still duplicated in 51 files |
-| Footer | **29 distinct footer variants** across 51 pages | **Worst offender** |
+| Footer | Was **29 distinct variants**; unified to 1 canonical footer on 2026-06-07 (Phase 1). | Fixed |
 | `script.js` cache version | 47 pages on `?v=10`, 4 on `?v=11` | Drift → stale-cache risk |
 | `style.css` cache version | Uniform `?v=14` | Healthy |
 | Taxonomy (Learn vs Guides) | 10 of 14 `/learn/` articles mark **Guides** active; 4 mark **Learn** | IA confusion |
@@ -162,9 +162,14 @@ partial each**, and adding a page never edits another page again.
 
 ## 7. Phased remediation plan (no redesign, low risk)
 
-- **Phase 0 — Freeze (this doc).** Ratify nav + IA (§2, §8). ✅ in progress.
-- **Phase 1 — Canonical footer.** Collapse 29 footer variants → 1 footer that
-  matches the frozen nav/IA. Highest value/lowest risk after nav.
+- **Phase 0 — Freeze (this doc).** Ratify nav + IA (§2, §8). ✅ Lean 6-item nav
+  ratified 2026-06-07.
+- **Phase 1 — Canonical footer.** ✅ Done 2026-06-07. 29 variants → 1 footer that
+  carries every destination (incl. the items demoted from the lean nav, so the
+  pending nav reduction orphans nothing). Crawl: 1482 refs, 0 broken.
+- **Phase 1b — Apply lean nav (pending).** Reduce primary nav from the shipped
+  10 items to the ratified 6 (`Home · Grow System · Equipment · Learn · Blog ·
+  About`); demoted links already live in the canonical footer.
 - **Phase 2 — Asset-version single source.** Fix `script.js ?v=10` vs `?v=11`;
   define versions in one place.
 - **Phase 3 — Taxonomy cleanup.** Resolve Learn-vs-Guides ownership; fix
