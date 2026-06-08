@@ -178,8 +178,16 @@ partial each**, and adding a page never edits another page again.
   (DOM-set + body-order + JSON-LD + SEO gates, 51/51; 1482 refs, 0 broken).
   `sitemap.xml` intentionally left static this phase. See `README.md`.
 - **Phase 5 — Inline-style cleanup.** Move the 9 pages' inline `style=` into CSS.
-- **Phase 6 (optional) — Auto-generate `sitemap.xml`** from the page model now
-  that `src/pages` exists, to prevent future sitemap drift.
+- **Phase 6A — Auto-generate `sitemap.xml`.** ✅ Done 2026-06-08.
+  `build_sitemap.py` discovers pages from `src/pages`, emits `<loc>` = canonical
+  (with built-in canonical/URL validation), and preserves `<lastmod>` + all 119
+  `<image:image>` entries via a seed (`src/_data/sitemap.json`, captured by
+  `seed_sitemap.py`). Output is a faithful, deduplicated copy of the prior
+  hand-built sitemap (homepage `/index.html` dup collapsed to canonical `/`;
+  zero lastmod/image loss). Idempotent.
+- **Phase 6B (later, with Image Engine)** — replace verbatim image carry-forward
+  with real per-page image discovery + alt-text validation + missing-image
+  reporting. Data model (`pages[rel].images[]`) already in place.
 
 Each phase is independently shippable and reversible.
 

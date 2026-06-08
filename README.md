@@ -46,10 +46,34 @@ public_html/          # BUILD OUTPUT — this is what you FTP-upload to the serv
 ## Build & verify
 
 ```
-python3 build.py                  # regenerate public_html/
+python3 build.py                  # regenerate public_html/ (HTML pages only)
+python3 build_sitemap.py          # regenerate public_html/sitemap.xml from src/pages
 python3 build.py --out /tmp/dist  # build to a scratch dir instead
 python3 verify_rebuild.py /tmp/dist   # assert /tmp/dist is structurally identical to public_html
 ```
+
+`build.py` writes only the HTML pages; it never touches `sitemap.xml`. Run
+`build_sitemap.py` after it to refresh the sitemap.
+
+## Sitemap (Phase 6A)
+
+`build_sitemap.py` generates `public_html/sitemap.xml` by discovering every page
+under `src/pages/`:
+
+- **`<loc>`** = each page's own canonical URL (and it asserts loc == canonical —
+  fails loudly on mismatch).
+- **`<lastmod>`** and **`<image:image>`** come from `src/_data/sitemap.json`, a
+  seed captured from the original hand-built sitemap by `seed_sitemap.py` (run
+  once). New pages with no seed entry get the source file's git last-commit date
+  and no images.
+- New pages are added automatically; the homepage emits the canonical `/`.
+
+To set a page's `lastmod` or images, edit its entry in `src/_data/sitemap.json`.
+
+**Phase 6B (later, with the Image Engine):** replace the verbatim image
+carry-forward in `build_sitemap.py` with real per-page image discovery from
+`<main>` (+ alt-text validation + missing-image reporting). The data model
+(`pages[rel].images[]`) is already in place.
 
 `verify_rebuild.py` gates: `<head>` equal as a set, `<body>` equal in order,
 every JSON-LD block semantically equal, and all title/description/canonical/OG/
