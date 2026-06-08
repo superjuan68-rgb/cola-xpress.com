@@ -1561,9 +1561,12 @@ footer {
 }
 
 /* Soro wraps each post's title + date in a <header>. The global header rule is
-   now scoped to `body > header`, but pin Soro's header static here as a
-   safeguard so it can never inherit sticky positioning and overlap the body. */
-#soro-blog header {
+   now scoped to `body > header`. Pin Soro's header AND its title/date children
+   static here, since Soro sets some of them sticky itself — otherwise they pin
+   to the top and overlap the body on scroll. */
+#soro-blog header,
+#soro-blog .soro-blog-article-title,
+#soro-blog .soro-blog-article-date {
   position: static;
   z-index: auto;
 }

@@ -1,28 +1,76 @@
 {
-  "css_ver": "16",
+  "css_ver": "17",
   "js_ver": "11",
   "brand_name": "ColaXpress",
   "brand_tagline": "Knowledge-first compact cannabis growing built around one clear flagship workflow.",
   "copyright": "&copy; 2026 ColaXpress. All rights reserved.",
   "disclaimer": "Educational content only.",
   "nav": [
-    {"label": "Home", "target": "index.html"},
-    {"label": "Grow System", "target": "grow/index.html"},
-    {"label": "Equipment", "target": "equipment/index.html"},
-    {"label": "Learn", "target": "learn/index.html"},
-    {"label": "Blog", "target": "blog/index.html"},
-    {"label": "About", "target": "guides/about.html"}
+    {
+      "label": "Home",
+      "target": "index.html"
+    },
+    {
+      "label": "Grow System",
+      "target": "grow/index.html"
+    },
+    {
+      "label": "Equipment",
+      "target": "equipment/index.html"
+    },
+    {
+      "label": "Learn",
+      "target": "learn/index.html"
+    },
+    {
+      "label": "Blog",
+      "target": "blog/index.html"
+    },
+    {
+      "label": "About",
+      "target": "guides/about.html"
+    }
   ],
   "footer_links": [
-    {"label": "Grow System", "target": "grow/index.html"},
-    {"label": "Equipment", "target": "equipment/index.html"},
-    {"label": "Learn", "target": "learn/index.html"},
-    {"label": "Blog", "target": "blog/index.html"},
-    {"label": "Watch", "target": "watch/index.html"},
-    {"label": "Guides", "target": "guides/index.html"},
-    {"label": "About", "target": "guides/about.html"},
-    {"label": "FAQ", "target": "guides/faq.html"},
-    {"label": "Contact", "target": "guides/contact.html"},
-    {"label": "Search", "target": "guides/search.html"}
+    {
+      "label": "Grow System",
+      "target": "grow/index.html"
+    },
+    {
+      "label": "Equipment",
+      "target": "equipment/index.html"
+    },
+    {
+      "label": "Learn",
+      "target": "learn/index.html"
+    },
+    {
+      "label": "Blog",
+      "target": "blog/index.html"
+    },
+    {
+      "label": "Watch",
+      "target": "watch/index.html"
+    },
+    {
+      "label": "Guides",
+      "target": "guides/index.html"
+    },
+    {
+      "label": "About",
+      "target": "guides/about.html"
+    },
+    {
+      "label": "FAQ",
+      "target": "guides/faq.html"
+    },
+    {
+      "label": "Contact",
+      "target": "guides/contact.html"
+    },
+    {
+      "label": "Search",
+      "target": "guides/search.html"
+    }
   ]
 }
