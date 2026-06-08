@@ -305,7 +305,7 @@ section h3 + p,
   font-weight: 800;
 }
 
-header {
+body > header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -1549,7 +1549,21 @@ footer {
   padding-block: var(--space-6) var(--space-section);
 }
 
-#soro-blog :where(h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote) {
+#soro-blog :where(h1, h2, h3, h4, h5, h6) {
   margin: revert;
   max-width: none;
+  line-height: normal;
+}
+
+#soro-blog :where(p, ul, ol, figure, blockquote) {
+  margin: revert;
+  max-width: none;
+}
+
+/* Soro wraps each post's title + date in a <header>. The global header rule is
+   now scoped to `body > header`, but pin Soro's header static here as a
+   safeguard so it can never inherit sticky positioning and overlap the body. */
+#soro-blog header {
+  position: static;
+  z-index: auto;
 }
