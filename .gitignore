@@ -1,2 +1,5 @@
 __pycache__/
 *.pyc
+
+# Deploy artifacts: built from public_html/, not source
+cola-xpress-upload-*.zip
