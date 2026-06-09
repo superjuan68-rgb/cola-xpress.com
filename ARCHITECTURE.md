@@ -21,7 +21,7 @@ Concrete proof, measured 2026-06-07:
 
 | Layer | Measured state | Verdict |
 |---|---|---|
-| Build system / templating | None. 51 standalone documents. | **Root cause** |
+| Build system / templating | Added 2026-06-08 (Phase 4): `build.py` + `src/` single source. | **Fixed — root cause resolved** |
 | Primary navigation | Was **5 orderings** → unified → reduced to the **lean 6-item nav** on 2026-06-07. | Fixed, but still duplicated in 51 files |
 | Footer | Was **29 distinct variants**; unified to 1 canonical footer on 2026-06-07 (Phase 1). | Fixed |
 | `script.js` cache version | Was 47×`?v=10` / 4×`?v=11`; unified to `?v=11` on 2026-06-07 (Phase 2). | Fixed |
@@ -171,10 +171,23 @@ partial each**, and adding a page never edits another page again.
   source* for the version string still awaits the Phase 4 build layer.)
 - **Phase 3 — Taxonomy cleanup.** Resolve Learn-vs-Guides ownership; fix
   active-state to match URL section.
-- **Phase 4 — Introduce the build/partial layer** (§6). Migrate the 51 pages to
-  inherit head/header/nav/footer from partials. After this, chrome edits are
-  one-file changes.
+- **Phase 4 — Build/partial layer.** ✅ Done 2026-06-08. Dependency-free
+  `build.py` + `src/` (partials + `site.json` + per-page sources). Chrome,
+  nav/footer links, and css/js versions are now single-source. Output regenerated
+  into `public_html/` and proven structurally identical to the `pre-phase4` tag
+  (DOM-set + body-order + JSON-LD + SEO gates, 51/51; 1482 refs, 0 broken).
+  `sitemap.xml` intentionally left static this phase. See `README.md`.
 - **Phase 5 — Inline-style cleanup.** Move the 9 pages' inline `style=` into CSS.
+- **Phase 6A — Auto-generate `sitemap.xml`.** ✅ Done 2026-06-08.
+  `build_sitemap.py` discovers pages from `src/pages`, emits `<loc>` = canonical
+  (with built-in canonical/URL validation), and preserves `<lastmod>` + all 119
+  `<image:image>` entries via a seed (`src/_data/sitemap.json`, captured by
+  `seed_sitemap.py`). Output is a faithful, deduplicated copy of the prior
+  hand-built sitemap (homepage `/index.html` dup collapsed to canonical `/`;
+  zero lastmod/image loss). Idempotent.
+- **Phase 6B (later, with Image Engine)** — replace verbatim image carry-forward
+  with real per-page image discovery + alt-text validation + missing-image
+  reporting. Data model (`pages[rel].images[]`) already in place.
 
 Each phase is independently shippable and reversible.
 

@@ -1,0 +1,425 @@
+{
+  "order": [
+    "grow/12-12-from-seed.html",
+    "grow/when-12-12-from-seed-is-a-bad-idea.html",
+    "guides/about.html",
+    "grow/beginner-mistakes-small-space-grows.html",
+    "grow/best-cannabis-strains-for-small-spaces.html",
+    "grow/cabinet-grow-vs-grow-tent.html",
+    "learn/buds-ready-for-jars.html",
+    "learn/cloudy-vs-amber-trichomes.html",
+    "learn/common-curing-mistakes.html",
+    "learn/common-drying-mistakes.html",
+    "grow/compact-craft-cannabis-grow.html",
+    "grow/compact-grow-setup-for-apartments.html",
+    "grow/compact-grow-setup-checklist.html",
+    "grow/low-odor-cannabis-grow-setup.html",
+    "guides/contact.html",
+    "learn/craft-cannabis.html",
+    "learn/craft-cannabis-cultivation.html",
+    "learn/craft-cannabis-vs-commercial-cannabis.html",
+    "grow/daily-grow-checks.html",
+    "grow/dwc-basics-for-beginners.html",
+    "grow/what-is-dwc.html",
+    "grow/root-problems-in-dwc.html",
+    "grow/dwc-vs-soil-for-small-grows.html",
+    "equipment/index.html",
+    "guides/faq.html",
+    "grow/index.html",
+    "grow/humidity-problems-in-a-grow-cabinet.html",
+    "grow/how-to-lower-humidity-in-a-small-grow-tent.html",
+    "grow/why-growth-is-slow-in-a-compact-setup.html",
+    "guides/index.html",
+    "learn/harvest-ripeness.html",
+    "learn/what-are-trichomes.html",
+    "grow/how-long-a-compact-grow-actually-takes.html",
+    "learn/how-to-cure-cannabis.html",
+    "index.html",
+    "guides/new-york-home-grow-law.html",
+    "guides/can-landlords-ban-home-grow-in-new-york.html",
+    "guides/search.html",
+    "equipment/vivosun-vgrow-dwc-guide.html",
+    "equipment/what-to-buy-first.html",
+    "learn/what-is-curing.html",
+    "learn/index.html",
+    "watch/index.html",
+    "watch/episode-01.html",
+    "grow/vpd-chart-cannabis.html",
+    "grow/cannabis-grow-stages-timeline.html",
+    "grow/dwc-nutrient-schedule.html",
+    "grow/light-schedule-cannabis.html",
+    "learn/drying-curing-environment.html",
+    "learn/trichome-stages-chart.html",
+    "blog/index.html"
+  ],
+  "pages": {
+    "grow/12-12-from-seed.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/12-12-from-seed-timeline.webp"
+      ]
+    },
+    "grow/when-12-12-from-seed-is-a-bad-idea.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/when-12-12-from-seed-is-a-bad-idea-example-1.webp",
+        "https://cola-xpress.com/assets/images/when-12-12-from-seed-is-a-bad-idea-example-2.webp",
+        "https://cola-xpress.com/assets/images/when-12-12-from-seed-is-a-bad-idea-example-3.webp",
+        "https://cola-xpress.com/assets/images/when-12-12-from-seed-is-a-bad-idea-example-4.webp"
+      ]
+    },
+    "guides/about.html": {
+      "lastmod": "2026-05-06",
+      "images": []
+    },
+    "grow/beginner-mistakes-small-space-grows.html": {
+      "lastmod": "2026-04-21",
+      "images": []
+    },
+    "grow/best-cannabis-strains-for-small-spaces.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/best-cannabis-strains-for-small-spaces-example-1.webp",
+        "https://cola-xpress.com/assets/images/best-cannabis-strains-for-small-spaces-example-2.webp",
+        "https://cola-xpress.com/assets/images/best-cannabis-strains-for-small-spaces-example-3.webp",
+        "https://cola-xpress.com/assets/images/best-cannabis-strains-for-small-spaces-example-4.webp"
+      ]
+    },
+    "grow/cabinet-grow-vs-grow-tent.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/cabinet-grow-vs-grow-tent-example-1.webp",
+        "https://cola-xpress.com/assets/images/cabinet-grow-vs-grow-tent-example-2.webp",
+        "https://cola-xpress.com/assets/images/cabinet-grow-vs-grow-tent-example-3.webp",
+        "https://cola-xpress.com/assets/images/cabinet-grow-vs-grow-tent-example-4.webp"
+      ]
+    },
+    "learn/buds-ready-for-jars.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/buds-ready-for-jars-decision-panel.webp"
+      ]
+    },
+    "learn/cloudy-vs-amber-trichomes.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/cloudy-vs-amber-trichome-comparison.webp"
+      ]
+    },
+    "learn/common-curing-mistakes.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/common-curing-mistakes-jar-states.webp"
+      ]
+    },
+    "learn/common-drying-mistakes.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/common-drying-mistakes-board.webp"
+      ]
+    },
+    "grow/compact-craft-cannabis-grow.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/compact-craft-vs-compact-max-weight.webp"
+      ]
+    },
+    "grow/compact-grow-setup-for-apartments.html": {
+      "lastmod": "2026-05-06",
+      "images": [
+        "https://cola-xpress.com/assets/images/compact-grow-setup-for-apartments-example-1.webp",
+        "https://cola-xpress.com/assets/images/compact-grow-setup-for-apartments-example-2.webp",
+        "https://cola-xpress.com/assets/images/compact-grow-setup-for-apartments-example-3.webp",
+        "https://cola-xpress.com/assets/images/compact-grow-setup-for-apartments-example-4.webp"
+      ]
+    },
+    "grow/compact-grow-setup-checklist.html": {
+      "lastmod": "2026-05-06",
+      "images": [
+        "https://cola-xpress.com/assets/images/compact-grow-setup-order-board.webp"
+      ]
+    },
+    "grow/low-odor-cannabis-grow-setup.html": {
+      "lastmod": "2026-05-06",
+      "images": [
+        "https://cola-xpress.com/assets/images/low-odor-cannabis-grow-setup-example-1.webp",
+        "https://cola-xpress.com/assets/images/low-odor-cannabis-grow-setup-example-2.webp",
+        "https://cola-xpress.com/assets/images/low-odor-cannabis-grow-setup-example-3.webp",
+        "https://cola-xpress.com/assets/images/low-odor-cannabis-grow-setup-example-4.webp"
+      ]
+    },
+    "guides/contact.html": {
+      "lastmod": "2026-05-06",
+      "images": []
+    },
+    "learn/craft-cannabis.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/craft-definition-hero.webp",
+        "https://cola-xpress.com/assets/images/craft-signals-panel.webp",
+        "https://cola-xpress.com/assets/images/what-craft-is-not.webp",
+        "https://cola-xpress.com/assets/images/what-proves-craft-board.webp"
+      ]
+    },
+    "learn/craft-cannabis-cultivation.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/craft-vs-max-weight-board.webp"
+      ]
+    },
+    "learn/craft-cannabis-vs-commercial-cannabis.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/craft-protects-commercial-protects.webp"
+      ]
+    },
+    "grow/daily-grow-checks.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/daily-grow-checks-dashboard.webp"
+      ]
+    },
+    "grow/dwc-basics-for-beginners.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/dwc-cutaway-diagram.webp",
+        "https://cola-xpress.com/assets/images/dwc-hero.webp",
+        "https://cola-xpress.com/assets/images/dwc-normal-vs-pause.webp"
+      ]
+    },
+    "grow/what-is-dwc.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/what-is-dwc-example-1.webp",
+        "https://cola-xpress.com/assets/images/what-is-dwc-example-2.webp",
+        "https://cola-xpress.com/assets/images/what-is-dwc-example-3.webp",
+        "https://cola-xpress.com/assets/images/what-is-dwc-example-4.webp"
+      ]
+    },
+    "grow/root-problems-in-dwc.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-compact-system.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-cutaway.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-example-1.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-example-2.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-example-3.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-example-4.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-reservoir-readability.webp",
+        "https://cola-xpress.com/assets/images/root-problems-in-dwc-warning-signs.webp"
+      ]
+    },
+    "grow/dwc-vs-soil-for-small-grows.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/dwc-vs-soil-for-small-grows-example-1.webp",
+        "https://cola-xpress.com/assets/images/dwc-vs-soil-for-small-grows-example-2.webp",
+        "https://cola-xpress.com/assets/images/dwc-vs-soil-for-small-grows-example-3.webp",
+        "https://cola-xpress.com/assets/images/dwc-vs-soil-for-small-grows-example-4.webp"
+      ]
+    },
+    "equipment/index.html": {
+      "lastmod": "2026-05-07",
+      "images": [
+        "https://cola-xpress.com/assets/images/dwca-compact-dwc-reference.webp"
+      ]
+    },
+    "guides/faq.html": {
+      "lastmod": "2026-04-21",
+      "images": []
+    },
+    "grow/index.html": {
+      "lastmod": "2026-05-07",
+      "images": [
+        "https://cola-xpress.com/assets/images/compact-grow-system-map.webp"
+      ]
+    },
+    "grow/humidity-problems-in-a-grow-cabinet.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/humidity-problems-in-a-grow-cabinet-example-1.webp",
+        "https://cola-xpress.com/assets/images/humidity-problems-in-a-grow-cabinet-example-2.webp",
+        "https://cola-xpress.com/assets/images/humidity-problems-in-a-grow-cabinet-example-3.webp",
+        "https://cola-xpress.com/assets/images/humidity-problems-in-a-grow-cabinet-example-4.webp"
+      ]
+    },
+    "grow/how-to-lower-humidity-in-a-small-grow-tent.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/how-to-lower-humidity-in-a-small-grow-tent-example-1.webp",
+        "https://cola-xpress.com/assets/images/how-to-lower-humidity-in-a-small-grow-tent-example-2.webp",
+        "https://cola-xpress.com/assets/images/how-to-lower-humidity-in-a-small-grow-tent-example-3.webp",
+        "https://cola-xpress.com/assets/images/how-to-lower-humidity-in-a-small-grow-tent-example-4.webp"
+      ]
+    },
+    "grow/why-growth-is-slow-in-a-compact-setup.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/why-growth-is-slow-in-a-compact-setup-example-1.webp",
+        "https://cola-xpress.com/assets/images/why-growth-is-slow-in-a-compact-setup-example-2.webp",
+        "https://cola-xpress.com/assets/images/why-growth-is-slow-in-a-compact-setup-example-3.webp",
+        "https://cola-xpress.com/assets/images/why-growth-is-slow-in-a-compact-setup-example-4.webp"
+      ]
+    },
+    "guides/index.html": {
+      "lastmod": "2026-05-07",
+      "images": [
+        "https://cola-xpress.com/assets/images/kush_trichome.webp"
+      ]
+    },
+    "learn/harvest-ripeness.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/harvest-inspection-chart.webp",
+        "https://cola-xpress.com/assets/images/harvest-peak.webp",
+        "https://cola-xpress.com/assets/images/harvest-window-chart.webp"
+      ]
+    },
+    "learn/what-are-trichomes.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/what-are-trichomes-example-1.webp",
+        "https://cola-xpress.com/assets/images/what-are-trichomes-example-2.webp",
+        "https://cola-xpress.com/assets/images/what-are-trichomes-example-3.webp",
+        "https://cola-xpress.com/assets/images/what-are-trichomes-example-4.webp"
+      ]
+    },
+    "grow/how-long-a-compact-grow-actually-takes.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/harvest-jar-finished-timeline.webp"
+      ]
+    },
+    "learn/how-to-cure-cannabis.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/cure-hero.webp",
+        "https://cola-xpress.com/assets/images/cure-states-board.webp",
+        "https://cola-xpress.com/assets/images/jar-reading-panel.webp"
+      ]
+    },
+    "index.html": {
+      "lastmod": "2026-05-10",
+      "images": []
+    },
+    "guides/new-york-home-grow-law.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/new-york-home-grow-law-example-1.webp",
+        "https://cola-xpress.com/assets/images/new-york-home-grow-law-example-2.webp",
+        "https://cola-xpress.com/assets/images/new-york-home-grow-law-example-3.webp",
+        "https://cola-xpress.com/assets/images/new-york-home-grow-law-example-4.webp"
+      ]
+    },
+    "guides/can-landlords-ban-home-grow-in-new-york.html": {
+      "lastmod": "2026-05-06",
+      "images": [
+        "https://cola-xpress.com/assets/images/can-landlords-ban-home-grow-in-new-york-example-1.webp",
+        "https://cola-xpress.com/assets/images/can-landlords-ban-home-grow-in-new-york-example-2.webp",
+        "https://cola-xpress.com/assets/images/can-landlords-ban-home-grow-in-new-york-example-3.webp",
+        "https://cola-xpress.com/assets/images/can-landlords-ban-home-grow-in-new-york-example-4.webp"
+      ]
+    },
+    "guides/search.html": {
+      "lastmod": "2026-05-06",
+      "images": []
+    },
+    "equipment/vivosun-vgrow-dwc-guide.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/vgrow-dwc-finish-chain-panel.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-fit-check-board.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-reservoir-readability-panel.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-setup-order-board.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-setup-video-poster.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-system-hero.webp"
+      ]
+    },
+    "equipment/what-to-buy-first.html": {
+      "lastmod": "2026-04-21",
+      "images": [
+        "https://cola-xpress.com/assets/images/small-grow-buying-priority-stack.webp"
+      ]
+    },
+    "learn/what-is-curing.html": {
+      "lastmod": "2026-05-05",
+      "images": [
+        "https://cola-xpress.com/assets/images/what-is-curing-example-1.webp",
+        "https://cola-xpress.com/assets/images/what-is-curing-example-2.webp",
+        "https://cola-xpress.com/assets/images/what-is-curing-example-3.webp",
+        "https://cola-xpress.com/assets/images/what-is-curing-example-4.webp"
+      ]
+    },
+    "learn/index.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/common-drying-mistakes-board.webp",
+        "https://cola-xpress.com/assets/images/craft-definition-hero.webp",
+        "https://cola-xpress.com/assets/images/craft-protects-commercial-protects.webp",
+        "https://cola-xpress.com/assets/images/craft-vs-max-weight-board.webp",
+        "https://cola-xpress.com/assets/images/cure-hero.webp",
+        "https://cola-xpress.com/assets/images/cure-states-board.webp",
+        "https://cola-xpress.com/assets/images/harvest-peak.webp",
+        "https://cola-xpress.com/assets/images/harvest-window-chart.webp",
+        "https://cola-xpress.com/assets/images/jar-reading-panel.webp",
+        "https://cola-xpress.com/assets/images/what-are-trichomes-example-2.webp",
+        "https://cola-xpress.com/assets/images/what-is-curing-example-2.webp"
+      ]
+    },
+    "watch/index.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/vgrow-dwc-system-hero.webp"
+      ]
+    },
+    "watch/episode-01.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/vgrow-dwc-setup-order-board.webp",
+        "https://cola-xpress.com/assets/images/vgrow-dwc-system-hero.webp"
+      ]
+    },
+    "grow/vpd-chart-cannabis.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/vpd-chart-cannabis-by-stage.png"
+      ]
+    },
+    "grow/cannabis-grow-stages-timeline.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/cannabis-grow-stage-timeline.png"
+      ]
+    },
+    "grow/dwc-nutrient-schedule.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/dwc-nutrient-schedule-by-stage.png"
+      ]
+    },
+    "grow/light-schedule-cannabis.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/cannabis-light-schedule-12-12-vs-18-6.png"
+      ]
+    },
+    "learn/drying-curing-environment.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/cannabis-drying-curing-environment-chart.png"
+      ]
+    },
+    "learn/trichome-stages-chart.html": {
+      "lastmod": "2026-05-10",
+      "images": [
+        "https://cola-xpress.com/assets/images/trichome-stages-cannabis-chart.png"
+      ]
+    },
+    "blog/index.html": {
+      "lastmod": "2026-06-07",
+      "images": [
+        "https://cola-xpress.com/hero.webp"
+      ]
+    }
+  }
+}
